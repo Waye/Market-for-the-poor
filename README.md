@@ -131,3 +131,7 @@ Searching users
 Filtering based on category / price
 
 Sorting posts by post date / price
+
+### Wireframe Link
+
+[wireframe](https://balsamiq.cloud/s7q0z89)
