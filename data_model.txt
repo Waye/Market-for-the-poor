@@ -1,0 +1,50 @@
+database = {
+	sellers: [seller]
+	buyers: [buyer]
+	admin: admin
+	requests: [requests]
+	offers: [offers]
+}
+
+user(buyer/seller) : {
+	userName: string
+	password: string
+	email: string
+	messagees : [message]
+	role: seller, buyer (string)
+	status: banned (boolean)
+	posts: [request/offers]
+}
+
+request/offer: {
+	id: string
+	type: string
+	time: string in json, time obj in js
+	title: string
+	description: string
+	quantity: int
+	price: float
+	image: donno
+	completed: boolean
+	category: {
+		food: {
+			type: one of ['canned', 'beverage', 'dairy', 'meat']
+		}
+		electronics: {
+			type: one of ['computer', 'phone']
+		}
+		clothings: {
+			type: one of ['men', 'women', 'unisex', 'child']
+		}
+		furnitures: [string]
+		other: [string]
+	}
+}
+
+message: {
+	id,
+	time,
+	from,
+	to, 
+	content
+}
