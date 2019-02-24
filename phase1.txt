@@ -1,0 +1,7 @@
+TODO:
+- Give the TA instructions on how to use your web app, 
+  including appropriate login credentials. 
+- It should breifly explain the features of your web 
+  application, and how an end user would use each of 
+  your features (include separate instructions for 
+  user and admin).
