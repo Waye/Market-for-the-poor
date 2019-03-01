@@ -1,0 +1,17 @@
+#msgSideBar {
+    height: 100%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    overflow-x: hidden;
+}
+
+#mainContainer {
+    position: relative;
+    padding-left: 180px;
+}
+
+img.avatar {
+    width: 60px;
+}
