@@ -1,3 +1,11 @@
 body {
     font-family: 'Roboto';
 }
+
+.product img {
+    width: 100%;
+}
+
+img.avatar {
+    width: 100px;
+}
