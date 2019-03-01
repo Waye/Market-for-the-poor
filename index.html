@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-light">
-      <!-- Links -->
-      <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-sm bg-light"> <!-- Navbar -->
+      <ul class="navbar-nav"> <!-- Links -->
         <a class="navbar-brand" href="#">Logo</a>
         <li class="nav-item">
           <form class="form-inline" action="/action_page.php">
@@ -30,59 +29,165 @@
           <a class="nav-link" href="#">Messages</a>
         </li>
       </ul>
-    </nav>
-    <div class="jumbotron">
+    </nav> <!-- End of Navbar -->
+    <div class="container-fluid">
+      <div class="row mt-3 mb-3 border-bottom border-dark"> <!-- Jumbotron row -->
+        <div class="col-md-4"> <!-- Dollar column -->
+          <div class="row"> <!-- Dollar -->
+            <div class="col-md-12 border-right border-dark">
+              <h1 class="display-4">$48,300.00</h1>
+            </div>
+          </div> <!-- End of Dollar -->
+          <div class="row"> <!-- Description -->
+            <div class="col-md-12">
+              <p class="text-left ml-md-3">2-month total</p>
+            </div>
+          </div> <!-- Description -->
+        </div> <!-- End of Dollar column -->
+        <div class="col-md-8"> <!-- Jumbo-button column -->
+          <div class="row"> <!-- Button icon row -->
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                      <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Request feed</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">3</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Active orders</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">21</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Finished</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">12</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Posted</p>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End of button icon row -->
+        </div> <!-- End of Jumbo-button -->
+      </div> <!-- End of Jumbotron row -->
       <div class="row">
-        <div class="col-4 border-right border-dark">
-          <div class="row">
-            <h1 class="display-4 ml-md-3">$48,300.00</h1>
-          </div>
-          <div class="row ml-md-3">
-            2-month total
-          </div>
-        </div>
-        <div class="col-1">
-          <span class="h-100">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </span>
-          <div class="row align-items-end">
-            <p class="text-center">sample text</p>
-          </div>
-        </div>
-        <div class="col-1">
-          <span class="h-100">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </span>
-          <div class="row align-items-end">
-            <p class="text-center">sample text</p>
+        <div class="col-md-2">
+          <div class="card bg-default">
+            <h5 class="card-header">Filter</h5>
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Food<span class="badge badge-primary badge-pill">14</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Electronics<span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Clothings<span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Furnitures<span class="badge badge-primary badge-pill">3</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Tools<span class="badge badge-primary badge-pill">4</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Other<span class="badge badge-primary badge-pill">9</span>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="card-footer">End of the filter</div> -->
           </div>
         </div>
-        <div class="col-1">
-          <span class="h-100">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </span>
-          <div class="row align-items-end">
-            <p class="text-center">sample text</p>
+        <div class="col-md-10">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Refresh</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Messages</a>
+            </li> -->
+            <li class="nav-item dropdown ml-md-auto">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Sort</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Newest first</a>
+                  <a class="dropdown-item" href="#">Highest price first</a>
+                  <a class="dropdown-item" href="#">Lowest price first</a>
+                <div class="dropdown-divider">
+                </div> <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </li>
+          </ul>
+          <div class="row mt-3 mb-3">
+            <div class="col-md-2">
+              <img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg">
+            </div>
+            <div class="col-md-8">
+              <h2>
+                Heading
+              </h2>
+              <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+              </p>
+            </div>
+            <div class="col-md-2">
+              <div class="page-header">
+                <h1>$100</h1>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-1">
-          <span class="h-100">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </span>
-          <div class="row align-items-end">
-            <p class="text-center">sample text</p>
+          <div class="row mt-3 mb-3">
+            <div class="col-md-2">
+              <img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg">
+            </div>
+            <div class="col-md-8">
+              <h2>
+                Heading
+              </h2>
+              <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+              </p>
+            </div>
+            <div class="col-md-2">
+              <div class="page-header">
+                <h1>$100</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
