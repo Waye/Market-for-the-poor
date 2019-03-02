@@ -1,0 +1,13 @@
+.inline {
+    display: inline-block;
+}
+
+.light {
+    background-color: lightgrey;
+}
+
+/* 
+table {
+    border-radius: 50%!important;
+    border: solid 1px lightgrey;
+} */
