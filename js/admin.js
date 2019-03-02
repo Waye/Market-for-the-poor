@@ -7,17 +7,14 @@ const User = function(name, isBuyer, isBanned) {
     this.post = [];
 }
 
-const Post = function(id, date, title) {
-    this.productId = id;
-    this.postDate = date;
-    this.title = title;
-}
-const Offer = function(id, date, title) {
-
+const Post = function(productId, postDate, productName) {
+    this.productId = productId;
+    this.postDate = postDate;
+    this.productName = productName;
+    this.selle
 }
 
 const users = []
-const offers = []
 const posts = []
 
 users.push(new User("User1", false, false));
@@ -40,7 +37,7 @@ $(document).ready(function() {
 // dynamically produce htmls for manageUserSection
 $(document).ready(function() {
     // send get request to get info
-    get post
+
     //using response, dynamically display
     for (let e of users) {
         console.log(e)
