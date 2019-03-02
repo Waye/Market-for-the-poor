@@ -31,6 +31,14 @@ function addInfoHeaderContent(headerInfo, user) {
 
 addInfoHeaderContent(mockHeaderInfo, mockUser);
 
+function getProductPageUrl(productId) {
+    if (productId == 1) {
+        return "product_detail.html"
+    } else if (productId == 2) {
+        return "product_detail.html"
+    }
+}
+
 class Product {
     constructor(productId, productName, quantity, price, sellerName, postDate) {
         this.productId = productId;
@@ -70,7 +78,7 @@ class Product {
         contentCol.className += "col-8 col-md-7";
         const contentHeader = document.createElement('h3');
         const contentHeaderLink = document.createElement('a');
-        contentHeaderLink.setAttribute("href", "#");
+        contentHeaderLink.setAttribute("href", getProductPageUrl(this.productId));
         contentHeaderLink.appendChild(document.createTextNode(this.productName));
         const contentHeaderQty = document.createElement('small');
         contentHeaderQty.appendChild(document.createTextNode(this.quantity));
@@ -79,7 +87,7 @@ class Product {
         contentHeader.appendChild(contentHeaderQty);
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
-        contentInfoLink.setAttribute("href", "#");
+        contentInfoLink.setAttribute("href", "#"); // TODO change with user page url
         contentInfoLink.appendChild(document.createTextNode(this.sellerName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
