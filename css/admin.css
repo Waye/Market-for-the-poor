@@ -6,6 +6,9 @@
     background-color: lightgrey;
 }
 
+button {
+    width: 70px;
+}
 /* 
 table {
     border-radius: 50%!important;
