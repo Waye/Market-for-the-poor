@@ -8,6 +8,15 @@ const mockHeaderInfo = {
     postedNum : 12
 }
 
+const mockFilterNum = {
+    food : 14,
+    electronics : 2,
+    clothings : 1,
+    furnitures : 3,
+    tools : 4,
+    other : 9
+}
+
 function addInfoHeaderContent(headerInfo, user) {
     const totalTextLg = document.createElement("h1");
     totalTextLg.className += "display-4 d-none d-lg-block";
@@ -39,7 +48,7 @@ function getProductPageUrl(productId) {
     }
 }
 
-class Product {
+class Post {
     constructor(productId, productName, quantity, price, sellerName, postDate) {
         this.productId = productId;
         this.productName = productName;
@@ -114,11 +123,11 @@ class Product {
 }
 
 const mockProductData = [];
-const product1 = new Product(1, "Frozen vegetables", "10 kg", 100, "User1", new Date(2018, 12, 23));
+const product1 = new Post(1, "Frozen vegetables", "10 kg", 100, "User1", new Date(2018, 12, 23));
 product1.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
 product1.setProductImg("img/frozen_veg.png");
 mockProductData.push(product1);
-const product2 = new Product(2, "Canned soup", "20 unit", 89, "User3", new Date(2018, 12, 10));
+const product2 = new Post(2, "Canned soup", "20 unit", 89, "User3", new Date(2018, 12, 10));
 product2.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
 product2.setProductImg("img/canned_soup.jpg");
 mockProductData.push(product2);
@@ -126,3 +135,10 @@ mockProductData.push(product2);
 mockProductData.forEach(p => {
     $('#productContainer').append(p.element);
 });
+
+$('#foodFilterNum').html(mockFilterNum.food);
+$('#elecFilterNum').html(mockFilterNum.electronics);
+$('#clothFilterNum').html(mockFilterNum.clothings);
+$('#furniFilterNum').html(mockFilterNum.furnitures);
+$('#toolsFilterNum').html(mockFilterNum.tools);
+$('#otherFilterNum').html(mockFilterNum.other);
