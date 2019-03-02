@@ -13,46 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand bg-light">
-        <!-- Navbar -->
-        <ul class="navbar-nav">
-            <!-- Links -->
-            <li class="nav-item">
-                <a class="navbar-brand" href="feedpage.html">Logo</a>
-            </li>
-            <li class="nav-item">
-                <form class="form-inline" action="/action_page.php">
-                    <input class="form-control mr-sm-2 d-none d-md-block" type="text" placeholder="Search">
-                    <button class="btn btn-success" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                                fill="white" />
-                            <path d="M0 0h24v24H0z" fill="none" />
-                        </svg>
-                    </button>
-                </form>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-primary nav-link" href="#">
-                    <svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                            fill="white" />
-                        <path d="M0 0h24v24H0z" fill="none" /></svg>
-                    <span class="d-none d-md-block">Post a new offer</span>
-                </a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-primary nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-primary nav-link" href="messages.html">Messages</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-secondary nav-link" href="#">Logout</a>
-            </li>
-        </ul>
-    </nav> <!-- End of Navbar -->
-
+    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
     <div class="container border-right p-0" id="msgSideBar">
         <ul class="list-group list-group-flush">
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center p-2">
@@ -171,13 +132,13 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/nav.js"></script>   
 </body>
 
 </html>

@@ -1,262 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
+  <head>
+ 	  <meta charset="utf-8">
     <title>Phase 1 Test</title>
     <link rel="stylesheet" type="text/css" href="css/feedpage.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand bg-light">
-        <!-- Navbar -->
-        <ul class="navbar-nav">
-            <!-- Links -->
-            <li class="nav-item">
-                <a class="navbar-brand" href="feedpage.html">Logo</a>
-            </li>
-            <li class="nav-item">
-                <form class="form-inline" action="/action_page.php">
-                    <input class="form-control mr-sm-2 d-none d-md-block" type="text" placeholder="Search">
-                    <button class="btn btn-success" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                                fill="white" />
-                            <path d="M0 0h24v24H0z" fill="none" />
-                        </svg>
-                    </button>
-                </form>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-primary nav-link" href="#">
-                    <svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="white"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-                    <span class="d-none d-md-block">Post a new offer</span>
-                </a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-primary nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-primary nav-link" href="messages.html">Messages</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a class="btn btn-outline-secondary nav-link" href="#">Logout</a>
-            </li>
-        </ul>
-    </nav> <!-- End of Navbar -->
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>    
     <div class="container-fluid">
-        <div class="row mt-2 mb-2 border-bottom">
-            <!-- Jumbotron row -->
-            <div class="col-md-4 border-right pt-3">
-                <h1 class="display-4 d-none d-md-block">$48,300.00</h1>
-                <h1 class="d-md-none d-sm-block">$48,300.00</h1>
-                <p class="text-left ml-md-3 text-muted">2-month total</p>
-            </div> <!-- End of Dollar column -->
-            <div class="col-md-8">
-                <!-- Jumbo-button column -->
-                <div class="row">
-                    <!-- Button icon row -->
-                    <a href="#" class="col-3 nav-link active text-primary">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="display-4 text-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
-                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#007bff" />
-                                        <path d="M0 0h24v24H0z" fill="none" />
-                                    </svg>
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-center">Request feed</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="col-3 nav-link text-secondary">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="display-4 text-center">3</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-center">Active orders</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="col-3 nav-link text-secondary">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="display-4 text-center">21</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-center">Finished</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="col-3 nav-link text-secondary">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="display-4 text-center">12</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-center">Posted</p>
-                            </div>
-                        </div>
-                    </a>
-
-                </div> <!-- End of button icon row -->
-            </div> <!-- End of Jumbo-button -->
-        </div> <!-- End of Jumbotron row -->
-        <div class="row">
-            <div class="col-md-2">
-                <div class="card bg-default" id="collapseCard">
-                    <h5 class="card-header p-1 pl-3 pr-3" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter">
-                        <span class="d-none d-md-block">Filter</span>                        
-                        <span class="d-md-none d-sm-block">Filter (Click to close)</span>
-                    </h5>
-                    <div class="card-body p-0" id="collapseFilter" class="collapse" aria-labelledby="collapseFilter" data-parent="#collapseCard">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Food<span class="badge badge-primary badge-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Electronics<span class="badge badge-primary badge-pill">2</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Clothings<span class="badge badge-primary badge-pill">1</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Furnitures<span class="badge badge-primary badge-pill">3</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Tools<span class="badge badge-primary badge-pill">4</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
-                                Other<span class="badge badge-primary badge-pill">9</span>
-                            </li>
-                            <li class="list-group-item justify-content-between align-items-center p-2">
-                                <span>Min. price</span>
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Minimal price filter"
-                                        aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-                                                <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2z" />
-                                                <path fill="none" d="M0 0h24v24H0z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <span>Max. price</span>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Maximum price filter"
-                                        aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-                                                <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2z" />
-                                                <path fill="none" d="M0 0h24v24H0z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- <div class="card-footer">End of the filter</div> -->
-                </div>
+      <div class="row mt-2 mb-2 border-bottom"> <!-- Jumbotron row -->
+        <div class="col-md-4 border-right pt-3"> <!-- Dollar column -->
+          <div class="row"> <!-- Dollar -->
+            <div class="col-md-12">
+              <h1 class="display-4">$48,300.00</h1>
             </div>
-            <div class="col-md-10">
-                <div class="d-flex border-bottom">
-                    <div class="p-2">
-                        <a class="nav-link" href="#">
-                            <!-- Refresh! -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
-                                    fill="rgb(16,108,255)" />
-                                <path d="M0 0h24v24H0z" fill="none" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-2 mr-auto ml-auto">
-                        <p class="m-0 mt-2">Requests from buyers</p>
-                    </div>
-                    <div class="p-2 dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
-                            data-toggle="dropdown">Sort</a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Newest first</a>
-                            <a class="dropdown-item" href="#">Highest price first</a>
-                            <a class="dropdown-item" href="#">Lowest price first</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3 mb-3 border-bottom product">
-                    <div class="col-md-2">
-                        <img alt="..." src="img/frozen_veg.png" class="rounded float-left">
-                    </div>
-                    <div class="col-md-8">
-                        <h3><a href="product_detail.html">Frozen vegetables</a> <small>10 kg</small></h3>
-                        <p><a href="#">User1</a> posted on <span>Dec 23, 2018</span></p>
-                        <p>
-                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-                            tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-                            malesuada magna mollis euismod. Donec sed odio dui.
-                        </p>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="page-header">
-                            <h1>$100</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3 mb-3 border-bottom product">
-                    <div class="col-md-2">
-                        <img alt="..." src="img/canned_soup.jpg" class="rounded float-left">
-                    </div>
-                    <div class="col-md-8">
-                        <h3><a href="#">Canned soup</a> <small>20 unit</small></h3>
-                        <p><a href="#">User3</a> posted on <span>Dec 10, 2018</span></p>
-                        <p>
-                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-                            tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-                            malesuada magna mollis euismod. Donec sed odio dui.
-                        </p>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="page-header">
-                            <h1>$100</h1>
-                        </div>
-                    </div>
-                </div>
+          </div> <!-- End of Dollar -->
+          <div class="row"> <!-- Description -->
+            <div class="col-md-12">
+              <p class="text-left ml-md-3 text-muted">2-month total</p>
             </div>
+          </div> <!-- Description -->
+        </div> <!-- End of Dollar column -->
+        <div class="col-md-8"> <!-- Jumbo-button column -->
+          <div class="row"> <!-- Button icon row -->
+
+            <a href="#" class="col-md-3 nav-link active text-primary">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#007bff"/>
+                      <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Request feed</p>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="col-md-3 nav-link text-secondary">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">3</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Active orders</p>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="col-md-3 nav-link text-secondary">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">21</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Finished</p>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="col-md-3 nav-link text-secondary">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="display-4 text-center">12</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">Posted</p>
+                </div>
+              </div>
+            </a>
+
+          </div> <!-- End of button icon row -->
+        </div> <!-- End of Jumbo-button -->
+      </div> <!-- End of Jumbotron row -->
+      <div class="row">
+        <div class="col-md-2">
+          <div class="card bg-default">
+            <h5 class="card-header p-1 pl-3 pr-3">Filter</h5>
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Food<span class="badge badge-primary badge-pill">14</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Electronics<span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Clothings<span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Furnitures<span class="badge badge-primary badge-pill">3</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Tools<span class="badge badge-primary badge-pill">4</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                  Other<span class="badge badge-primary badge-pill">9</span>
+                </li>
+                <li class="list-group-item justify-content-between align-items-center p-2">
+                  <span>Min. price</span>
+                  <div class="input-group input-group-sm mb-1">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Minimal price filter" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+                            <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2z"/>
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                          </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <span>Max. price</span>                  
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Maximum price filter" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+                          <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2z"/>
+                          <path fill="none" d="M0 0h24v24H0z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="card-footer">End of the filter</div> -->
+          </div>
         </div>
+        <div class="col-md-10">
+          <div class="d-flex border-bottom">
+            <div class="p-2">
+              <a class="active" href="#"> <!-- Refresh! -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="rgb(16,108,255)"/>
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+              </a>
+            </div>
+            <div class="p-2 mr-auto ml-auto">
+              <span>Requests from buyers</span>
+            </div>
+            <div class="p-2 dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Sort</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Newest first</a>
+                <a class="dropdown-item" href="#">Highest price first</a>
+                <a class="dropdown-item" href="#">Lowest price first</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3 mb-3 border-bottom product">
+            <div class="col-md-2">
+              <img alt="..." src="img/frozen_veg.png" class="rounded float-left">
+            </div>
+            <div class="col-md-8">
+              <h3><a href="product_detail.html">Frozen vegetables</a> <small>10 kg</small></h3>
+              <p><a href="#">User1</a> posted on <span>Dec 23, 2018</span></p>
+              <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+              </p>
+            </div>
+            <div class="col-md-2">
+              <div class="page-header">
+                <h1>$100</h1>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3 mb-3 border-bottom product">
+            <div class="col-md-2">
+              <img alt="..." src="img/canned_soup.jpg" class="rounded float-left">
+            </div>
+            <div class="col-md-8">
+              <h3><a href="#">Canned soup</a> <small>20 unit</small></h3>
+              <p><a href="#">User3</a> posted on <span>Dec 10, 2018</span></p>
+              <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+              </p>
+            </div>
+            <div class="col-md-2">
+              <div class="page-header">
+                <h1>$100</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/nav.js"></script>   
+  
 </body>
-
 </html>
