@@ -1,6 +1,6 @@
 #msgSideBar {
     height: 100%;
-    width: 180px;
+    width: 12em;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -9,7 +9,7 @@
 
 #mainContainer {
     position: relative;
-    padding-left: 180px;
+    padding-left: 12em;
 }
 
 img.avatar {
