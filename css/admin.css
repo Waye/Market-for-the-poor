@@ -9,8 +9,14 @@
 button {
     width: 70px;
 }
-/* 
-table {
-    border-radius: 50%!important;
-    border: solid 1px lightgrey;
+
+/* #container-fluid {
+    min-width: 1000px !important;
+}
+
+#headerSection {
+    min-width: 1000px;
+}
+body {
+    min-width: 1000px;
 } */
