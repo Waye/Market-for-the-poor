@@ -14,26 +14,45 @@
 
 <body>
     <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
-        <div class="row mt-2 mb-2 border-bottom" id="infoHeader">
+        <div class="row mt-0 mb-2 border-bottom border-top bg-light" id="infoHeader">
             <!-- Jumbotron row -->
-            <div class="col-md-4 border-right pt-3" id="dollarCol"></div>
+            <div class="col-md-4 border-right pt-3 text-secondary" id="dollarCol"></div>
             <div class="col-md-8">
                 <!-- Jumbo-button column -->
                 <div class="row">
                     <!-- Button icon row -->
-                    <a href="#" class="col-3 nav-link active text-primary">
+                    <a href="feedpage.html" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
-                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#007bff" />
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#6c757d" />
                                         <path d="M0 0h24v24H0z" fill="none" />
                                     </svg>
                                 </h1>
                                 <h1 class="display-4 d-lg-none d-md-block text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
-                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#007bff" />
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#6c757d" />
                                         <path d="M0 0h24v24H0z" fill="none" />
                                     </svg>
                                 </h1>
@@ -46,7 +65,7 @@
                         </div>
                     </a>
 
-                    <a href="#" class="col-3 nav-link text-secondary">
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center activeNum">0</h1>
@@ -60,7 +79,7 @@
                         </div>
                     </a>
 
-                    <a href="#" class="col-3 nav-link text-secondary">
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center finishedNum">0</h1>
@@ -74,7 +93,7 @@
                         </div>
                     </a>
 
-                    <a href="#" class="col-3 nav-link text-secondary">
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center postedNum">0</h1>
@@ -101,24 +120,24 @@
                     <div class="card-body p-0" id="collapseFilter" class="collapse" aria-labelledby="collapseFilter"
                         data-parent="#collapseCard">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Food<span class="badge badge-primary badge-pill" id="foodFilterNum">0</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Electronics<span class="badge badge-primary badge-pill" id="elecFilterNum">0</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Clothings<span class="badge badge-primary badge-pill" id="clothFilterNum">0</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Furnitures<span class="badge badge-primary badge-pill" id="furniFilterNum">0</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Tools<span class="badge badge-primary badge-pill" id="toolsFilterNum">0</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
                                 Other<span class="badge badge-primary badge-pill" id="otherFilterNum">0</span>
-                            </li>
+                            </a>
                             <li class="list-group-item justify-content-between align-items-center p-2">
                                 <span>Min. price</span>
                                 <div class="input-group input-group-sm mb-1">

@@ -6,7 +6,8 @@ const mockUser = {
     password: "user",
     isBuyer: false,
     loggedIn: false,
-    avatar: null
+    avatar: null,
+    unreadNum: 3
 }
 
 const mockAdmin = {
@@ -37,7 +38,7 @@ function addNavContent(user) {
     searchBtn.setAttribute("type", "submit");
     searchBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-            fill="#007bff" />
+            fill="#6c757d" />
         <path d="M0 0h24v24H0z" fill="none" />
     </svg>`;
     searchInput.appendChild(searchTextbox);
@@ -51,9 +52,12 @@ function addNavContent(user) {
     /// Post button
     const postBtn = document.createElement("li");
     postBtn.className += "nav-item ml-2";
-    const postBtnLink = document.createElement("a");
+    const postBtnLink = document.createElement("button");
     postBtnLink.className += "btn btn-success nav-link";
-    postBtnLink.setAttribute("href", "#"); // TODO fix the link
+    // postBtnLink.setAttribute("href", "#"); // TODO fix the link
+    postBtnLink.setAttribute("type", "button");
+    postBtnLink.setAttribute("data-toggle", "modal");
+    postBtnLink.setAttribute("data-target", "#exampleModal");
     postBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
             fill="white" />
@@ -93,7 +97,8 @@ function addNavContent(user) {
     msgBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
-    msgBtnSpan.innerText = "Messages";
+    msgBtnSpan.innerText = "Messages ";
+    msgBtnSpan.innerHTML += `<span class="badge badge-light">${mockUser.unreadNum}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 
@@ -118,3 +123,4 @@ function addNavContent(user) {
 }
 
 addNavContent(mockUser);
+

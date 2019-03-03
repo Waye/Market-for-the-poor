@@ -76,7 +76,7 @@ class Post {
         productElement.className += "row mt-3 mb-3 border-bottom product";
 
         const imgCol = document.createElement('div');
-        imgCol.className += "col-12 col-md-2";
+        imgCol.className += "col-12 col-md-2 mb-3";
         const imgElement = document.createElement('img');
         imgElement.className += "rounded float-left";
         imgElement.setAttribute("alt", "...");
@@ -113,7 +113,7 @@ class Post {
         const priceCol = document.createElement('div');
         priceCol.className += "col-4 col-md-3 text-right";
         const priceStr = (this.price).toLocaleString('en-US', { style: 'currency', currency: 'USD'});
-        priceCol.innerHTML = `<h2>${priceStr}</h2>`;
+        priceCol.innerHTML = `<h3>${priceStr}</h3>`;
 
         productElement.appendChild(imgCol);
         productElement.appendChild(contentCol);
@@ -123,11 +123,11 @@ class Post {
 }
 
 const mockProductData = [];
-const product1 = new Post(1, "Frozen vegetables", "10 kg", 100, "User1", new Date(2018, 12, 23));
+const product1 = new Post(1, "Frozen vegetables", "10 kg", 100, "User1", new Date(2018, 11, 23));
 product1.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
 product1.setProductImg("img/frozen_veg.png");
 mockProductData.push(product1);
-const product2 = new Post(2, "Canned soup", "20 unit", 89, "User3", new Date(2018, 12, 10));
+const product2 = new Post(2, "Canned soup", "20 unit", 89, "User3", new Date(2018, 11, 10));
 product2.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
 product2.setProductImg("img/canned_soup.jpg");
 mockProductData.push(product2);
