@@ -37,18 +37,28 @@ $(document).ready(function() {
 })
 
 // dynamically produce htmls for manageUserSection
+$(document).ready(function () {
+    // send get request to server and render
+    renderManageUsers()
+})
 $(document).ready(function() {
-    // send get request to get info
+    //send get request to server and render
+    renderManagePost()
+ })
+    
+function removeManageUsers() {
+    $('div').remove('.manageUserLine')
+}
 
+function renderManageUsers() {
     //using response, dynamically display
     for (let u of users) {
-        console.log(u)
         const div = document.createElement("div");
         let type = null;
         if (u.isBuyer) {
-            type = 'Seller'
-        } else {
             type = 'Buyer'
+        } else {
+            type = 'Seller'
         }
         let status = null;
         let spanClass = null;
@@ -65,21 +75,48 @@ $(document).ready(function() {
         } else {
             banButton = 'Ban'
         }
-        console.log(spanClass)
-        const html = `<span><span class='userName'>${u.name} </span>(<span class="userType">${type}</span>)  <span class="${spanClass} status">${status}</span></span>
+        const html = `<span><span class='userName'>${u.name}</span> (<span class="userType">${type}</span>)  <span class="${spanClass} status">${status}</span></span>
         <button class='ml-auto ban btn btn-primary'>${banButton}</button><button class="ml-3 delDiv btn btn-primary">Delete</button>`
         div.innerHTML = html
-        div.className = "d-flex list-group-item"
-        $(manageUser).append(div)
+        div.className = "d-flex list-group-item manageUserLine"
+        $('#manageUser').append(div)
     }
-})
+}
 
 
-const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
+$('body').on('click', 'button.ban', banClick)
 
-$(document).ready(function() {
+function banClick() {
+    const topSpan = $(this).prev();
+    const userName = topSpan.find('.userName')[0].innerHTML;
+    // send update request to server
+
+    banOrUnbanUser(userName);
+    removeManageUsers();
+    renderManageUsers();
+}
+
+
+
+function banOrUnbanUser(userName) {
+    const user = users.find(function(user) {
+        return user.name == userName;
+    })
+    if (user.isBanned) {
+        user.isBanned = false;
+    } else {
+        user.isBanned = true;
+    }
+}
+
+function removeManagePost() {
+    $('tr').remove('.managePostRow')
+}
+
+
+function renderManagePost() {
+    const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
     for (let p of posts) {
-        console.log(p)
         const date = p.postDate.toLocaleDateString("en-US", dataFormat)
         const tr = document.createElement('tr')
         const html = `<td>${p.productId}</td>
@@ -88,27 +125,21 @@ $(document).ready(function() {
         <td>${p.userName}</td>
         <td><button class="delRow btn btn-primary">Delete</button></td>`
         tr.innerHTML = html;
+        tr.className = 'managePostRow'
         $('tbody').append(tr);
     }
-    console.log($('tbody'))
-})
+}
 
-$(document).ready(function() {
-    $('.ban').click(function() {
-        const a = $(this).prev()
-        console.log(a)
-        console.log(a.innerText)
-    })
-})
+$('body').on('click', 'button.delRow', delRowClick)
 
-$(document).ready(function() {
-    $('.delRow').click(function () {
-        const postId = $(this).parent().siblings()[0].innerHTML
-        console.log(postId)
-        removePost(postId)
-        $(this).parent().parent().remove();
-    })
-})
+function delRowClick() {
+    const postId = $(this).parent().siblings()[0].innerHTML
+    // send delete(post)/update(user.post) request to server
+
+    removePost(postId)
+    $(this).parent().parent().remove();
+}
+
 
 function removePost(postId) {
     let user = users.find(function(user) {
@@ -117,11 +148,40 @@ function removePost(postId) {
     user.post = user.post.filter(function(productId) {
         return productId != postId
     })
-    console.log(user)
     const index = posts.findIndex(function(post) {
         return post.productId == postId
     })
     posts.splice(index, 1)
-    console.log(posts)
-    console.log(user.post)    
+}
+
+$('body').on('click', 'button.delDiv', delDivClick)
+
+function delDivClick() {
+    const userName = $(this).prev().prev().children('span.userName')[0].innerHTML
+    // send delete(user)/update(post) request to server
+    
+    removeUser(userName)
+    removeManageUsers()
+    renderManageUsers()
+    removeManagePost()
+    renderManagePost()
+}
+
+function removeUser(userName) {
+    const index = users.findIndex(function(user) {
+        return user.name == userName;
+    })
+
+    users.splice(index, 1)
+    let postToRemove = []
+
+    for (let p of posts) {
+        if (p.userName == userName) {
+            postToRemove.push(p)
+        }
+    }
+    for (let p of postToRemove) {
+        const index = posts.indexOf(p)
+        posts.splice(index, 1)
+    }
 }
