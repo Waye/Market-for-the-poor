@@ -13,7 +13,9 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>    
+    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>  
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+ 
     <div class="container border-right p-0" id="msgSideBar">
         <ul class="list-group list-group-flush">
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center p-2 active">
@@ -23,7 +25,8 @@
                             fill="white" />
                         <path fill="none" d="M0 0h24v24H0V0z" /></svg>
                 </span>
-                Inbox <span class="badge badge-light ml-auto">9</span>
+                <span class="d-none d-md-block">Inbox </span>
+                <span class="badge badge-light ml-auto">3</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center p-2">
                 <span class="mr-3">
@@ -32,7 +35,8 @@
                             fill="black" />
                         <path d="M0 0h24v24H0z" fill="none" /></svg>
                 </span>
-                Sent messages <span class="badge badge-light ml-auto">9</span>
+                <span class="d-none d-md-block">Sent messages </span>
+                <span class="badge badge-light ml-auto">1</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center p-2">
                 <span class="mr-3">
@@ -42,7 +46,8 @@
                             fill="black" />
                         <path d="M0 0h24v24H0z" fill="none" /></svg>
                 </span>
-                Starred <span class="badge badge-light ml-auto">9</span>
+                <span class="d-none d-md-block">Starred </span>
+                <span class="badge badge-light ml-auto">0</span>
             </a>
         </ul>
         <!-- <div class="card-footer">End of the filter</div> -->
@@ -98,7 +103,8 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/nav.js"></script>   
-
+    <script type="text/javascript" src="js/nav.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
+    <script type="text/javascript" src="js/messages.js"></script>
     </body>
 </html>

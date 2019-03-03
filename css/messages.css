@@ -15,3 +15,13 @@
 img.avatar {
     width: 60px;
 }
+
+@media screen and (max-width: 768px) {
+    #msgSideBar {
+        width: 4.5em;
+    }
+    
+    #mainContainer {
+        padding-left: 4.5em;
+    }
+}

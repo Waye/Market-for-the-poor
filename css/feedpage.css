@@ -4,8 +4,14 @@ body {
 
 .product img {
     width: 100%;
+    max-width: 300px;
 }
 
 img.avatar {
     width: 80px;
+}
+
+.sticky-offset {
+    top: 4em!important;
+    z-index: 900!important;
 }

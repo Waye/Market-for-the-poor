@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Phase 1 Test</title>
+    <link rel="stylesheet" type="text/css" href="css/feedpage.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+
+    <div class="container-fluid">
+        <div class="row mt-0 mb-2 border-bottom border-top bg-light" id="infoHeader">
+            <!-- Jumbotron row -->
+            <div class="col-md-4 border-right pt-3 text-secondary" id="dollarCol"></div>
+            <div class="col-md-8">
+                <!-- Jumbo-button column -->
+                <div class="row">
+                    <!-- Button icon row -->
+                    <a href="feedpage.html" class="col-3 nav-link text-secondary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="display-4 d-none d-lg-block text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#6c757d" />
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                    </svg>
+                                </h1>
+                                <h1 class="display-4 d-lg-none d-md-block text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#6c757d" />
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                    </svg>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center" id="feedName">Feed</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="display-4 d-none d-lg-block text-center activeNum">0</h1>
+                                <h1 class="mt-3 d-lg-none d-md-block text-center activeNum">0</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center">Active orders</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="display-4 d-none d-lg-block text-center finishedNum">0</h1>
+                                <h1 class="mt-3 d-lg-none d-md-block text-center finishedNum">0</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center">Finished</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="orderpage.html" class="col-3 nav-link text-secondary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="display-4 d-none d-lg-block text-center postedNum">0</h1>
+                                <h1 class="mt-3 d-lg-none d-md-block text-center postedNum">0</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center">Posted</p>
+                            </div>
+                        </div>
+                    </a>
+                </div> <!-- End of button icon row -->
+            </div> <!-- End of Jumbo-button -->
+        </div> <!-- End of Jumbotron row -->
+        <div class="" id="orderContainer">
+            <div class="activeContainer">
+                <div class="p-2 bg-light sticky-top sticky-offset">
+                    <h5>Active orders <small>(<span id="stickyActiveNum">0</span>)</small></h5>
+                </div>
+            </div>
+            <div class="finishContainer">
+                <div class="p-2 bg-light sticky-top sticky-offset">
+                    <h5>Finished orders <small>(<span id="stickyFinishNum">0</span>)</small></h5>
+                </div>
+            </div>
+            <div class="postContainer">
+                <div class="p-2 bg-light sticky-top sticky-offset">
+                    <h5>Posted orders <small>(<span id="stickyPostNum">0</span>)</small></h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/nav.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
+    <script type="text/javascript" src="js/feedpage.js"></script>
+    <script type="text/javascript" src="js/orderpage.js"></script>
+</body>
+
+</html>
