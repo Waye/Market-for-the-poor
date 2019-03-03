@@ -106,9 +106,9 @@ function addNavContent(user) {
     $("#topNav").append(navBtnUl);
 }
 
-function getUserNav() {
+function getUser() {
     const mockUser = {
-        name: "user",
+        name: "user1",
         password: "user",
         isBuyer: false,
         loggedIn: false,
@@ -119,6 +119,6 @@ function getUserNav() {
 }
 
 function main() {
-    addNavContent(getUserNav());
+    addNavContent(getUser());
 }
 $(document).ready(main);

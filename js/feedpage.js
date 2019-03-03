@@ -268,18 +268,6 @@ function getFilterData() {
     return mockFilterData;
 }
 
-function getUserFeedpage() {
-    const mockUser = {
-        name: "user",
-        password: "user",
-        isBuyer: true,
-        loggedIn: false,
-        avatar: null,
-        unreadNum: 3
-    }
-    return mockUser;
-}
-
 function updateFeed(productData) {
     $('#productContainer').empty();
     if (productData) {
@@ -290,7 +278,7 @@ function updateFeed(productData) {
 }
 
 function main() {
-    addInfoHeaderContent(getHeaderInfo(), getUserFeedpage());
+    addInfoHeaderContent(getHeaderInfo(), getUser());
     addFilter(getFilterData());
     updateFeed(getFeed());
 }
