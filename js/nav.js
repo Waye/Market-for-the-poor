@@ -75,8 +75,6 @@ function addNavContent(user) {
     postBtnLink.appendChild(postBtnSpan)
     postBtn.appendChild(postBtnLink);
 
-
-
     /// Profile button
     const profileBtn = document.createElement("li");
     profileBtn.className += "nav-item ml-2";
@@ -124,5 +122,8 @@ function addNavContent(user) {
     $("#topNav").append(navBtnUl);
 }
 
-addNavContent(mockUser);
 
+function main() {
+    addNavContent(mockUser);
+}
+$(document).ready(main);
