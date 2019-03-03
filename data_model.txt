@@ -7,25 +7,31 @@ database = {
 }
 
 user(buyer/seller) : {
-	userName: string
+	name: string
 	password: string
 	email: string
 	messagees : [message]
 	role: seller, buyer (string)
 	status: banned (boolean)
 	posts: [request/offers]
+	phone:
+	description
 }
+users = []
+post = []
 
 request/offer: {
+	userName:string
 	id: string
 	type: string
-	time: string in json, time obj in js
+	date: string in json, time obj in js
 	title: string
 	description: string
-	quantity: int
+	quantity: string
 	price: float
-	image: donno
+	image: url
 	completed: boolean
+	dueDate:
 	category: {
 		food: {
 			type: one of ['canned', 'beverage', 'dairy', 'meat']
@@ -40,6 +46,9 @@ request/offer: {
 		other: [string]
 	}
 }
+
+category: ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
+
 
 message: {
 	id,
