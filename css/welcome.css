@@ -1,0 +1,49 @@
+img {
+    height: 1024px;
+    width: 680px;
+}
+
+a {
+    font-family: Raleway-Regular;
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 150px;
+}
+
+h2 {
+   text-align: center;
+}
+
+.btn-default:focus, .btn-default:hover {
+    color: #000;
+    border: 1px solid #42dca3;
+    outline: none;
+    background-color: #42dca3;
+}
+.btn-primary:hover {
+    color: #212529;
+    background-color: #27d192;
+    border-color: #25c68a;
+}
+.btn:hover {
+    color: #212529;
+    text-decoration: none;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.btn-default {
+    color: #42dca3;
+    border: 1px solid #42dca3;
+    background-color: transparent;
+}
+.btn {
+    font-family: Cabin,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    transition: all .3s ease-in-out;
+    text-transform: uppercase;
+    border-radius: 0;
+}
