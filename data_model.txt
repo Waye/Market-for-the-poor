@@ -14,8 +14,11 @@ user(buyer/seller) : {
 	role: seller, buyer (string)
 	status: banned (boolean)
 	posts: [request/offers]
+	phone:
 	description
 }
+users = []
+post = []
 
 request/offer: {
 	userName:string
@@ -24,7 +27,7 @@ request/offer: {
 	date: string in json, time obj in js
 	title: string
 	description: string
-	quantity: int
+	quantity: string
 	price: float
 	image: url
 	completed: boolean
