@@ -119,6 +119,9 @@ function addInfoHeaderContent(headerInfo, user) {
 
     if (user.isBuyer) {
         $('#feedName').html("Offer feed");
+        $("#dollarCol").remove();
+        $("#feedNavCol").attr("class", "col-12");
+        $("#feedNavCol").find('h1').removeClass("display-4");
     } else {
         $('#feedName').html("Request feed");
     }
@@ -186,7 +189,7 @@ class Post {
         contentHeader.appendChild(contentHeaderQty);
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
-        contentInfoLink.setAttribute("href", "#"); // TODO change with user page url
+        contentInfoLink.setAttribute("href", "profile.html");
         contentInfoLink.appendChild(document.createTextNode(this.sellerName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -265,8 +268,16 @@ function getFilterData() {
     return mockFilterData;
 }
 
-function getUser() {
-    
+function getUserFeedpage() {
+    const mockUser = {
+        name: "user",
+        password: "user",
+        isBuyer: true,
+        loggedIn: false,
+        avatar: null,
+        unreadNum: 3
+    }
+    return mockUser;
 }
 
 function updateFeed(productData) {
@@ -279,7 +290,7 @@ function updateFeed(productData) {
 }
 
 function main() {
-    addInfoHeaderContent(getHeaderInfo(), mockUser);
+    addInfoHeaderContent(getHeaderInfo(), getUserFeedpage());
     addFilter(getFilterData());
     updateFeed(getFeed());
 }

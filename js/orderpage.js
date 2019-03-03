@@ -1,48 +1,9 @@
 "use strict";
 console.log("orderpage.js") // log to the JavaScript console.
 
-function addStickyHeaderContent(headerInfo) {
-    $('#stickyActiveNum').html(headerInfo.activeNum);
-    $('#stickyFinishNum').html(headerInfo.finishedNum);
-    $('#stickyPostNum').html(headerInfo.postedNum);
-}
-addStickyHeaderContent(mockHeaderInfo);
-
-const mockOrderList = []
-const mockOrder1 = {
-    producImage: "img/frozen_veg.png",
-    productName: "Frozen vegetables",
-    status: "active",
-    arriveDate: new Date(2019, 8, 21),
-    shipAddr: "Bahen Centre for Information Technology St George St Toronto, ON M5S 2E4",
-    buyerId: "1"
-}
-mockOrderList.push(mockOrder1);
-const mockOrder2 = {
-    producImage: "img/canned_soup.jpg",
-    productName: "Frozen vegetables",
-    status: "finished",
-    arriveDate: new Date(2019, 5, 12),
-    shipAddr: "Bahen Centre for Information Technology St George St Toronto, ON M5S 2E4",
-    buyerId: "2"
-}
-mockOrderList.push(mockOrder2);
-
-const gotBuyer1 = {
-    userId: "1",
-    avatar: "img/avatar_placeholder.png",
-    userName: "user1",
-}
-const gotBuyer2 = {
-    userId: "2",
-    avatar: "img/avatar_placeholder.png",
-    userName: "user2",
-}
-const gotBuyerList = [gotBuyer1, gotBuyer2];
-
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
-function displayOrders(orderList) {
+function displayOrders(orderList, gotBuyerList) {
     let i = 0;
     orderList.forEach(order => {
         let progressbarVal = 10;
@@ -76,7 +37,7 @@ function displayOrders(orderList) {
                     <div class="col-4 text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
                     <div class="col-8">
                         <a href="#">${gotBuyerList[i].userName}</a>
-                        <p>Deliver to: ${order.shipAddr}</p>
+                        <p><strong>Deliver to:</strong> ${order.shipAddr}</p>
                     </div>
                 </div>
             </div>
@@ -93,5 +54,63 @@ function displayOrders(orderList) {
     });
 }
 
-displayOrders(mockOrderList);
+function getHeaderInfo() {
+    const mockHeaderInfo = {
+        twoMonthTotal : 48300,
+        activeNum : 3,
+        finishedNum : 21,
+        postedNum : 12
+    }
+    return mockHeaderInfo
+}
+
+function updateStickyTitleInfo(headerInfo) {
+    $("#stickyActiveNum").html(headerInfo.activeNum);
+    $("#stickyFinishNum").html(headerInfo.finishedNum);
+    $("#stickyPostNum").html(headerInfo.postedNum);
+}
+
+function getOrders() {
+    const mockOrderList = []
+    const mockOrder1 = {
+        producImage: "img/frozen_veg.png",
+        productName: "Frozen vegetables",
+        status: "active",
+        arriveDate: new Date(2019, 8, 21),
+        shipAddr: "Bahen Centre for Information Technology St George St Toronto, ON M5S 2E4",
+        buyerId: "1"
+    }
+    mockOrderList.push(mockOrder1);
+    const mockOrder2 = {
+        producImage: "img/canned_soup.jpg",
+        productName: "Frozen vegetables",
+        status: "finished",
+        arriveDate: new Date(2019, 5, 12),
+        shipAddr: "Bahen Centre for Information Technology St George St Toronto, ON M5S 2E4",
+        buyerId: "2"
+    }
+    mockOrderList.push(mockOrder2);
+    return mockOrderList;
+}
+
+function getBuyerList() {
+    const gotBuyer1 = {
+        userId: "1",
+        avatar: "img/avatar_placeholder.png",
+        userName: "user1",
+    }
+    const gotBuyer2 = {
+        userId: "2",
+        avatar: "img/avatar_placeholder.png",
+        userName: "user2",
+    }
+    const gotBuyerList = [gotBuyer1, gotBuyer2];
+    return gotBuyerList;
+}
+
+function main() {
+    displayOrders(getOrders(), getBuyerList());
+    updateStickyTitleInfo(getHeaderInfo());
+}
+$(document).ready(main);
 
