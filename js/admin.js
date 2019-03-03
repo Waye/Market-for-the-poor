@@ -6,13 +6,13 @@ const User = function(name, isBuyer, isBanned) {
     this.isBanned = isBanned;
     this.post = [];
 }
-
-const Post = function(postId, postDate, postTitle, userName) {
-    this.postId = postId;
-    this.postDate = postDate;
-    this.postTitle = postTitle;
+const Post = function(id, date, title, userName, ) {
+    this.id = id;
+    this.date = date;
+    this.title = title;
     this.userName = userName;
 }
+
 
 const users = []
 const posts = []
@@ -21,9 +21,9 @@ users.push(new User("User1", false, false));
 users.push(new User("User2", true, true));
 users.push(new User("User3", true, false));
 
-posts.push(new Post('0001', new Date(2018, 12, 31), 'Apple Juice', 'User1'))
-posts.push(new Post('0002', new Date(2018, 11, 30), 'Mango Juice', 'User2'))
-posts.push(new Post('0003', new Date(2019, 1, 31), 'Strawberry Juice', 'User3'))
+posts.push(new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetable', 'User1'))
+posts.push(new Post('0002', new Date(2018, 10, 30), 'Mango Juice', 'User2'))
+posts.push(new Post('0003', new Date(2019, 0, 31), 'Strawberry Juice', 'User3'))
 
 // user's post array stores post ids
 users[0].post.push('0001')
@@ -34,17 +34,21 @@ users[2].post.push('0003')
 //Total user number display
 $(document).ready(function() {
     $(totalUserNum).innerHTML = users.length;
+    
+    // send get request to server and render dynamically
+    renderManageUsers();
+    renderManagePost();
 })
 
-// dynamically produce htmls for manageUserSection
-$(document).ready(function () {
-    // send get request to server and render
-    renderManageUsers()
-})
-$(document).ready(function() {
-    //send get request to server and render
-    renderManagePost()
- })
+// // dynamically produce htmls for manageUserSection
+// $(document).ready(function () {
+//     // send get request to server and render
+//     renderManageUsers()
+// })
+// $(document).ready(function() {
+//     //send get request to server and render
+//     renderManagePost()
+//  })
     
 function removeManageUsers() {
     $('div').remove('.manageUserLine')
@@ -117,10 +121,10 @@ function removeManagePost() {
 function renderManagePost() {
     const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
     for (let p of posts) {
-        const date = p.postDate.toLocaleDateString("en-US", dataFormat)
+        const date = p.date.toLocaleDateString("en-US", dataFormat)
         const tr = document.createElement('tr')
-        const html = `<td>${p.postId}</td>
-        <td>${p.postTitle}</td>
+        const html = `<td>${p.id}</td>
+        <td>${p.title}</td>
         <td>${date}</td>
         <td>${p.userName}</td>
         <td><button class="delRow btn btn-primary">Delete</button></td>`
@@ -145,11 +149,11 @@ function removePost(postId) {
     let user = users.find(function(user) {
         return user.post.includes(postId)
     })
-    user.post = user.post.filter(function(productId) {
-        return productId != postId
+    user.post = user.post.filter(function(post) {
+        return post.id != postId
     })
     const index = posts.findIndex(function(post) {
-        return post.productId == postId
+        return post.id == postId
     })
     posts.splice(index, 1)
 }
