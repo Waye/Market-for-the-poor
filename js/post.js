@@ -11,7 +11,14 @@ const postPopupElement = `
         </button>
     </div>
     <div class="modal-body">
+        <small class="form-text text-muted">Post Detail</small>
+        <small class="form-text text-muted" style="padding-top: 50px;">Cover Image:</small>
+        <div role="group" class="btn-group" style="position: absolute;margin-left: auto;margin-right: auto;left: 0;right: 0;"></div>
+        <img style="margin: 20px;width: 160px;height: 160px;" />
+        <button class="btn btn-primary" type="button">Clear </button>
+        <button class="btn btn-primary" type="button">Upload</button>
         <div class="table-responsive">
+                
             <table class="table">
                 <tbody>
                     <tr>
@@ -75,11 +82,13 @@ const postPopupElement = `
             </table>
         </div>
     </div>
-    <div class="modal-footer">
+     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Submit</button>
+    </div>   
     </div>
 </div>
 </div>`;
+
 
 $("#modal").html(postPopupElement);
