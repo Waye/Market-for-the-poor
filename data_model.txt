@@ -47,6 +47,9 @@ request/offer: {
 	}
 }
 
+category: ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
+
+
 message: {
 	id,
 	time,
