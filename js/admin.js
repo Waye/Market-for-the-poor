@@ -7,10 +7,10 @@ const User = function(name, isBuyer, isBanned) {
     this.post = [];
 }
 
-const Post = function(productId, postDate, productName, userName) {
-    this.productId = productId;
+const Post = function(postId, postDate, postTitle, userName) {
+    this.postId = postId;
     this.postDate = postDate;
-    this.productName = productName;
+    this.postTitle = postTitle;
     this.userName = userName;
 }
 
@@ -119,8 +119,8 @@ function renderManagePost() {
     for (let p of posts) {
         const date = p.postDate.toLocaleDateString("en-US", dataFormat)
         const tr = document.createElement('tr')
-        const html = `<td>${p.productId}</td>
-        <td>${p.productName}</td>
+        const html = `<td>${p.postId}</td>
+        <td>${p.postTitle}</td>
         <td>${date}</td>
         <td>${p.userName}</td>
         <td><button class="delRow btn btn-primary">Delete</button></td>`
