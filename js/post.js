@@ -71,31 +71,31 @@ $("#modal").html(postPopupElement);
 const category = ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
 const units = []
 
-// // for mock data
-// const User = function (name, description, icon, isBuyer, phone) {
-//     this.name = name;
-//     this.description = description;
-//     this.icon = icon;
-//     this.isBuyer = isBuyer;
-//     this.phone = phone;
-// }
+// for mock data
+const User_post = function (name, description, icon, isBuyer, phone) {
+    this.name = name;
+    this.description = description;
+    this.icon = icon;
+    this.isBuyer = isBuyer;
+    this.phone = phone;
+}
 
 // // for mock data
-// const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
-//     this.id = id;
-//     this.date = date;
-//     this.title = title;
-//     this.userName = userName;
-//     this.description = description;
-//     this.price = price;
-//     this.quantity = quantity;
-//     this.image = image;
-//     this.dueDate = dueDate;
-//     this.type = type;
-// }
+const Post_post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
+    this.id = id;
+    this.date = date;
+    this.title = title;
+    this.userName = userName;
+    this.description = description;
+    this.price = price;
+    this.quantity = quantity;
+    this.image = image;
+    this.dueDate = dueDate;
+    this.type = type;
+}
 
 // // for mock data
-// const currentUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
+// const currentUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
 
 $(document).ready(function() {
 	renderCategory()
@@ -123,7 +123,8 @@ function removeAll() {
 $('#close').click(removeAll);
 $('#submit').click(getInputData);
 
-function getInputData() {
+function getInputData(e) {
+    console.log(e)
 	const date = new Date()
 	const title = $('#title').val()
 	const userName = currentUser.name
@@ -133,11 +134,16 @@ function getInputData() {
 	const image = ''
     const dueDate = $('#dueDate').val()
     const type = (currentUser.isBuyer ? "request" : "offer")
-	const newPost = new Post('0004', date, title, userName, description, price, quantity, image, dueDate, type)
+    const category = $('#categoryCurrentSelection')[0].innerHTML
+	const newPost = new Post_post('0004', date, title, userName, description, price, quantity, image, dueDate, type, category)
     
     // send new post data to backend and save to database
     console.log(newPost)
-	removeAll()
+    // $('.modal-backdrop').remove()
+    $('#modal').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+	// removeAll()
 }
 
 

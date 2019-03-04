@@ -1,0 +1,12 @@
+#mainContainer {
+    min-width: 650px !important;
+    max-width: 934px !important;
+}
+
+.modal-content {
+    margin: 30px !important;
+}
+/* 
+tbody {
+    max-width: 690px!important;
+} */

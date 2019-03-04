@@ -6,7 +6,7 @@ const User = function (name, description, icon, isBuyer, phone) {
     this.phone = phone;
 }
 
-const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
+const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type, category) {
     this.id = id;
     this.date = date;
     this.title = title;
@@ -17,6 +17,7 @@ const Post = function(id, date, title, userName, description, price, quantity, i
     this.image = image;
     this.dueDate = dueDate;
     this.type = type;
+    this.category = category
 }
 
 //logged in as seller and request is from another buyer
@@ -24,7 +25,7 @@ const seller = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_place
 const buyer = new User('User2', 'Twitter, Inc. 795 Folsom Ave, Suite 600 San Francisco, CA 94107', 'img/avatar_placeholder.png', true, '(123) 456-7890')
 const post = new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetables', 'User1',
  'Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.',
-  100, '10 kg', 'img/frozen_veg.png', new Date(2019, 1, 6), 'request');
+  100, '10 kg', 'img/frozen_veg.png', new Date(2019, 1, 6), 'request', 'Food');
 
 const currentUser = seller;
 const postOwner = buyer;
