@@ -174,8 +174,8 @@ function addNavContent(user) {
     searchTextbox.className += "form-control mr-sm-2 d-none d-sm-block";
     searchTextbox.setAttribute("type", "text");
     searchTextbox.setAttribute("placeholder", "Search");
+    
     searchTextbox.setAttribute("id", "searchInput");
-
     $("#topNav").after(`<div class="modal" id="searchrResultModal" tabindex="-1" role="dialog" data-focus=false>
         <div class="modal-dialog" role="document">
             <div class="modal-content"><div class="modal-body p-1 pl-3 pr-3">
@@ -187,12 +187,11 @@ function addNavContent(user) {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
     })
-
-
     $("#topNav").on('keypress', '#searchInput',function(){
         console.log("pressed")
         $('#searchrResultModal').modal('show');
     });
+
     const searchBtn = document.createElement("button");
     searchBtn.className += "btn btn-light";
     searchBtn.setAttribute("type", "submit");
