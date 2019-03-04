@@ -5,14 +5,13 @@ const postPopupElement = `
 <div class="modal-dialog" role="document">
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Post Form</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Post Detail</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <small class="form-text text-muted">Post Detail</small>
-        <small class="form-text text-muted" style="padding-top: 50px;">Cover Image:</small>
+        <h6>Cover Image:</h6>
         <div role="group" class="btn-group" style="position: absolute;margin-left: auto;margin-right: auto;left: 0;right: 0;"></div>
         <img style="margin: 20px;width: 160px;height: 160px;" />
         <button class="btn btn-primary" type="button">Clear </button>
@@ -22,60 +21,36 @@ const postPopupElement = `
             <table class="table">
                 <tbody>
                     <tr>
-                        <th>Category:</th>
+                        <td>Category:</td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false" type="button">Food&nbsp;
+                                <button id="categoryCurrentSelection" class="btn btn-primary dropdown-toggle active" data-toggle="dropdown"
+                                    aria-expanded="false" type="button">Category
                                 </button>
-                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation"
-                                        href="#">First Item</a>
-                                    <a class="dropdown-item" role="presentation" href="#">Second Item</a>
-                                    <a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                                <ul id="categoryMenu" class="dropdown-menu" role="menu">
+                                </ul>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Title:</td>
-                        <td><input type="text"></td>
+                        <td><input id="title" type="text"></td>
                     </tr>
                     <tr>
                         <td>Quantity:</td>
-                        <td><input type="text"></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false" type="button">Liter&nbsp;
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <a class="dropdown-item" role="presentation" href="#">First Item</a>
-                                    <a class="dropdown-item" role="presentation" href="#">Second Item</a>
-                                    <a class="dropdown-item" role="presentation" href="#">Third Item</a>
-                                </div>
-                            </div>
-                        </td>
+                        <td><input id="quantity" type="text"></td>
                     </tr>
                     <tr>
                         <td>Needed Before:</td>
-                        <td><input type="date"></td>
+                        <td><input id="dueDate" type="date"></td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="formCheck-1">
-                                <label class="form-check-label" for="formCheck-1">Price:</label>
-                            </div>
-                        </td>
-                        <td><input type="text"></td>
-                        <td>
-                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2">
-                                <label class="form-check-label" for="formCheck-2">Label</label>
-                            </div>
-                        </td>
+                        <td>Price: </td>
+                        <td><input id="price" type="text" placeholder="0 if donate"></td>
                     </tr>
                     <tr>
                         <td>Description:</td>
-                        <td><textarea></textarea></td>
+                        <td><textarea id="description" rows="5" cols="30"></textarea></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -83,8 +58,8 @@ const postPopupElement = `
         </div>
     </div>
      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="submit" type="button" class="btn btn-primary">Submit</button>
     </div>   
     </div>
 </div>
@@ -92,3 +67,83 @@ const postPopupElement = `
 
 
 $("#modal").html(postPopupElement);
+
+const category = ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
+const units = []
+
+// for mock data
+const User_post = function (name, description, icon, isBuyer, phone) {
+    this.name = name;
+    this.description = description;
+    this.icon = icon;
+    this.isBuyer = isBuyer;
+    this.phone = phone;
+}
+
+// // for mock data
+const Post_post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
+    this.id = id;
+    this.date = date;
+    this.title = title;
+    this.userName = userName;
+    this.description = description;
+    this.price = price;
+    this.quantity = quantity;
+    this.image = image;
+    this.dueDate = dueDate;
+    this.type = type;
+}
+
+// // for mock data
+// const currentUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
+
+$(document).ready(function() {
+	renderCategory()
+
+})
+
+function renderCategory() {
+	let html = ''
+	for (let c of category) {
+		html = html + `<li><a class="dropdown-item" role="presentation">${c}</a></li>`
+	}
+	$('#categoryMenu').html(html);
+}
+
+$('#categoryMenu').on('click', 'li a', currentSelectionCategory)
+
+function currentSelectionCategory() {
+	$("#categoryCurrentSelection").text($(this).text());
+}
+
+function removeAll() {
+	$('.modal-dialog').html('')
+}
+
+$('#close').click(removeAll);
+$('#submit').click(getInputData);
+
+function getInputData(e) {
+    console.log(e)
+	const date = new Date()
+	const title = $('#title').val()
+	const userName = currentUser.name
+	const description = $('#description').val()
+	const price = $('#price').val()
+	const quantity = $('#quantity').val()
+	const image = ''
+    const dueDate = $('#dueDate').val()
+    const type = (currentUser.isBuyer ? "request" : "offer")
+    const category = $('#categoryCurrentSelection')[0].innerHTML
+	const newPost = new Post_post('0004', date, title, userName, description, price, quantity, image, dueDate, type, category)
+    
+    // send new post data to backend and save to database
+    console.log(newPost)
+    // $('.modal-backdrop').remove()
+    $('#modal').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+	// removeAll()
+}
+
+

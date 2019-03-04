@@ -25,3 +25,7 @@ img.avatar {
         padding-left: 4.5em;
     }
 }
+
+#text-truncate {
+    max-width: 90%;
+}

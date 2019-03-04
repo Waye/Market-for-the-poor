@@ -33,7 +33,7 @@ users[2].post.push('0003')
 
 //Total user number display
 $(document).ready(function() {
-    $(totalUserNum).innerHTML = users.length;
+    $(totalUserNum)[0].innerHTML = users.length;
     
     // send get request to server and render dynamically
     renderManageUsers();
