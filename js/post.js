@@ -68,7 +68,7 @@ const postPopupElement = `
 
 $("#modal").html(postPopupElement);
 
-const category = ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
+const category = ['food', 'electronics', 'clothing', 'furniture', 'tools', 'other']
 const units = []
 
 // for mock data

@@ -11,57 +11,58 @@ function displayOrders(orderList, gotBuyerList) {
             progressbarVal = 50;
         } else if (order.status == "finished") {
             progressbarVal = 100;
-        }
-        
-        const elementHtml = `
-        <div class="row m-2 p-3 border-bottom">
-            <div class="col-2 text-center product">
-                <img src="${order.producImage}" alt="...">
-            </div>
-            <div class="col-4">
-                <div class="row">
-                    <h5>${order.productName} <small>Arrives ${order.arriveDate.toLocaleDateString("en-US", dataFormat)}</small></h5>
+        } else if (order.status == "posted") {
+            const postedElementHtml = `
+            <div class="row m-2 p-3 border-bottom">
+                <div class="col-2 text-center order">
+                    <img src="${order.producImage}" alt="...">
                 </div>
-                <div class="row progress">
-                    <div class="progress-bar" role="progressbar" style="width: ${progressbarVal}%;" aria-valuenow="${progressbarVal}"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="row d-flex justify-content-between align-items-center">
-                    <small>Processing</small>
-                    <small>Shipped</small>
-                    <small>Delivered</small>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-4 text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
-                    <div class="col-8">
-                        <a href="#">${gotBuyerList[i].userName}</a>
-                        <p><strong>Deliver to:</strong> ${order.shipAddr}</p>
+                <div class="col-10  mt-auto mb-auto">
+                    <div class="row">
+                        <h5>${order.productName}. <small>Posted, no respond yet.</small></h5>
                     </div>
                 </div>
-            </div>
-        </div>`;
-
-        if (progressbarVal == 10) {
-            $(".postContainer").append(elementHtml);
-        } else if (progressbarVal == 50) {
-            $(".activeContainer").append(elementHtml);
-        } else if (progressbarVal == 100) {
-            $(".finishContainer").append(elementHtml);
+            </div>`;
+            $(".postContainer").append(postedElementHtml);
+        }
+        if (order.status != "posted") {
+            const elementHtml = `
+            <div class="row m-2 p-3 border-bottom">
+                <div class="col-2 text-center order">
+                    <img src="${order.producImage}" alt="...">
+                </div>
+                <div class="col-4 mt-auto mb-auto">
+                    <div class="row">
+                        <h5>${order.productName} <small>Arrives ${order.arriveDate.toLocaleDateString("en-US", dataFormat)}</small></h5>
+                    </div>
+                    <div class="row progress">
+                        <div class="progress-bar" role="progressbar" style="width: ${progressbarVal}%;" aria-valuenow="${progressbarVal}"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <small>Processing</small>
+                        <small>Shipped</small>
+                        <small>Delivered</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4 text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
+                        <div class="col-8">
+                            <a href="#">${gotBuyerList[i].userName}</a>
+                            <p><strong>Deliver to:</strong> ${order.shipAddr}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            if (progressbarVal == 50 || progressbarVal == 10) {
+                $(".activeContainer").append(elementHtml);
+            } else if (progressbarVal == 100) {
+                $(".finishContainer").append(elementHtml);
+            }
         }
         i += 1;
     });
-}
-
-function getHeaderInfo() {
-    const mockHeaderInfo = {
-        twoMonthTotal : 48300,
-        activeNum : 3,
-        finishedNum : 21,
-        postedNum : 12
-    }
-    return mockHeaderInfo
 }
 
 function updateStickyTitleInfo(headerInfo) {
@@ -90,6 +91,15 @@ function getOrders() {
         buyerId: "2"
     }
     mockOrderList.push(mockOrder2);
+    const mockOrder3 = {
+        producImage: "img/nestea.jpg",
+        productName: "Nestea Lemon",
+        status: "posted",
+        arriveDate: null,
+        shipAddr: "",
+        buyerId: ""
+    }
+    mockOrderList.push(mockOrder3);
     return mockOrderList;
 }
 
@@ -110,7 +120,7 @@ function getBuyerList() {
 
 function main() {
     displayOrders(getOrders(), getBuyerList());
-    updateStickyTitleInfo(getHeaderInfo());
+    updateStickyTitleInfo(getUser().orderInfo);
 }
 $(document).ready(main);
 

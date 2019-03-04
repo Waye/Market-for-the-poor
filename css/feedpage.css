@@ -2,9 +2,22 @@ body {
     font-family: 'Roboto';
 }
 
+.product {
+    min-height: 200px;
+}
+
 .product img {
-    width: 100%;
-    max-width: 300px;
+    /* width: auto; */
+    max-width: 100px;
+}
+
+.result img {
+    max-width: 100px;
+}
+
+.order img {
+    /* width: auto; */
+    max-width: 100px;
 }
 
 img.avatar {
@@ -14,4 +27,8 @@ img.avatar {
 .sticky-offset {
     top: 5em!important;
     z-index: 900!important;
+}
+
+.modal-backdrop {
+    background-color: rgba(0,0,0,.0001) !important;
 }

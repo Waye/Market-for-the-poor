@@ -7,25 +7,131 @@ function getUser() {
         password: "seller",
         email: "seller@gmail.com",
         phone: "4168888888",
-        messages: ["1", "2", "3"],
-        posts: ["1", "2", "3"],
-        isBanned: false,
-        isBuyer: false,
-        avatar: "img/avatar_placeholder.png",
+        orderInfo: {
+            twoMonthTotal : 48300,
+            activeNum : 2,
+            finishedNum : 21,
+            postedNum : 4
+        },
         unreadNum: 3,
-        description: ""
+        messages: [
+            {
+                from: 'User2',
+                to: 'User1',
+                title: 'Offer Question',
+                content: 'Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!',
+                date: new Date(2019, 1, 11),
+                isRead: true,
+                isStarred: true
+            }, 
+            {
+                from: 'User1',
+                to: 'User2',
+                title: 'Answer To Question',
+                content: 'Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
+                date: new Date(2019, 1, 12),
+                isRead: true,
+                isStarred: false
+            }, 
+            {
+                from: 'User3',
+                to: 'User1',
+                title: 'Regarding the Offer',
+                content: 'Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!',
+                date: new Date(2019, 2, 11),
+                isRead: true,
+                isStarred: false
+            },
+            {
+                from: 'User1',
+                to: 'User3',
+                title: 'Response',
+                content: 'Hello, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
+                date: new Date(2019, 2, 13),
+                isRead: false,
+                isStarred: false
+            }
+        ],
+        posts: [
+            {
+                id: 5,
+                title: "Nestea Lemon, Pack of 12 cnas",
+                type: "offer",
+                category: "food",
+                quantity: "5 packs",
+                price: 30,
+                userName: "User2",
+                date: new Date(2018, 11, 9),
+                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
+                image: "img/nestea.jpg"
+            }, 
+            {
+                id: 6,
+                title: "CLIF Energy Bar, Chocolate Brownie flavour",
+                type: "offer",
+                category: "food",
+                quantity: "12 count",
+                price: 5.99,
+                userName: "User2",
+                date: new Date(2018, 11, 24),
+                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
+                image: "img/clif.jpg"
+            },
+            {
+                id: 7,
+                title: "Crocs Clog",
+                type: "offer",
+                category: "clothing",
+                quantity: "20 count",
+                price: 200,
+                userName: "User2",
+                date: new Date(2019, 0, 3),
+                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
+                image: "img/crocs.jpg"
+            },
+            {
+                id: 8,
+                title: "Affordable Mens Sweatshirt",
+                type: "offer",
+                category: "clothing",
+                quantity: "30 count",
+                price: 270,
+                userName: "User2",
+                date: new Date(2019, 1, 12),
+                description: "Good quality mens sweatshirt.",
+                image: "img/shirt.jpeg"
+            }
+        ],
+        isBanned: false,
+        isBuyer: true,
+        avatar: "img/avatar_placeholder.png",
+        description: "End hunger in our city."
     };
     return mockUser;
 }
 
-function getMessageById(msgIdList) {
-    let resultMsg;
-    return resultMsg;
-}
+function getSearchResult() {
+    return `
+        <div class="row mt-2 mb-2 border-bottom result">
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-9">
+            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="profile.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+        </div></div>
 
-function getPostById(postIdList) {
-    let resultPost;
-    return resultPost;
+        <div class="row mt-2 mb-2 border-bottom result">
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-9">
+            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="profile.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+        </div></div>
+        
+        <div class="row mt-2 mb-2 border-bottom result">
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-9">
+            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="profile.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+        </div></div>`;
 }
 
 function addNavContent(user) {
@@ -63,11 +169,30 @@ function addNavContent(user) {
     // Search box input
     const searchInput = document.createElement("form");
     searchInput.className += "form-inline mr-auto";
-    searchInput.setAttribute("action", "/action_page.php");
+    // searchInput.setAttribute("action", "/action_page.php");
     const searchTextbox = document.createElement("input");
     searchTextbox.className += "form-control mr-sm-2 d-none d-sm-block";
     searchTextbox.setAttribute("type", "text");
     searchTextbox.setAttribute("placeholder", "Search");
+    searchTextbox.setAttribute("id", "searchInput");
+
+    $("#topNav").after(`<div class="modal" id="searchrResultModal" tabindex="-1" role="dialog" data-focus=false>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"><div class="modal-body p-1 pl-3 pr-3">
+                ${getSearchResult()}
+            </div></div>
+        </div></div>`);
+    $("body").on('click', function(){
+        $('#searchrResultModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+    })
+
+
+    $("#topNav").on('keypress', '#searchInput',function(){
+        console.log("pressed")
+        $('#searchrResultModal').modal('show');
+    });
     const searchBtn = document.createElement("button");
     searchBtn.className += "btn btn-light";
     searchBtn.setAttribute("type", "submit");

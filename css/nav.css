@@ -1,0 +1,11 @@
+#searchrResultModal {
+    position: fixed!important;
+    top: 2.5em!important;
+    left: 2em!important;
+    z-index: 10040;
+    width: 600px;
+    min-height: 200px;
+    max-height: 600px;
+    overflow: auto;
+    overflow-y: auto;
+}

@@ -7,25 +7,106 @@ function getUser() {
         password: "buyer",
         email: "buyer@gmail.com",
         phone: "4166666666",
-        messages: ["1", "2", "3"],
-        posts: ["1", "2", "3"],
+        orderInfo: {
+            activeNum : 0,
+            finishedNum : 3,
+            postedNum : 4
+        },
+        unreadNum: 5,
+        messages: [
+            {
+                from: 'User2',
+                to: 'User1',
+                title: 'Offer Question',
+                content: 'Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!',
+                date: new Date(2019, 1, 11),
+                isRead: true,
+                isStarred: true
+            }, 
+            {
+                from: 'User1',
+                to: 'User2',
+                title: 'Answer To Question',
+                content: 'Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
+                date: new Date(2019, 1, 12),
+                isRead: true,
+                isStarred: false
+            }, 
+            {
+                from: 'User3',
+                to: 'User1',
+                title: 'Regarding the Offer',
+                content: 'Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!',
+                date: new Date(2019, 2, 11),
+                isRead: true,
+                isStarred: false
+            },
+            {
+                from: 'User1',
+                to: 'User3',
+                title: 'Response',
+                content: 'Hello, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
+                date: new Date(2019, 2, 13),
+                isRead: false,
+                isStarred: false
+            }
+        ],
+        posts: [
+            {
+                id: 1,
+                title: "Canned soup",
+                type: "request",
+                category: "food",
+                quantity: "20 unit",
+                price: 89,
+                userName: "User1",
+                date: new Date(2018, 11, 10),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "img/canned_soup.jpg"
+            }, 
+            {
+                id: 2,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg"
+            },
+            {
+                id: 3,
+                title: "Frozen vegetables",
+                type: "request",
+                category: "food",
+                quantity: "10 kg",
+                price: 100,
+                userName: "User1",
+                date: new Date(2019, 0, 9),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "img/frozen_veg.png"
+            },
+            {
+                id: 4,
+                title: "Android tablet (used or new)",
+                type: "request",
+                category: "electronics",
+                quantity: "2 unit",
+                price: 199,
+                userName: "User1",
+                date: new Date(2019, 1, 10),
+                description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
+                image: "img/tablet.jpg"
+            }
+        ],
         isBanned: false,
         isBuyer: true,
         avatar: "img/avatar_placeholder.png",
-        unreadNum: 5,
-        description: ""
+        description: "Somewhere Over The Rainbow"
     };
     return mockUser;
-}
-
-function getMessageById(msgId) {
-    let resultMsg;
-    return resultMsg;
-}
-
-function getPostById(postId) {
-    let resultPost;
-    return resultPost;
 }
 
 function addNavContent(user) {
@@ -63,7 +144,7 @@ function addNavContent(user) {
     // Search box input
     const searchInput = document.createElement("form");
     searchInput.className += "form-inline mr-auto";
-    searchInput.setAttribute("action", "/action_page.php");
+    // searchInput.setAttribute("action", "/action_page.php");
     const searchTextbox = document.createElement("input");
     searchTextbox.className += "form-control mr-sm-2 d-none d-sm-block";
     searchTextbox.setAttribute("type", "text");
