@@ -35,7 +35,7 @@
                             fill="black" />
                         <path d="M0 0h24v24H0z" fill="none" /></svg>
                 </span>
-                <span class="d-none d-md-block">Sent messages </span>
+                <span class="d-none d-md-block" onclick="changeColor(this)">Sent messages </span>
                 <span class="badge badge-light ml-auto">1</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center p-2">
@@ -54,47 +54,7 @@
     </div>
 
     <div class="list-group list-group-flush" id="mainContainer">
-        <a href="msg_detail.html" class="list-group-item list-group-item-action flex-column align-items-start pr-1">
-            <div class="d-flex w-100 justify-content-between">
-                <ul class="col-2 list-inline m-0 p-0">
-                    <img alt="..." src="img/avatar_placeholder.png" class="list-inline-item rounded-circle avatar" />
-                    <li class="list-inline-item"><small>User1</small></li>
-                </ul>
-                <div class="col-10">
-                    <div class="d-flex justify-content-between">
-                        <h5>Order confirmation <small class="border rounded p-1">3</small></h5>
-                        <span>9:15 March 1, 2019
-                            <span class="badge badge-pill badge-light">Read
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg>
-                            </span>
-                        </span>
-                    </div>
-                    <p class="text-truncate" style="max-width: 90%;">
-                        Praeterea iter est quasdam res quas ex communi. Praeterea iter est quasdam res quas ex communi.
-                    </p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start pr-1">
-            <div class="d-flex w-100 justify-content-between">
-                <ul class="col-2 list-inline m-0 p-0">
-                    <img alt="..." src="img/avatar_placeholder.png" class="list-inline-item rounded-circle avatar" />
-                    <li class="list-inline-item"><small>User1</small></li>
-                </ul>
-                <div class="col-10">
-                    <div class="d-flex justify-content-between">
-                        <h5>Order confirmation <small class="border rounded p-1">1</small></h5>
-                        <span>9:15 March 1, 2019 <span class="badge badge-pill badge-primary">New</span></span>
-                    </div>
-                    <p class="text-truncate" style="max-width: 90%;">
-                        Praeterea iter est quasdam res quas ex communi. Praeterea iter est quasdam res quas ex communi.
-                    </p>
-                </div>
-            </div>
-        </a>
-        <div class="card-footer text-center">No more messages</div>
+        <div id="end" class="card-footer text-center">No more messages</div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
