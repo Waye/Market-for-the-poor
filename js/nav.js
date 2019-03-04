@@ -1,22 +1,6 @@
 "use strict";
 console.log("nav.js")  // log to the JavaScript console.
 
-const mockUser = {
-    name: "user",
-    password: "user",
-    isBuyer: false,
-    loggedIn: false,
-    avatar: null,
-    unreadNum: 3
-}
-
-const mockAdmin = {
-    name: "admin",
-    password: "admin",
-    loggedIn: false,
-    avatar: null
-}
-
 function addNavContent(user) {
     // Logo and home page redirect
     const logoLink = document.createElement("a");
@@ -75,8 +59,6 @@ function addNavContent(user) {
     postBtnLink.appendChild(postBtnSpan)
     postBtn.appendChild(postBtnLink);
 
-
-
     /// Profile button
     const profileBtn = document.createElement("li");
     profileBtn.className += "nav-item ml-2";
@@ -100,7 +82,7 @@ function addNavContent(user) {
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
     msgBtnSpan.innerText = "Messages ";
-    msgBtnSpan.innerHTML += `<span class="badge badge-light">${mockUser.unreadNum}</span>`;
+    msgBtnSpan.innerHTML += `<span class="badge badge-light">${user.unreadNum}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 
@@ -113,7 +95,7 @@ function addNavContent(user) {
     logoutBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>`;
     const logoutBtnSpan = document.createElement("span")
     logoutBtnSpan.className += "d-none d-md-block";
-    logoutBtnSpan.innerText = "Logout";
+    logoutBtnSpan.innerText = `Log Out ${user.name}`;
     logoutBtnLink.appendChild(logoutBtnSpan);
     logoutBtn.appendChild(logoutBtnLink);
 
@@ -124,5 +106,19 @@ function addNavContent(user) {
     $("#topNav").append(navBtnUl);
 }
 
-addNavContent(mockUser);
+function getUser() {
+    const mockUser = {
+        name: "user1",
+        password: "user",
+        isBuyer: false,
+        loggedIn: false,
+        avatar: null,
+        unreadNum: 3
+    }
+    return mockUser;
+}
 
+function main() {
+    addNavContent(getUser());
+}
+$(document).ready(main);

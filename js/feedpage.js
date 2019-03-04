@@ -1,21 +1,110 @@
 "use strict";
 console.log("feedpage.js") // log to the JavaScript console.
 
-const mockHeaderInfo = {
-    twoMonthTotal : 48300,
-    activeNum : 3,
-    finishedNum : 21,
-    postedNum : 12
+
+// Refresh
+$("#refreshBtn").on('click', function() {
+    updateFeed(getFeed());
+});
+
+
+// Sort
+$("#sortOptionContainer").on('click', 'a', function() {
+    const sortMethod = $(this).attr('id');
+    let sortedFeed = getFeed();
+    if (sortMethod == "sortNew") {
+        sortNew(sortedFeed);
+    } else if (sortMethod == "sortOld") {
+        sortOld(sortedFeed);
+    } else if (sortMethod == "sortHigh") {
+        sortHigh(sortedFeed);
+    } else if (sortMethod == "sortLow") {
+        sortLow(sortedFeed);        
+    }
+    updateFeed(sortedFeed);
+})
+function sortOld(feed) {
+    feed.sort(function(a, b) {
+        return a.postDate - b.postDate;
+    });
+    return feed;
+}
+function sortNew(feed) {
+    feed.sort(function(a, b) {
+        return b.postDate - a.postDate;
+    });
+    return feed;
+}
+function sortHigh(feed) {
+    feed.sort(function(a, b) {
+        return b.price - a.price;
+    });
+    return feed;
+}
+function sortLow(feed) {
+    feed.sort(function (a, b) {
+        return a.price - b.price;
+    });
+    return feed;
 }
 
-const mockFilterNum = {
-    food : 14,
-    electronics : 2,
-    clothings : 1,
-    furnitures : 3,
-    tools : 4,
-    other : 9
+
+// Filter
+$("#collapseFilter").on('click', '#minPriceBtn', function() {
+    const minPrice = $("#minPriceInput").val();
+    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, getFeed()));
+    $("#maxPriceInput").val('');
+});
+$("#collapseFilter").on('click', '#maxPriceBtn', function() {
+    const maxPrice = $("#maxPriceInput").val();
+    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, getFeed()));
+    $("#minPriceInput").val('');
+});
+function filterMinPrice(minPrice, feedList) {
+    const filterResult = [];
+    feedList.forEach(f => {
+        if (f.price >= minPrice) filterResult.push(f);
+    })
+    return filterResult;
 }
+function filterMaxPrice(maxPrice, feedList) {
+    const filterResult = [];
+    feedList.forEach(f => {
+        if (f.price <= maxPrice) filterResult.push(f);
+    })
+    return filterResult;
+}
+$('#collapseFilter').on('click', 'a', function() {
+    $(this).toggleClass('active');
+    if ($('.active').length > 0 && $("#clearFilter").length == 0) {
+        $("#collapseFilter").before(`<div class="card-header p-1 pl-3 pr-3" id="clearFilter"><span class="d-none d-md-block">Clear filters</span></div>`);
+    } else if ($('.active').length == 0) {
+        $("#clearFilter").remove();
+    }
+    handleFilter();
+});
+function filterFeed(filterList, feedList) {
+    if (filterList.length <= 0) return feedList;
+    const filterResult = [];
+    feedList.forEach(f => {
+        if (filterList.includes(f.type)) filterResult.push(f);
+    })
+    return filterResult;
+}
+function handleFilter() {
+    const foundActiveFilters = $('#collapseCard').find('.active');
+    const activeFilters = []
+    for (let i = 0; i < foundActiveFilters.length; i++) {
+        activeFilters.push(foundActiveFilters[i].id);
+    }
+    console.log(activeFilters);
+    updateFeed(filterFeed(activeFilters, getFeed()));
+}
+$('#collapseCard').on('click', '#clearFilter', function() { // Click clear filter
+    $('#collapseCard').find('.active').removeClass('active');
+    $("#clearFilter").remove();
+    updateFeed(getFeed()); // force update all feed
+})
 
 function addInfoHeaderContent(headerInfo, user) {
     const totalTextLg = document.createElement("h1");
@@ -30,6 +119,9 @@ function addInfoHeaderContent(headerInfo, user) {
 
     if (user.isBuyer) {
         $('#feedName').html("Offer feed");
+        $("#dollarCol").remove();
+        $("#feedNavCol").attr("class", "col-12");
+        $("#feedNavCol").find('h1').removeClass("display-4");
     } else {
         $('#feedName').html("Request feed");
     }
@@ -38,20 +130,22 @@ function addInfoHeaderContent(headerInfo, user) {
     $('.postedNum').html(headerInfo.postedNum);
 }
 
-addInfoHeaderContent(mockHeaderInfo, mockUser);
+function addFilter(filterDataList) {
+    filterDataList.forEach(filterData => {
+        $("#priceFilter").before(`<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2" id="${filterData.filter}">
+        ${filterData.filter}<span class="badge badge-light badge-pill" id="foodFilterNum">${filterData.filterNum}</span></a>`);
+    })
+}
 
 function getProductPageUrl(productId) {
-    if (productId == 1) {
-        return "product_detail.html"
-    } else if (productId == 2) {
-        return "product_detail.html"
-    }
+    return "product_detail.html"
 }
 
 class Post {
-    constructor(productId, productName, quantity, price, sellerName, postDate) {
+    constructor(productId, productName, type, quantity, price, sellerName, postDate) {
         this.productId = productId;
         this.productName = productName;
+        this.type = type;
         this.quantity = quantity;
         this.price = price;
         this.sellerName = sellerName;
@@ -69,7 +163,6 @@ class Post {
     get element() {
         return this.createElement();
     }
-
     // Method for getter
     createElement() {
         const productElement = document.createElement('div');
@@ -96,7 +189,7 @@ class Post {
         contentHeader.appendChild(contentHeaderQty);
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
-        contentInfoLink.setAttribute("href", "#"); // TODO change with user page url
+        contentInfoLink.setAttribute("href", "profile.html");
         contentInfoLink.appendChild(document.createTextNode(this.sellerName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -112,7 +205,7 @@ class Post {
 
         const priceCol = document.createElement('div');
         priceCol.className += "col-4 col-md-3 text-right";
-        const priceStr = (this.price).toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        const priceStr = (this.price).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         priceCol.innerHTML = `<h3>${priceStr}</h3>`;
 
         productElement.appendChild(imgCol);
@@ -122,23 +215,71 @@ class Post {
     }
 }
 
-const mockProductData = [];
-const product1 = new Post(1, "Frozen vegetables", "10 kg", 100, "User1", new Date(2018, 11, 23));
-product1.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
-product1.setProductImg("img/frozen_veg.png");
-mockProductData.push(product1);
-const product2 = new Post(2, "Canned soup", "20 unit", 89, "User3", new Date(2018, 11, 10));
-product2.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
-product2.setProductImg("img/canned_soup.jpg");
-mockProductData.push(product2);
+function getFeed() {
+    const mockProductData = [];
+    const product1 = new Post(1, "Frozen vegetables", "food", "10 kg", 100, "User1", new Date(2018, 11, 23));
+    product1.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
+    product1.setProductImg("img/frozen_veg.png");
+    mockProductData.push(product1);
+    const product2 = new Post(2, "Canned soup", "food", "20 unit", 89, "User3", new Date(2018, 11, 10));
+    product2.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
+    product2.setProductImg("img/canned_soup.jpg");
+    mockProductData.push(product2);
+    return mockProductData;
+}
 
-mockProductData.forEach(p => {
-    $('#productContainer').append(p.element);
-});
+function getHeaderInfo() {
+    const mockHeaderInfo = {
+        twoMonthTotal : 48300,
+        activeNum : 3,
+        finishedNum : 21,
+        postedNum : 12
+    }
+    return mockHeaderInfo
+}
 
-$('#foodFilterNum').html(mockFilterNum.food);
-$('#elecFilterNum').html(mockFilterNum.electronics);
-$('#clothFilterNum').html(mockFilterNum.clothings);
-$('#furniFilterNum').html(mockFilterNum.furnitures);
-$('#toolsFilterNum').html(mockFilterNum.tools);
-$('#otherFilterNum').html(mockFilterNum.other);
+function getFilterData() {
+    const mockFilterData = [
+        {
+            filter: "food",
+            filterNum: 14
+        },
+        {
+            filter: "electronics",
+            filterNum: 2
+        },
+        {
+            filter: "clothings",
+            filterNum : 1
+        },
+        {
+            filter: "furnitures",
+            filterNum : 3
+        },
+        {
+            filter: "tools",
+            filterNum : 4
+        },
+        {
+            filter: "other",
+            filterNum : 9
+        }
+    ]
+    return mockFilterData;
+}
+
+function updateFeed(productData) {
+    $('#productContainer').empty();
+    if (productData) {
+        productData.forEach(p => {
+            $('#productContainer').append(p.element);
+        });
+    }
+}
+
+function main() {
+    addInfoHeaderContent(getHeaderInfo(), getUser());
+    addFilter(getFilterData());
+    updateFeed(getFeed());
+}
+$(document).ready(main);
