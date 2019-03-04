@@ -71,31 +71,31 @@ $("#modal").html(postPopupElement);
 const category = ['food', 'electronics', 'clothings', 'furnitures', 'tools', 'other']
 const units = []
 
-// for mock data
-const User = function (name, description, icon, isBuyer, phone) {
-    this.name = name;
-    this.description = description;
-    this.icon = icon;
-    this.isBuyer = isBuyer;
-    this.phone = phone;
-}
+// // for mock data
+// const User = function (name, description, icon, isBuyer, phone) {
+//     this.name = name;
+//     this.description = description;
+//     this.icon = icon;
+//     this.isBuyer = isBuyer;
+//     this.phone = phone;
+// }
 
-// for mock data
-const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
-    this.id = id;
-    this.date = date;
-    this.title = title;
-    this.userName = userName;
-    this.description = description;
-    this.price = price;
-    this.quantity = quantity;
-    this.image = image;
-    this.dueDate = dueDate;
-    this.type = type;
-}
+// // for mock data
+// const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type) {
+//     this.id = id;
+//     this.date = date;
+//     this.title = title;
+//     this.userName = userName;
+//     this.description = description;
+//     this.price = price;
+//     this.quantity = quantity;
+//     this.image = image;
+//     this.dueDate = dueDate;
+//     this.type = type;
+// }
 
-// for mock data
-const currentUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
+// // for mock data
+// const currentUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
 
 $(document).ready(function() {
 	renderCategory()
