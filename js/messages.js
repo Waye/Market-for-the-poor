@@ -89,9 +89,13 @@ function renderInboxOrSent(firstMsgFinder) {
     console.log(messages)
     for (let u of users) {
         const conversation = messages.filter(msg => msg.from == u || msg.to == u)
-        
+        console.log(conversation)
         // fist inbox message of conversation
+        // need to fix firstMsgFinder. When 
         let m = getFirstMsg(firstMsgFinder, conversation)
+        if (m == null) {
+            continue
+        }
         const date = m.date.toLocaleDateString("en-US", dataFormat)
         let status = (m.isRead ? 'Read' : 'New')
         html = html + `<a href="msg_detail.html" class="list-group-item list-group-item-action flex-column align-items-start pr-1">
@@ -201,8 +205,8 @@ function sendMessage() {
     const from = curUser.name
     const title = $('#msgTitle').val()
     const content = $('#msgContent').val()
-    const date = (new Date()).toLocaleDateString(dataFormat)
-    messages.push(new Message(to, from, title, content, date, false, false))
+    // const date = (new Date()).toLocaleDateString(dataFormat)
+    messages.push(new Message(from, to, title, content, new Date(), false, false))
     removeMainContainer()
     renderMenuSection()
     const html = `<div class='row'><div class='col-md-2'></div>
