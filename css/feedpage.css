@@ -12,6 +12,6 @@ img.avatar {
 }
 
 .sticky-offset {
-    top: 4em!important;
+    top: 5em!important;
     z-index: 900!important;
 }

@@ -1,12 +1,10 @@
 "use strict";
 console.log("feedpage.js") // log to the JavaScript console.
 
-
 // Refresh
 $("#refreshBtn").on('click', function() {
     updateFeed(getFeed());
 });
-
 
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
@@ -138,7 +136,10 @@ function addFilter(filterDataList) {
 }
 
 function getProductPageUrl(productId) {
-    return "product_detail.html"
+    if (getUser().isBuyer) {
+        return "product_detail_buyer.html"
+    }
+    return "product_detail_seller.html"
 }
 
 class Post {
