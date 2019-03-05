@@ -49,7 +49,7 @@
                         </div>
                     </a>
 
-                    <a href="orderpage_seller.html" class="col-3 nav-link text-secondary">
+                    <a href="orderpage_seller.html#activeOrders" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center activeNum">0</h1>
@@ -63,7 +63,7 @@
                         </div>
                     </a>
 
-                    <a href="orderpage_seller.html" class="col-3 nav-link text-secondary">
+                    <a href="orderpage_seller.html#finishedOrders" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center finishedNum">0</h1>
@@ -77,7 +77,7 @@
                         </div>
                     </a>
 
-                    <a href="orderpage_seller.html" class="col-3 nav-link text-secondary">
+                    <a href="orderpage_seller.html#posted" class="col-3 nav-link text-secondary">
                         <div class="row">
                             <div class="col-md-12">
                                 <h1 class="display-4 d-none d-lg-block text-center postedNum">0</h1>
@@ -94,23 +94,23 @@
             </div> <!-- End of Jumbo-button -->
         </div> <!-- End of Jumbotron row -->
         <div class="" id="orderContainer">
-            <div class="activeContainer">
+            <a class="activeContainer" name="activeOrders">
                 <div class="p-2 bg-light sticky-top sticky-offset">
                     <h5>Active orders <small>(<span id="stickyActiveNum">0</span>)</small></h5>
                 </div>
-            </div>
+            </a>
 
-            <div class="postContainer">
+            <a class="postContainer" name="posted">
                 <div class="p-2 bg-light sticky-top sticky-offset">
                     <h5>Posted orders <small>(<span id="stickyPostNum">0</span>)</small></h5>
                 </div>
-            </div>
+            </a>
 
-            <div class="finishContainer">
+            <a class="finishContainer" name="finishedOrders">
                 <div class="p-2 bg-light sticky-top sticky-offset">
                     <h5>Finished orders <small>(<span id="stickyFinishNum">0</span>)</small></h5>
                 </div>
-            </div>
+            </a>
         </div>
 
     </div>
