@@ -19,409 +19,91 @@
 
 
 <div class="container-fluid" >
-    <div class="row" style="padding-top: 10px">
+    <div class="row">
+        <!--profile part-->
         <div class="col-md-3">
-            <!--user profile-->
             <div class="card shadow" >
-                <img class="card-img-top" src="img/avatar_placeholder.png">
-                <div class="card-body">
-                    <h5 class="card-title" id="UserName">Li-Ming</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item" id="email">google@gamil.com</li>
-                        <li class="list-group-item" id="phone">648-888-1699</li>
-                        <li class="list-group-item" id="status">Active</li>
-                        <li class="list-group-item" id="buyer/seller">seller and buyer</li>
+                <img class="card-img-top" id="profile-image" src="img/profile-initial-image.png">
+                <div class="card-body" id="profile-card-body">
+                    <h5 class="card-title" id="UserName">UserName</h5>
+                    <ul class="list-group ">
+                        <li class="list-group-item" id="email">email</li>
+                        <li class="list-group-item" id="phone">phone number</li>
+                        <li class="list-group-item" id="status">status</li>
+                        <li class="list-group-item" id="buyerOrseller">role</li>
                     </ul>
+                    <p class="card-text" id="description">description</p>
+                    <button type="button" class="btn btn-success" id="Edit-btn">Edit</button>
+                    <button type="button" class="btn btn-success" id="change-password-btn">Change Password</button>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">I like my artsy with a little bit of fartsy. I love Sundays spent drinking massive amounts of coffee and lingering over newspapers and comics (yes, I read comics). And my Friday nights? Well you’ll just have to wait and see won’t you? Favorite Movie: An American Tale: Fievel Goes West. What can I say? I love that damn mouse and always had a thing for cowboys. Favorite Place: The fort I made in my basement when I was 11. My parents let me keep that thing up for a full eight  months and it was magic. Favorite Food: Cheetos. Puffs. I don’t know what y’all are thinking with that crunchy crap.</p>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-success">Change Password</button>
-                </div>
+
+
 
 
             </div>
         </div>
 
-        <div class="col-md-9">
-
-
-            <!--product bars-->
+        <!--post part-->
+        <div class="col-md-9" id="post-part">
             <main>
                 <div class="container-fluid">
 
-                    <!--Navbar-->
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                        <!-- Navbar brand -->
-                        <span class="navbar-brand">
-                                    Offer
-                                    <label class="switch">
-
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-
-                                    </label>
-                                    Order
-                        </span>
-
+                    <!--Nav bar-->
+                    <nav class="navbar navbar-expand-lg navbar-light  shadow" id="post-nav-bar">
 
 
                         <!-- Collapsible content -->
-                        <div class="collapse navbar-collapse" id="productsNav">
+                        <div class="collapse navbar-collapse " id="productsNav">
 
                             <!-- Links -->
-                            <ul class="navbar-nav mr-auto">
+                            <ul class="navbar-nav mr-auto  ">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Category:</a>
+                                    <a class="nav-link text-primary" href="#Completed">Completed<span class="badge badge-light badge-pill category-sum">20</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Shirts</a>
+                                    <a class="nav-link text-danger" href="#In-completed">In-completed<span class="badge badge-light badge-pill category-sum">20</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Sport wears</a>
+                                    <a class="nav-link text-info" href="#Total">Total<span class="badge badge-light badge-pill category-sum">120</span></a>
+
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Outwears</a>
+                                    <a class="nav-link" href="#Shirts">Shirts<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#electronics">electronics<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#clothing">clothing<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#furniture">furniture<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tools">tools<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-waring" href="#other">other<span class="badge badge-light badge-pill category-sum">20</span></a>
                                 </li>
 
                             </ul>
-                            <!-- Links -->
 
-                            <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
                         </div>
-                        <!-- Collapsible content -->
-
                     </nav>
-                    <!--/.Navbar-->
 
-                    <!--Section: Product-->
-                    <section class="text-center mb-4">
 
-                        <!--Grid product row -->
-
-                        <div class="row wow fadeIn" style="padding-top: 10px">
-
-                            <!--products-->
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row wow fadeIn" style="padding-top: 10px">
-                            <!--product-->
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4">
-
-                                <!--4 products a row-->
-                                <div class="card shadow" class="request/offer">
-
-                                    <!--Card image-->
-                                    <div class="view overlay">
-                                        <img src="img/canned_soup.jpg" class="card-img-top" alt="">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <a href="" class="grey-text">
-                                            <h5>Canned_soup</h5>
-                                        </a>
-                                        <h5>
-                                            <strong>
-                                                <a href="" class="dark-grey-text">
-                                                    <span class="badge badge-pill danger-color">Offer</span>
-                                                </a>
-                                            </strong>
-                                        </h5>
-
-                                        <h4 class="font-weight-bold blue-text">
-                                            <strong>$100</strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-
-                            </div>
-                        </div>
+                    <!--Section: Product display-->
+                    <section class="text-center mb-4 post-TwoRow">
+                        <!--first row-->
+                        <div class="row fadeIn " id="post-row1"></div>
+                        <!--second row-->
+                        <div class="row fadeIn" id="post-row2"></div>
 
                     </section>
-                    <!--Section: Products v.3-->
+
 
                     <!--Pagination-->
-                    <nav class="d-flex justify-content-center wow fadeIn">
+                    <nav class="d-flex justify-content-center wow fadeIn" id="paginationStuff">
                         <ul class="pagination pg-blue">
 
                             <!--Arrow left-->
@@ -439,15 +121,6 @@
                             </li>
                             <li class="page-item">
                                 <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
                             </li>
 
                             <li class="page-item">
@@ -469,7 +142,7 @@
 
     </div>
     <!--Footer-->
-    <footer class="page-footer text-center font-small mt-4  fadeIn bg-light">
+    <footer class="page-footer text-center font-small mt-4  fadeIn bg-light shadow">
 
         <!--Call to action-->
         <div class="pt-4">
