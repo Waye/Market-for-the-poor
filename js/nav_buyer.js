@@ -230,7 +230,8 @@ function getUser() {
                 description: "Our office is in need of desk lamp. ",
                 image: "img/lamp.jpg",
                 isCompleted: true
-            },{
+            },
+            {
                 id: 13,
                 title: "Basic desk lamp",
                 type: "request",
@@ -243,7 +244,8 @@ function getUser() {
                 description: "Our office is in need of desk lamp. ",
                 image: "img/lamp.jpg",
                 isCompleted: false
-            },{
+            },
+            {
                 id: 14,
                 title: "Basic desk lamp",
                 type: "request",
@@ -256,7 +258,8 @@ function getUser() {
                 description: "Our office is in need of desk lamp. ",
                 image: "img/lamp.jpg",
                 isCompleted: true
-            },{
+            },
+            {
                 id: 15,
                 title: "Basic desk lamp",
                 type: "request",
@@ -464,7 +467,8 @@ function getUser() {
                 description: "Our office is in need of desk lamp. ",
                 image: "img/lamp.jpg",
                 isCompleted: false
-            },{
+            },
+            {
                 id: 30,
                 title: "Basic desk lamp",
                 type: "request",
@@ -477,7 +481,7 @@ function getUser() {
                 description: "Our office is in need of desk lamp. ",
                 image: "img/lamp.jpg",
                 isCompleted: false
-            },
+            }
 
 
 
