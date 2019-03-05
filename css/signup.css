@@ -52,32 +52,13 @@ button:hover {
     padding: 16px;
 }
 
-/* The "Forgot password" text */
-span.psw {
-    float: right;
-    /*padding-top: 16px;*/
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-}
-
 label {
     display: block;
 }
 
 
 #popUpMsg {
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid grey;
     position: fixed;
     top: 225px;
     left: 400px;
-    background-color: lightgrey;
-    display: none;
 }
