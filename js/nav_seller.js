@@ -1,12 +1,14 @@
 "use strict";
 console.log("nav_seller.js")  // log to the JavaScript console.
 
-const currentUser = getUser();
-
-function getPost() {
-    return currentUser.posts
+const currentUser1 = getUser();
+function getMessage() {
+    return currentUser.messages;
 }
+function getPost() {
+    return currentUser.posts;
 
+}
 function getUser() {
     let mockUser = {
         name: "User2",

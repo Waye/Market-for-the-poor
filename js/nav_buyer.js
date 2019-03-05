@@ -1,13 +1,14 @@
 "use strict";
 console.log("nav_buyer.js")  // log to the JavaScript console.
 
-const currentUser = getUser();
-
-function getPost() {
-    return currentUser.posts
+const currentUser2 = getUser();
+function getMessage() {
+    return currentUser.messages;
 }
+function getPost() {
+    return currentUser.posts;
 
-
+}
 function getUser() {
     let mockUser = {
         name: "User1",
@@ -70,7 +71,9 @@ function getUser() {
                 date: new Date(2018, 11, 10),
                 dueDate: new Date(2018, 12, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/canned_soup.jpg"
+                image: "img/canned_soup.jpg",
+                isCompleted:true
+
             }, 
             {
                 id: 2,
@@ -83,7 +86,8 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg"
+                image: "img/lamp.jpg",
+                isCompleted: false
             },
             {
                 id: 3,
@@ -96,7 +100,8 @@ function getUser() {
                 date: new Date(2019, 0, 9),
                 dueDate: new Date(2019, 1, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/frozen_veg.png"
+                image: "img/frozen_veg.png",
+                isCompleted:true
             },
             {
                 id: 4,
@@ -109,12 +114,13 @@ function getUser() {
                 date: new Date(2019, 1, 10),
                 dueDate: new Date(2019, 3, 1),
                 description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
-                image: "img/tablet.jpg"
+                image: "img/tablet.jpg",
+                isCompleted:true
             }
         ],
         isBanned: false,
         isBuyer: true,
-        avatar: "img/avatar_placeholder.png",
+        avatar: "img/profile-image.jpg",
         description: "Somewhere Over The Rainbow"
     };
     return mockUser;
