@@ -1,14 +1,8 @@
 "use strict";
 
 
-// test buyer and seller on your own, you can mute one by comment
-//currentUser1
-//currentUser2
-
-
-
-
-
+// test buyer and seller on your own
+const currentUser1 = getUser();
 
 function createUserInfo(UserNew){
 
@@ -41,7 +35,7 @@ function createUserInfo(UserNew){
 }
 
 //create a profile
-createUserInfo(currentUser2);
+createUserInfo(currentUser1);
 
 // function createPost(post){
 //     let role = null;
