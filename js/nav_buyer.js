@@ -2,12 +2,13 @@
 console.log("nav_buyer.js")  // log to the JavaScript console.
 
 const currentUser = getUser();
-
-function getPost() {
-    return currentUser.posts
+function getMessage() {
+    return currentUser.messages;
 }
+function getPost() {
+    return currentUser.posts;
 
-
+}
 function getUser() {
     let mockUser = {
         name: "User1",
@@ -70,7 +71,9 @@ function getUser() {
                 date: new Date(2018, 11, 10),
                 dueDate: new Date(2018, 12, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/canned_soup.jpg"
+                image: "img/canned_soup.jpg",
+                isCompleted:true
+
             }, 
             {
                 id: 2,
@@ -83,7 +86,8 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg"
+                image: "img/lamp.jpg",
+                isCompleted: false
             },
             {
                 id: 3,
@@ -96,7 +100,8 @@ function getUser() {
                 date: new Date(2019, 0, 9),
                 dueDate: new Date(2019, 1, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/frozen_veg.png"
+                image: "img/frozen_veg.png",
+                isCompleted:true
             },
             {
                 id: 4,
@@ -109,12 +114,376 @@ function getUser() {
                 date: new Date(2019, 1, 10),
                 dueDate: new Date(2019, 3, 1),
                 description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
-                image: "img/tablet.jpg"
-            }
+                image: "img/tablet.jpg",
+                isCompleted:true
+            },
+            {
+                id: 5,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 6,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 7,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 8,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 9,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: true
+            },
+            {
+                id: 10,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 11,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 12,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: true
+            },{
+                id: 13,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 14,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: true
+            },{
+                id: 15,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 16,
+                title: "Canned soup",
+                type: "request",
+                category: "food",
+                quantity: "20 unit",
+                price: 89,
+                userName: "User1",
+                date: new Date(2018, 11, 10),
+                dueDate: new Date(2018, 12, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "img/canned_soup.jpg",
+                isCompleted:true
+
+            },
+            {
+                id: 17,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 18,
+                title: "Frozen vegetables",
+                type: "request",
+                category: "food",
+                quantity: "10 kg",
+                price: 100,
+                userName: "User1",
+                date: new Date(2019, 0, 9),
+                dueDate: new Date(2019, 1, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "img/frozen_veg.png",
+                isCompleted:true
+            },
+            {
+                id: 19,
+                title: "Android tablet (used or new)",
+                type: "request",
+                category: "electronics",
+                quantity: "2 unit",
+                price: 199,
+                userName: "User1",
+                date: new Date(2019, 1, 10),
+                dueDate: new Date(2019, 3, 1),
+                description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
+                image: "img/tablet.jpg",
+                isCompleted:true
+            },
+            {
+                id: 20,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 21,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 22,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 23,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 24,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 25,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 26,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 27,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 28,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 29,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 30,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "img/lamp.jpg",
+                isCompleted: false
+            },
+
+
+
+
         ],
         isBanned: false,
         isBuyer: true,
-        avatar: "img/avatar_placeholder.png",
+        avatar: "img/profile-image.jpg",
         description: "Somewhere Over The Rainbow"
     };
     return mockUser;
