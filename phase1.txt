@@ -4,6 +4,8 @@ Basic features of our website
 
 Our website will allow the seller of essential goods such as food, drink and clothings to sell their cancelled or refunded orders at a cheaper cost to non-profit organizations. Seller users will be able to post what they want to sell and see the request from the buyers. Buyer users will be able to make purchase on products that they are interested in and make requests to sellers. An chat system is also implemented in our website for communication. 
 
+Additionally, since our target buyer users are poor(might not have a laptop), we specifically work on responsive features on which will make them access our website easier on thier phone. Such as having anchors on the feedpage.
+
 ==========
 index.html
 ==========
@@ -38,9 +40,9 @@ On the right side of the "feed" bar where it contains the refresh bottom, it als
 
 On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to post a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page.
 
-By clicking "Active orders", you will navigate to "orderpage_buyer.html", and can see the progress of your orders as well as your posted request and finished orders. For phase 1, this is still a mock page.
+By clicking "Active orders", "Finished" or "Posted", you will navigate to "orderpage_buyer.html", and can see the progress of your orders as well as your posted request and finished orders. For phase 1, this is still a mock page. Addtionally, we added anchors for all three buttons so when users click them the page will navigate to the location of "Active orders", "Posted orders" and "Finished orders". The effect can be shown when users are using smartphones or device that has narrower width. 
 
-By clicking each product shown on the page, users will navigate to "product_detail_buyer.html", which buyers can then make request on the product they want to purchase. For now, this is still a mock page.
+By clicking each product shown on the page, users will navigate to "product_detail_buyer.html", which buyers can then make request on the product they want to purchase. For now, this is still a mock page, and no matter which product user clicks it will show the same "Frozen Vegetables" page since we are not able to work on back end yet.
 
 
 Clicking "Profile", "Messages" and "Log Out" will link users to "profile_buyer.html", "messages_buyer.html" and "login.html", which will be explained later.
@@ -68,6 +70,7 @@ feedpage_seller.html
 
 Users need to be seller to be logged in into this page, same for all the pages below which contains "seller".
 All functionalities are the same as "feedpage_buyer.html" except that this page shows all products that this seller user is selling compared to the buyer page.
+Additionally, on the right side of the page, under the header there is text "$48300" is shown, which is designed to show the total earning of buyer since he/she registered.
 
 ===================
 profile_seller.html

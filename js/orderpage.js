@@ -14,7 +14,7 @@ function displayOrders(orderList, gotBuyerList) {
         } else if (order.status == "posted") {
             const postedElementHtml = `
             <div class="row m-2 p-3 border-bottom">
-                <div class="col-2 text-center order">
+                <div class="col-2 d-none d-md-block text-center order">
                     <img src="${order.producImage}" alt="...">
                 </div>
                 <div class="col-10  mt-auto mb-auto">
@@ -28,10 +28,10 @@ function displayOrders(orderList, gotBuyerList) {
         if (order.status != "posted") {
             const elementHtml = `
             <div class="row m-2 p-3 border-bottom">
-                <div class="col-2 text-center order">
+                <div class="col-2 d-none d-md-block text-center order">
                     <img src="${order.producImage}" alt="...">
                 </div>
-                <div class="col-4 mt-auto mb-auto">
+                <div class="col-6 col-md-4 mt-auto mb-auto">
                     <div class="row">
                         <h5>${order.productName} <small>Arrives ${order.arriveDate.toLocaleDateString("en-US", dataFormat)}</small></h5>
                     </div>
@@ -47,8 +47,8 @@ function displayOrders(orderList, gotBuyerList) {
                 </div>
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-4 text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
-                        <div class="col-8">
+                        <div class="col-4 d-none d-sm-block text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
+                        <div class="col-sm-8">
                             <a href="#">${gotBuyerList[i].userName}</a>
                             <p><strong>Deliver to:</strong> ${order.shipAddr}</p>
                         </div>

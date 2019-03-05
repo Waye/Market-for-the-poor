@@ -524,7 +524,6 @@ function addNavContent(user) {
     const logoLink = document.createElement("a");
     logoLink.className += "navbar-brand";
     logoLink.setAttribute("href", "feedpage_buyer.html");
-    // logoLink.innerText = "Logo"; // TODO replace it with dynamic logo image.
     const svgFillColor = "#17a2b8";
     logoLink.innerHTML = `<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns:dc="http://purl.org/dc/elements/1.1/"
        xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -651,7 +650,7 @@ function addNavContent(user) {
     logoutBtn.className += "nav-item ml-2";
     const logoutBtnLink = document.createElement("a");
     logoutBtnLink.className += "btn nav-link btn-light";
-    logoutBtnLink.setAttribute("href", "login.html");
+    logoutBtnLink.setAttribute("href", "index.html");
     logoutBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>`;
     const logoutBtnSpan = document.createElement("span")
     logoutBtnSpan.className += "d-none d-md-block";
@@ -667,7 +666,6 @@ function addNavContent(user) {
 }
 
 function main() {
-    // console.log('here')
     addNavContent(getUser());
 }
 $(document).ready(main);

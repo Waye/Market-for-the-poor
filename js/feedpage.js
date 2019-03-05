@@ -3,6 +3,7 @@ console.log("feedpage.js") // log to the JavaScript console.
 
 // Refresh
 $("#refreshBtn").on('click', function() {
+    clearAllFilter();
     updateFeed(getFeed());
 });
 
@@ -98,11 +99,13 @@ function handleFilter() {
     console.log(activeFilters);
     updateFeed(filterFeed(activeFilters, getFeed()));
 }
-$('#collapseCard').on('click', '#clearFilter', function() { // Click clear filter
+$('#collapseCard').on('click', '#clearFilter', clearAllFilter)
+
+function clearAllFilter() { // Click clear filter
     $('#collapseCard').find('.active').removeClass('active');
     $("#clearFilter").remove();
     updateFeed(getFeed()); // force update all feed
-})
+}
 
 function addInfoHeaderContent(headerInfo, userIsBuyer) {
     // console.log(userIsBuyer);
