@@ -9,3 +9,18 @@
     overflow: auto;
     overflow-y: auto;
 }
+
+#hiddenUpload {
+    display: none;
+}
+
+#uploadPreview {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+#uploadPreview img {
+    margin: 20px;
+    height: 60px;
+    width: auto;
+}
