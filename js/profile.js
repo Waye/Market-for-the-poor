@@ -77,84 +77,179 @@ function editUserInfo() {
     createUserInfo(currentUser)
 }
 
-// function createPost(post){
-//     let role = null;
+
+
+
+
+
+// //0,1,2,3,4,5,6,7
+// function pageBoundle(groupPost){
+//     let counter=1
+//     let row=[]
+//     let page=[]
+//     let pagestack=[]
+//     for(let i=0;i<groupPost.length;i++){
 //
-//     if(post.isCompleted)
-//     {
-//         role = "completed"
+//         row.push(createPost(groupPost[i]))
+//         if(counter%4 === 0)
+//         {
+//             page.push(createRow(row))
+//             row=[]
+//         }
+//         if((counter%8 === 0) || (counter=groupPost.length))
+//         {
+//             pagestack.push(createPage(page))
+//             page=[]
+//         }
+//         counter++
 //     }
-//     else
-//     {
-//         role ='not completed'
-//     }
-//
-//     const onePost=`<!--one post-->
-//
-//                 <div class="col-lg-3 col-md-6 mb-4 post-column">
-//                     <div class="card shadow request/offer" >
-//
-//                                     <!--Card image-->
-//                                     <div class="view overlay">
-//                                         <img src="${post.imgUrl}"  class="card-img-top post-img" >
-//                                     </div>
-//
-//
-//                                     <!--Card content-->
-//                                     <div class="card-body text-center">
-//                                         <!--Title & role-->
-//                                         <h6 class="post-title font-weight-bold font-italic">${post.title}</h6>
-//                                         <h6 class="post-role text-primary">${role}</h6>
-//                                     </div>
-//
-//
-//                                     <div class="card-body">
-//                                             <a href="product_detail.html" class="btn btn-success">Detail</a>
-//                                             <a href="" class="btn btn-success" >Modify</a>
-//                                     </div>
-//
-//
-//
-//
-//                     </div>
-//
-//                 </div>
-//                         `;
-//
-//     return onePost;
-//
+//     return pagestack
 // }
-//
-// // fetch datafrom database
-// const postGroup1=[post1,post2,post3,post4,post5,post6,post7,post8,post9,post10,post11,post12,post13,post14,post15,post16,post17,post18,post19,post20,];
-//
-// function array(postList){
-//
-//     const pageNumber = Math.ceil(postList.length/8);
-//     let pageStack=[];
-//
-//     // for(let j=0; j<= postList.length;j++){
-//     //      let singlePage= []
-//     //    for(let i =1;i<= pageNumber;i++){
-//     //        singlePage.push(postList[j]);
-//     //
-//     //        if((j+1)%8===0){
-//     //            break;
-//     //        }
-//     //    }
-//     //    pageStack.push(singlePage)
-//     // }
-//
-//
-//     for(let i=0; i<postList.length; i++){
-//         let singlePage=[];
-//     }
-//
-//
-//     return pageStack;
-// }
-//
-// console.log(array(postGroup1));
+
+
+function createPost(post){
+    let role = null;
+
+    if(post.isCompleted)
+    {
+        role = "completed"
+    }
+    else
+    {
+        role ='not completed'
+    }
+
+    const onePost=`<!--one post-->
+
+                <div class="col-lg-3 col-md-6 mb-4 post-column">
+                    <div class="card shadow request/offer" >
+
+                                    <!--Card image-->
+                                    <div class="view overlay">
+                                        <img src="${post.image}"  class="card-img-top post-img" >
+                                    </div>
+
+
+                                    <!--Card content-->
+                                    <div class="card-body text-center">
+                                        <!--Title & role-->
+                                        <h6 class="post-title font-weight-bold font-italic">${post.title}</h6>
+                                        <h6 class="post-role text-primary">${role}</h6>
+                                    </div>
+
+
+                                    <div class="card-body">
+                                            <a href="product_detail.html" class="btn btn-success">Detail</a>
+                                            <a href="" class="btn btn-success" >Modify</a>
+                                    </div>
+
+
+
+
+                    </div>
+
+                </div>
+                        `;
+
+    return onePost;
+
+}
+function createRow(){
+
+    let newRow=`<div class="row fadeIn post-row">
+</div>`;
+    return newRow
+}
+
+
+
+
+function renderPage(pagenum) {
+
+
+    let end = pagenum * 8
+    let start = end - 8
+
+    let html=``
+
+    if (posts.length < end) {
+        end = posts.length
+    }
+    for (let i = start; i < end; i++) {
+
+
+        html=html+createPost(post[i])
+        if (i == start + 4){
+            html=html+createRow()
+        }
+
+        html = html + post[i]//string of html
+
+        if(i== start + 8){
+
+        }
+
+
+
+    }
+
+}
+
+
+
+
+
+function createPagination(groupPost){
+
+    let pagenumber=Math.ceil(groupPost.length/8)
+
+
+    const preview=`<!--Arrow left-->
+                            <li class="page-item id="Previous">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>`
+    $('#pagenav').append(preview)
+
+    for(let i=1; i<pagenumber;i++)
+    {
+        let li=`<li class="page-item " id="${i}">
+                                <a class="page-link ">${i}
+                                    <!--<span class="sr-only">(current)</span>-->
+                                </a>
+                            </li>`;
+
+        $('#pagenav').append(li);
+
+    }
+
+    const next=`<li class="page-item " id="next">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>`;
+
+    $('#pagenav').append(next);
+}
+
+
+//use id to listen
+$('#pagenav').on('click', '.page-item',renderPage($(this).attr('id')));
+
+
+function main() {
+
+    let postGroup=getPost();
+    createUserInfo(currentUser);
+
+    createPagination(postGroup);
+}
+$(document).ready(main);
+
+
 
 
 
