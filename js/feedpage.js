@@ -191,7 +191,14 @@ class Post {
         contentHeader.appendChild(contentHeaderQty);
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
-        contentInfoLink.setAttribute("href", "profile.html");
+
+        let profile = null
+        if (getUser().isBuyer) {
+            profile = 'profile_buyer.html'
+        } else {
+            profile = 'profile_seller.html'
+        }
+        contentInfoLink.setAttribute("href", profile);
         contentInfoLink.appendChild(document.createTextNode(this.userName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };

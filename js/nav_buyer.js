@@ -2,13 +2,15 @@
 console.log("nav_buyer.js")  // log to the JavaScript console.
 
 const currentUser = getUser();
+
 function getMessage() {
     return currentUser.messages;
 }
+
 function getPost() {
     return currentUser.posts;
-
 }
+
 function getUser() {
     let mockUser = {
         name: "User1",
@@ -636,7 +638,7 @@ function addNavContent(user) {
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
     msgBtnSpan.innerText = "Messages ";
-    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${unread}</span>`;
+    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${unreadNum}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 
@@ -661,6 +663,7 @@ function addNavContent(user) {
 }
 
 function main() {
+    console.log('here')
     addNavContent(getUser());
 }
 $(document).ready(main);

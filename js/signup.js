@@ -10,33 +10,32 @@ $('.dropdown-item').click(function() {
 $('form').submit(function() {
     newUser = {
         userName: $('#userName').val(),
-        email: $('#userName').val(),
+        email: $('#email').val(),
         password: $('#password').val(),
         userType: $('#dropdownSelection').text()
     }
     const rpassword = $('#rpassword').val()
+    if (newUser.userName.length <= 5) {
+        displayErrorMsg('Username should be longer than 5 characters.')
+        return
+    }
+    if (newUser.email.length <= 10) {
+        console.log(newUser.email.length)
+        console.log(newUser.email)
+        displayErrorMsg('Invalid Email. For mocking, email address should be longer than 10 characters.')
+        return
+    }
+    if (newUser.password.length <= 8) {
+        displayErrorMsg('Invalid password. Password should be longer than 8 characters.')
+        return
+    }
 
     if (newUser.password != rpassword) {
-        console.log('Password does not match!')
-        const userCreated = $('#userCreated')
-        userCreated.html('Password does not match!')
-        userCreated[0].style.display = 'block'
-        setTimeout(function() {
-            userCreated.html('')
-            userCreated[0].style.display = 'none'
-        }, 3000)
+        displayErrorMsg('Password doest not match!')
         return
     }
     if (newUser.userType == 'Register as') {
-        console.log('Please select type in "Register as" section')
-        const userCreated = $('#userCreated')
-        userCreated.html('Please select type in "Register as" section')
-        console.log(userCreated)
-        userCreated[0].style.display = 'block'
-        setTimeout(function() {
-            userCreated.html('')
-            userCreated[0].style.display = 'none'
-        }, 3000)
+        displayErrorMsg('Please select "Register as".')
         return
     }
     console.log('User created!')
@@ -45,15 +44,28 @@ $('form').submit(function() {
     Email: ${newUser.email}<br>
     Password: ${newUser.password}<br>
     Registerd as: ${newUser.userType}`
-    const userCreated = $('#userCreated')
-    userCreated.html(html)
-    userCreated[0].style.display = 'block'
+
+    const popUpMsg = $('#popUpMsg')
+    popUpMsg.html(html)
+    popUpMsg[0].style.display = 'block'
     setTimeout(function(){
         $('#mainContainer').html('')
         renderNewRegistration()
-        $('#userCreated')[0].style.display = 'none'
+        $('#popUpMsg')[0].style.display = 'none'
     }, 5000);
 })
+
+function displayErrorMsg(msg) {
+    console.log(msg)
+    const popUpMsg = $('#popUpMsg')
+    popUpMsg[0].innerHTML = msg
+    console.log(popUpMsg)
+    popUpMsg[0].style.display = 'block'
+    setTimeout(function() {
+        popUpMsg.html('')
+        popUpMsg[0].style.display = 'none'
+    }, 3000)
+}
 
 function renderNewRegistration() {
     const html = `

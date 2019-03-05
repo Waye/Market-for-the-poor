@@ -2,7 +2,7 @@ body {
     background: #f1f1f1
 }
 
-container {
+.container {
     background-color:#f1f1f1;
 }
 
@@ -73,7 +73,7 @@ label {
 }
 
 
-#userCreated {
+#popUpMsg {
     border-radius: 10px;
     padding: 10px;
     border: 1px solid grey;
