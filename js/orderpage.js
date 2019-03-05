@@ -106,12 +106,12 @@ function getOrders() {
 function getBuyerList() {
     const gotBuyer1 = {
         userId: "1",
-        avatar: "img/profile-initial-image.png",
+        avatar: "img/avatar_placeholder.png",
         userName: "user1",
     }
     const gotBuyer2 = {
         userId: "2",
-        avatar: "img/profile-initial-image.png",
+        avatar: "img/avatar_placeholder.png",
         userName: "user2",
     }
     const gotBuyerList = [gotBuyer1, gotBuyer2];
