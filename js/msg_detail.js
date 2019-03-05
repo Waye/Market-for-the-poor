@@ -45,7 +45,7 @@ class Message{
         ul.appendChild(li);
         let img = document.createElement("img");
         img.className = "rounded-circle list-inline-item mb-3 avatar";
-        img.setAttribute("src", "./img/avatar_placeholder.png");
+        img.setAttribute("src", "./img/profile-initial-image.png");
         li.appendChild(img);
         let li2 = document.createElement("li");
         li2.className = "list-inline-item";
@@ -80,13 +80,13 @@ class Message{
 }
 
 
-const user1 = new User("1", "./img/avatar_placeholder.png", "user1");
+const user1 = new User("1", "./img/profile-initial-image.png", "user1");
 const msg1 = new Message(user1, "Order confirmation ", "Hello world", "4:34 March 3, 2019 ", true);
-const user2 = new User("2", "./img/avatar_placeholder.png", "user2");
+const user2 = new User("2", "./img/profile-initial-image.png", "user2");
 const msg2 = new Message(user2, "Confirming order ", "World hello", "4:34 March 3, 9102 ", true);
-const user3 = new User("3", "./img/avatar_placeholder.png", "user3");
+const user3 = new User("3", "./img/profile-initial-image.png", "user3");
 const msg3 = new Message(user3, "Order confirmation ", "Hello world", "4:34 March 3, 2019 ", false);
-const user4 = new User("4", "./img/avatar_placeholder.png", "user4");
+const user4 = new User("4", "./img/profile-initial-image.png", "user4");
 const msg4 = new Message(user4, "Confirming order ", "World hello", "4:34 March 3, 9102 ", false);
 
 const mockMessageData = [];

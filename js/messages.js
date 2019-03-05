@@ -13,7 +13,7 @@ const Message = function (from, to, title, content, date, isRead, isStarred) {
 }
 
 
-const curUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111');
+const curUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/profile-initial-image.png', false, '(123) 111-1111');
 const messages = []
 messages.push(new Message('User2', 'User1', "Offer Question", "Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!", new Date(2019, 1, 11), true, true))
 messages.push(new Message('User1', 'User2', "Answer To Question", "Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.", new Date(2019, 1, 12), true, false))

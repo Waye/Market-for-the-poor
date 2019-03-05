@@ -7,15 +7,16 @@ database = {
 }
 
 user(buyer/seller) : {
+    id: string
 	name: string
 	password: string
 	email: string
-	messagees : [message]
+	messages : [message]
 	role: seller, buyer (string)
 	status: banned (boolean)
 	posts: [request/offers]
-	phone:
-	description
+	phone: String
+	description: String
 }
 users = []
 post = []

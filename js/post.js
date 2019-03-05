@@ -95,7 +95,7 @@ const Post_post = function(id, date, title, userName, description, price, quanti
 }
 
 // // for mock data
-// const currentUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
+// const currentUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/profile-initial-image.png', false, '(123) 111-1111')
 
 $(document).ready(function() {
 	renderCategory()
