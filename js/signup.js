@@ -81,36 +81,41 @@ function renderNewRegistration() {
 
             <div>
                 <label for="userName"><b>Username</b></label>
-                <input id="userName" type="text" placeholder="Enter Username" required>
+                <input id="userName" type="text" placeholder="Enter Username">
             </div>
 
             <div>
                 <label for="email"><b>Email</b></label>
-                <input id="email" type="text" placeholder="Email" required>
+                <input id="email" type="text" placeholder="Email">
+            </div>
+
+            <div>
+                <label for="phone"><b>Phone</b></label>
+                <input id="phone" type="text" placeholder="phone">
             </div>
 
             <div>
                 <label for="password"><b>Password</b></label>
-                <input id="password" type="password" placeholder="Enter Password" required>
+                <input id="password" type="text" placeholder="Enter Password" >
             </div>
 
             <div>
                 <label for="rpassword"><b>Repeat Password</b></label>
-                <input id="rpassword" type="repeat_password" placeholder="Repeat Password" required>
+                <input id="rpassword" type="text" placeholder="Repeat Password">
             </div>
 
             <div class="dropdown">
                 <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle"
                     data-toggle="dropdown">Register as</button>
-                <span class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Buyer</a>
-                    <a class="dropdown-item" href="#">Seller</a>
-                    <a class="dropdown-item" href="#">Admin</a>
+                <span class="dropdown-menu" >
+                    <a class="dropdown-item">Buyer</a>
+                    <a class="dropdown-item">Seller</a>
+                    <a class="dropdown-item">Admin</a>
                 </span>
             </div>
 
             <div>
-                <button id="register" type="submit" class="btn btn-success">Register</button>
+                <button id="register" type="button" class="btn btn-success">Register</button>
                 <label>
                     <input type="checkbox" checked="checked" name="remember"> Remember me
                 </label>

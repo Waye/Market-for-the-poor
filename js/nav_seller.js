@@ -292,7 +292,6 @@ function addNavContent(user) {
 }
 
 function main() {
-    console.log('here')
     addNavContent(getUser());
 }
 $(document).ready(main);

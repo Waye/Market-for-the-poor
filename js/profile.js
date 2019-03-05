@@ -1,15 +1,14 @@
 "use strict";
 
+function createUserInfo(userNew){
 
-function createUserInfo(UserNew){
+    $('#userName').text(userNew.userName);
+    $('#profileImage').attr("src", userNew.avatar);
 
-    $('#UserName').text(UserNew.UserName);
-    $('#profile-image').attr("src",UserNew.avatar);
+    $('#email').text(userNew.email);
+    $('#phone').text(userNew.phone);
 
-    $('#email').text(UserNew.email);
-    $('#phone').text(UserNew.phone);
-
-    if(UserNew.isBanned === true){
+    if(userNew.isBanned){
         $('#status').text("Banned");
         $('#status').addClass("text-danger");
     }else{
@@ -17,8 +16,8 @@ function createUserInfo(UserNew){
         $('#status').addClass("text-success");
     }
 
-    if(UserNew.isBuyer === true){
-        $('#buyerOrseller').text("Buyer");
+    if(userNew.isBuyer){
+        $('#buyerOrSeller').text("Buyer");
 
 
     }else{
@@ -26,13 +25,56 @@ function createUserInfo(UserNew){
 
     }
     $('#buyerOrseller').addClass("text-primary");
-    $('#description').text(UserNew.description);
-
+    $('#userDescription').html(userNew.description);
 
 }
 
 //create a profile
-createUserInfo(currentUser);
+$(document).ready(createUserInfo(currentUser))
+
+$('#editBtn').click(displayEditForm)
+
+function displayEditForm() {
+
+    const html = `
+    <form class="editForm">
+        <div class="container">
+            <h1>Register</h1>
+            <table>
+            <tr><td>Email: 
+            <td><input id="emailEdit" type="text" placeholder="Email"></td></tr>
+            <tr><td>Phone:</td>
+            <td><input id="phoneEdit" type="text" placeholder="Phone"></td></tr>
+            <tr><td>Password:</td>
+            <td><input id="passwordEdit" type="text" placeholder="Enter Password"></td></tr>
+            
+            <tr><td>Description:</td>
+            <td><textarea id="descriptionEdit" type="text" placeholder="Description" rows="4" cols="30"></textarea></td></tr>
+            </table>
+            <div id="editButtonContainer">
+            <button id="edit" type="button" class="btn btn-success ml-auto">Edit</button>
+            </div>
+        </div>
+    </form>`
+    $('#editFormContainer').html(html)
+}
+$('body').on('click', '#edit', editUserInfo)
+// $('#edit').click(editUserInfo)
+
+function editUserInfo() {
+    const email = $('#emailEdit').val()
+    const password = $('#passwordEdit').val()
+    const phone = $('#phoneEdit').val()
+    const description = $('#descriptionEdit').val()
+    currentUser.email = email;
+    currentUser.password = password
+    currentUser.phone = phone
+    currentUser.description = description
+    // console.log(description)
+    // console.log(currentUser.description)
+    $('#editFormContainer').html('')
+    createUserInfo(currentUser)
+}
 
 // function createPost(post){
 //     let role = null;
