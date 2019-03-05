@@ -1,7 +1,104 @@
-TODO:
-- Give the TA instructions on how to use your web app, 
-  including appropriate login credentials. 
-- It should breifly explain the features of your web 
-  application, and how an end user would use each of 
-  your features (include separate instructions for 
-  user and admin).
+=============================
+Basic features of our website
+=============================
+
+Our website will allow the seller of essential goods such as food, drink and clothings to sell their cancelled or refunded orders at a cheaper cost to non-profit organizations. Seller users will be able to post what they want to sell and see the request from the buyers. Buyer users will be able to make purchase on products that they are interested in and make requests to sellers. An chat system is also implemented in our website for communication. 
+
+Additionally, since our target buyer users are poor(might not have a laptop), we specifically work on responsive features on which will make them access our website easier on thier phone. Such as having anchors on the feedpage.
+
+==========
+index.html
+==========
+
+There are 3 buttons available in our index page, "Log in", "Sign up" and "Join Us".
+By clicking "Sign up" and "Join us", you will be transfered to "signup.html" and be propmted to create an account of your own.
+For now, since phase 1 does not allow us to connect with server. This is still a mock page.
+
+By clicking "Log in", you will be transfered to "login.html" and can log in to 3 different pages by the credentials we provide:
+- By entering "user" as username and password, user will be logged in into the buyer page.
+- By entering "user2" as username and password, user will be logged in into the seller page.
+- By entering "admin" as username and password, user will be logged in into the admin page.
+The functionality of all three pages will be explained later.
+By clicking "Forgot password?" button on the bottom of log in page, a mock data(for now), will be displayed on the top on the page under the header, saying an information has been sent to the email of the user.
+
+===================
+feedpage_buyer.html
+===================
+
+Users need to be buyer to be logged in into this page, same for all the pages below which contains "buyer".
+By sucessfully logging in as "buyer", user will then be transfered to "feedpage_buyer.html".
+On the very left of the header, you can see there is a search bar which we have not yet implemented it fully as it requires back end. However, if you try to enter anything there, it will show the Nestea posted by User2 as an example of how it will look as the project goes on.
+
+On the left side of the page you can notice there is a filter which helps you to filter all products that have been posted on our website.
+By clicking any categories under the filter, the page will then show all the products of those categories clicked. Note, user can click multiple categories at the same time. For example, user can click both "food" and "electronics", which the page will then show all the food and electronics products.
+
+You can also click "clear filters" once you have clicked some fiters which will then refresh the page. This can also be achieved by clicking the refresh bottom besides "Filter".
+
+Under the filter, there is "Min. price" and "Max. price" function which are promting users to enter the minimum and maximum price of products that they wish to look for. If users enter non-numeric input, then nothing will be updated.
+
+On the right side of the "feed" bar where it contains the refresh bottom, it also contains a bottom called "Sort". By clicking it you will see a dropdown menu which shows multiple options of sorting the products. Such as, "Newest first", "Oldest first", "Highest price first", "Lowest price first".
+
+On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to post a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page.
+
+By clicking "Active orders", "Finished" or "Posted", you will navigate to "orderpage_buyer.html", and can see the progress of your orders as well as your posted request and finished orders. For phase 1, this is still a mock page. Addtionally, we added anchors for all three buttons so when users click them the page will navigate to the location of "Active orders", "Posted orders" and "Finished orders". The effect can be shown when users are using smartphones or device that has narrower width. 
+
+By clicking each product shown on the page, users will navigate to "product_detail_buyer.html", which buyers can then make request on the product they want to purchase. For now, this is still a mock page, and no matter which product user clicks it will show the same "Frozen Vegetables" page since we are not able to work on back end yet.
+
+
+Clicking "Profile", "Messages" and "Log Out" will link users to "profile_buyer.html", "messages_buyer.html" and "login.html", which will be explained later.
+
+==================
+profile_buyer.html
+==================
+
+User will be able to edit their profile information in this page such as, email, phone number, active status and other. For phase 1, this is still a mock page.
+
+===================
+messages_buyer.html
+===================
+
+User will be able to see who has sent them messages in the inbox page, by clicking any users shown in the inbox page, the page will move to the chat page specific to those users.
+In addition to that, once user has admin)entered the chat page, on every messages shown, there are 2 buttons on the right, the star and delete. When clicking star, the message clicked will be marked as "Starred" and will be shown in there when users click "Starred" on the right side of the page.
+By clicking "delete", the message will be removed from the chat history.
+By clicking "Sent messages", users will see all messages that they priviously sent to other users.
+
+Users can also create "New Message" by clicking the button under the header, for phase 1, this is still a mock function.
+
+====================
+feedpage_seller.html  
+====================
+
+Users need to be seller to be logged in into this page, same for all the pages below which contains "seller".
+All functionalities are the same as "feedpage_buyer.html" except that this page shows all products that this seller user is selling compared to the buyer page.
+Additionally, on the right side of the page, under the header there is text "$48300" is shown, which is designed to show the total earning of buyer since he/she registered.
+
+===================
+profile_seller.html
+===================
+
+All functionalities are the same as "profile_buyer.html".
+
+===================
+message_seller.html
+===================
+
+All functionalities are the same as "message_buyer.html".
+
+=====================
+orderpage_seller.html
+=====================
+
+All functionalities are the same as "orderpage_seller.html".
+
+==========================
+product_detail_seller.html
+==========================
+
+All functionalities are the same as "product_detail_buyer.html".
+
+==========
+admin.html
+==========
+
+Once successfully logged in as an admin. The user will be able to manage users and posts for this page. For users, admin will be able to ban or delete them from the server. For posts, admin will be able to delete them, by clicking the corresponding buttons shown on the page.
+

@@ -1,6 +1,4 @@
-html,
-body,
-header
+/* 
 
 @media (max-width: 740px) {
     html,
@@ -14,19 +12,12 @@ header
     body,
     header
 
-}
+} */
+
 #profile-all{
     background-color: #EDEFEE;
 }
-/*#post-nav-bar{*/
-    /*background-color: #D3E1E5;*/
-/*}*/
-/*#post-part{*/
-    /*background-color: #B4CDD3;*/
-/*}*/
-/*#profile-card-body{*/
-    /*background-color: #9FC2DD;*/
-/*}*/
+
 #description{
     margin: 10px;
 }
@@ -36,4 +27,82 @@ header
     padding-top: 10px;
 }
 
+.container {
+    background-color:#f1f1f1;
+    width: 400px;
+}
 
+h1{
+    text-align: center;
+}
+
+/* Bordered form */
+.editForm {
+    border: 3px solid #f1f1f1;
+    /* display: -webkit-box; */
+    /* display: -webkit-flex; */
+    /* display: -moz-box; */
+    /* /* display: -ms-flexbox; */
+    display: flex; 
+    /* flex-wrap: wrap; */
+    width: 400px;
+    position: fixed;
+    top: 90px;
+    left: 400px;
+    background-color: #fff;
+    border: 1px solid black;
+    z-index: 5;
+
+}
+
+.container span {
+    width: 90px;
+}
+/* Full-width inputs */
+.container input, .container textarea {
+    /* width: 100%; */
+    width: 230px;
+    padding: 10px 10px;
+    margin: 10px 10px;
+     /* display: inline-block; */
+    border: 1px solid #ccc;
+    /* box-sizing: border-box; */
+}
+/* Set a style for all buttons */
+.container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    margin: auto 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    
+}
+#editButtonContainer {
+    text-align: center;
+}
+/* Add a hover effect for buttons */
+.container button:hover {
+    opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+#popUpMsg {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid grey;
+    position: fixed;
+    top: 225px;
+    left: 400px;
+    background-color: lightgrey;
+    display: none;
+}
+
+a {
+    z-index: 1;
+}
