@@ -65,6 +65,18 @@ $('body').on('click', 'a.starred', function() {
     $(this).find('p').removeClass('text-truncate').addClass('text-left')
 })
 
+$('body').on('click', 'a.conversation', function() {
+    const targetUser = $(this).find('small.targetUser')[0].innerHTML
+    console.log(targetUser)
+    removeMainContainer()
+    // renderReplyForm(targetUser)
+    renderMsgDetail(targetUser)
+})
+
+
+$('body').on('click', 'a.msgToStar', starOrUnstarMessage)
+$('body').on('click', 'a.msgToDelete', deleteMessage)
+$('body').on('click', '#reply', sendReply)
 
 function renderMenuSection() {
     let numSent = 0
@@ -130,13 +142,6 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
 }
 
 
-$('body').on('click', 'a.conversation', function() {
-    const targetUser = $(this).find('small.targetUser')[0].innerHTML
-    console.log(targetUser)
-    removeMainContainer()
-    // renderReplyForm(targetUser)
-    renderMsgDetail(targetUser)
-})
 
 
 function renderMsgDetail(targetUser) {
@@ -182,7 +187,6 @@ function renderMsgDetail(targetUser) {
     $('#mainContainer').html(html)
 }
 
-$('body').on('click', 'a.msgToStar', starOrUnstarMessage)
 
 function starOrUnstarMessage() {
     const content = $(this).parent().parent().parent().find('p.msgDetailContent')[0].innerHTML
@@ -200,7 +204,6 @@ function starOrUnstarMessage() {
     renderMsgDetail(targetUser)
 }
 
-$('body').on('click', 'a.msgToDelete', deleteMessage)
 
 function deleteMessage() {
     const content = $(this).parent().parent().parent().find('.msgDetailContent')[0].innerHTML
@@ -219,7 +222,6 @@ function deleteMessage() {
 
 
 // const Message = function (from, to, title, content, date, isRead, isStarred
-$('body').on('click', '#reply', sendReply)
 function sendReply() {
     // the reply input field id is set to be the target user.
     const to = $(this).parent().prev()[0].id

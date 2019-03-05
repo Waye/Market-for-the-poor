@@ -18,20 +18,27 @@ function register() {
         userType: $('#dropdownSelection').text()
     }
     const rpassword = $('#rpassword').val()
-    if (newUser.userName.length <= 5) {
-        displayErrorMsg('Username should be longer than 5 characters.')
+    if (newUser.userName.length < 5) {
+        displayErrorMsg('Username should be at least 5 characters.')
         return
     }
-    if (newUser.email.length <= 10) {
-        displayErrorMsg('Invalid Email. For mocking, email address should be longer than 10 characters.')
+    if (newUser.email.length < 5) {
+        displayErrorMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
         return
     }
-    if (newUser.phone.length < 10) {
+    const phone = newUser.phone
+    if (phone.length < 10) {
         displayErrorMsg('Invalid phone number. Phone number should be at least 10 digits.')
         return
     }
-    if (newUser.password.length <= 8) {
-        displayErrorMsg('Invalid password. Password should be longer than 8 characters.')
+    for (let i = 0; i < phone.length; i++) {
+        if (isNaN(parseInt(phone.charAt(i), 10))) {
+            displayErrorMsg('Phone number should be in digits only')
+            return
+        }
+    }
+    if (newUser.password.length < 5) {
+        displayErrorMsg('Invalid password. Password should be longer than 5 characters.')
         return
     }
 
@@ -44,6 +51,7 @@ function register() {
         return
     }
     console.log('User created!')
+
     const html = `Registration successful.<br>
     User Name: ${newUser.userName}<br>
     Email: ${newUser.email}<br>
@@ -63,14 +71,13 @@ function register() {
 function displayErrorMsg(msg) {
     console.log(msg)
     const popUpMsg = $('#popUpMsg')
-    popUpMsg.html(msg)
-    console.log(popUpMsg)
-    popUpMsg.css('display', 'block')
+    popUpMsg.html(`<div class="alert alert-success fade show" role="alert" id="forgotPasswordAlert">
+    ${msg}</div>`)
     setTimeout(function() {
-        console.log(1)
-        popUpMsg.html('')
-        popUpMsg.css('display', 'none')
-    }, 3000)
+        $('.alert').alert('close')
+        $('.alert').alert('dispose')
+        console.log('kknknkn')
+    }, 4000)
 }
 
 function renderNewRegistration() {
