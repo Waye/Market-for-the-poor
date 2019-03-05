@@ -1,6 +1,7 @@
 "use strict";
 console.log("post.js");
 
+// Event Listeners
 $('body').on('click', '#visibleUpload', () => {
     $('#hiddenUpload').click()
 });
@@ -24,12 +25,10 @@ function displayUploadPreview() {
         $("#uploadPreview").append(list);
         for (var i = 0; i < curFiles.length; i++) {
             var listItem = document.createElement('div');
-            // var para = document.createElement('p');
-            // para.textContent = 'File name ' + curFiles[i].name;
+
             var image = document.createElement('img');
             image.src = window.URL.createObjectURL(curFiles[i]);
             listItem.appendChild(image);
-            // listItem.appendChild(para);
             list.appendChild(listItem);
         }
     }
@@ -123,7 +122,6 @@ const Post_post = function (id, date, title, userName, description, price, quant
     this.type = type;
 }
 
-// const currentUser = getUser();
 
 $(document).ready(function () {
     renderCategory()
@@ -152,7 +150,7 @@ $('#close').click(removeAll);
 $('#submit').click(getInputData);
 
 function getInputData(e) {
-    console.log(e)
+    // get request to server to get currentUser
     let id = currentUser.posts.length.toString(10);
     const prependZeroNum = 4 - id.length;
     for (let i = 0; i < prependZeroNum; i++) {
@@ -169,12 +167,13 @@ function getInputData(e) {
     const type = (currentUser.isBuyer ? "request" : "offer")
     const category = $('#categoryCurrentSelection')[0].innerHTML
     const newPost = new Post_post(id, date, title, userName, description, price, quantity, image, dueDate, type, category)
-
+    
     // send new post data to backend and save to database
+    currentUser.posts.push(currentUser.posts)
     console.log(newPost)
-    // $('.modal-backdrop').remove()
+
     $('#modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    // removeAll()
+
 }
