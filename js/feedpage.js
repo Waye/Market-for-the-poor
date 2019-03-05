@@ -105,7 +105,7 @@ $('#collapseCard').on('click', '#clearFilter', function() { // Click clear filte
 })
 
 function addInfoHeaderContent(headerInfo, userIsBuyer) {
-    console.log(userIsBuyer);
+    // console.log(userIsBuyer);
     if (userIsBuyer) {
         $('#feedName').html("Offer feed");
         $("#dollarCol").remove();
