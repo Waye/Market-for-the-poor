@@ -2,39 +2,45 @@
 <html>
 
 <head>
-    <title>Log in</title>
+    <title>Log in | Market for the poor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form>
+                <div class="container">
+                    <h1>Log in</h1>
+                    <span>
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
+                    </span>
+
+                    <span>
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                    </span>
+
+                    <span>
+                        <button type="submit" value="Login" id="loginBtn" class="btn btn-success">Log in</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </span>
+
+                    <span class="psw"><a href="#">Forgot password?</a></span>
+                </div>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-
-<form action="action_page.php">
-    <div class="container">
-        <h1>Log in</h1>
-
-
-        <span>
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-        </span>
-
-        <span>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        </span>
-
-        <span>
-        <button type="submit" onclick="check(this.form)" value="Login">Log in</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-        </span>
-
-        <span class="psw"><a href="#">Forgot password?</a></span>
-    </div>
-
     <script type="text/javascript" src="js/login.js"></script>
-</form>
+</body>
+
 </html>

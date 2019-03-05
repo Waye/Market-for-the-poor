@@ -1,12 +1,10 @@
 "use strict";
 console.log("feedpage.js") // log to the JavaScript console.
 
-
 // Refresh
 $("#refreshBtn").on('click', function() {
     updateFeed(getFeed());
 });
-
 
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
@@ -25,13 +23,13 @@ $("#sortOptionContainer").on('click', 'a', function() {
 })
 function sortOld(feed) {
     feed.sort(function(a, b) {
-        return a.postDate - b.postDate;
+        return a.date - b.date;
     });
     return feed;
 }
 function sortNew(feed) {
     feed.sort(function(a, b) {
-        return b.postDate - a.postDate;
+        return b.date - a.date;
     });
     return feed;
 }
@@ -106,23 +104,22 @@ $('#collapseCard').on('click', '#clearFilter', function() { // Click clear filte
     updateFeed(getFeed()); // force update all feed
 })
 
-function addInfoHeaderContent(headerInfo, user) {
-    const totalTextLg = document.createElement("h1");
-    totalTextLg.className += "display-4 d-none d-lg-block";
-    totalTextLg.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
-    const totalTextMd = document.createElement("h1");
-    totalTextMd.className += "d-lg-none d-md-block";
-    totalTextMd.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
-    $('#dollarCol').append(totalTextLg);
-    $('#dollarCol').append(totalTextMd);
-    $('#dollarCol').append('<p class="text-left ml-md-3 text-muted">2-month total</p>');
-
-    if (user.isBuyer) {
+function addInfoHeaderContent(headerInfo, userIsBuyer) {
+    if (userIsBuyer) {
         $('#feedName').html("Offer feed");
         $("#dollarCol").remove();
         $("#feedNavCol").attr("class", "col-12");
         $("#feedNavCol").find('h1').removeClass("display-4");
     } else {
+        const totalTextLg = document.createElement("h1");
+        totalTextLg.className += "display-4 d-none d-lg-block";
+        totalTextLg.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        const totalTextMd = document.createElement("h1");
+        totalTextMd.className += "d-lg-none d-md-block";
+        totalTextMd.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        $('#dollarCol').append(totalTextLg);
+        $('#dollarCol').append(totalTextMd);
+        $('#dollarCol').append('<p class="text-left ml-md-3 text-muted">2-month total</p>');
         $('#feedName').html("Request feed");
     }
     $('.activeNum').html(headerInfo.activeNum);
@@ -137,27 +134,31 @@ function addFilter(filterDataList) {
     })
 }
 
-function getProductPageUrl(productId) {
-    return "product_detail.html"
+function getProductPageUrl(id) {
+    if (getUser().isBuyer) {
+        return "product_detail_buyer.html"
+    }
+    return "product_detail_seller.html"
 }
 
 class Post {
-    constructor(productId, productName, type, quantity, price, sellerName, postDate) {
-        this.productId = productId;
-        this.productName = productName;
+    constructor(id, title, type, quantity, price, userName, date) {
+        this.id = id;
+        this.title = title;
         this.type = type;
+        this.category = category;
         this.quantity = quantity;
         this.price = price;
-        this.sellerName = sellerName;
-        this.postDate = postDate;
+        this.userName = userName;
+        this.date = date;
         this.description = "(No description)";
-        this.productImg = null;
+        this.image = null;
     }
     setDescription(description) {
         this.description = description;
     }
-    setProductImg(img) {
-        this.productImg = img;
+    setPostImg(img) {
+        this.image = img;
     }
     // Getter
     get element() {
@@ -171,17 +172,17 @@ class Post {
         const imgCol = document.createElement('div');
         imgCol.className += "col-12 col-md-2 mb-3";
         const imgElement = document.createElement('img');
-        imgElement.className += "rounded float-left";
+        imgElement.className += "rounded";
         imgElement.setAttribute("alt", "...");
-        imgElement.setAttribute("src", this.productImg);
+        imgElement.setAttribute("src", this.image);
         imgCol.appendChild(imgElement);
 
         const contentCol = document.createElement('div');
         contentCol.className += "col-8 col-md-7";
-        const contentHeader = document.createElement('h3');
+        const contentHeader = document.createElement('h4');
         const contentHeaderLink = document.createElement('a');
-        contentHeaderLink.setAttribute("href", getProductPageUrl(this.productId));
-        contentHeaderLink.appendChild(document.createTextNode(this.productName));
+        contentHeaderLink.setAttribute("href", getProductPageUrl(this.id));
+        contentHeaderLink.appendChild(document.createTextNode(this.title));
         const contentHeaderQty = document.createElement('small');
         contentHeaderQty.appendChild(document.createTextNode(this.quantity));
         contentHeader.appendChild(contentHeaderLink);
@@ -190,10 +191,10 @@ class Post {
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
         contentInfoLink.setAttribute("href", "profile.html");
-        contentInfoLink.appendChild(document.createTextNode(this.sellerName));
+        contentInfoLink.appendChild(document.createTextNode(this.userName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
-        contentInfoDate.appendChild(document.createTextNode(this.postDate.toLocaleDateString("en-US", dataFormat)));
+        contentInfoDate.appendChild(document.createTextNode(this.date.toLocaleDateString("en-US", dataFormat)));
         contentInfo.appendChild(contentInfoLink);
         contentInfo.appendChild(document.createTextNode(' posted on '));
         contentInfo.appendChild(contentInfoDate);
@@ -206,7 +207,7 @@ class Post {
         const priceCol = document.createElement('div');
         priceCol.className += "col-4 col-md-3 text-right";
         const priceStr = (this.price).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-        priceCol.innerHTML = `<h3>${priceStr}</h3>`;
+        priceCol.innerHTML = `<h4>${priceStr}</h4>`;
 
         productElement.appendChild(imgCol);
         productElement.appendChild(contentCol);
@@ -216,53 +217,66 @@ class Post {
 }
 
 function getFeed() {
-    const mockProductData = [];
-    const product1 = new Post(1, "Frozen vegetables", "food", "10 kg", 100, "User1", new Date(2018, 11, 23));
-    product1.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
-    product1.setProductImg("img/frozen_veg.png");
-    mockProductData.push(product1);
-    const product2 = new Post(2, "Canned soup", "food", "20 unit", 89, "User3", new Date(2018, 11, 10));
-    product2.setDescription("Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.");
-    product2.setProductImg("img/canned_soup.jpg");
-    mockProductData.push(product2);
-    return mockProductData;
-}
-
-function getHeaderInfo() {
-    const mockHeaderInfo = {
-        twoMonthTotal : 48300,
-        activeNum : 3,
-        finishedNum : 21,
-        postedNum : 12
-    }
-    return mockHeaderInfo
+    const gotPosts = getUser().posts;
+    const parsedPosts = [];
+    gotPosts.forEach(gotPost => {
+        const post1 = new Post(gotPost.id, gotPost.title, gotPost.category, 
+            gotPost.quantity, gotPost.price, gotPost.userName, gotPost.date);
+        post1.setDescription(gotPost.description);
+        post1.setPostImg(gotPost.image);
+        parsedPosts.push(post1);
+    })
+    return parsedPosts;
 }
 
 function getFilterData() {
+    const gotPosts = getUser().posts;
+    let foodFilterNum = 0;
+    let electronicsFilterNum = 0;
+    let clothingFilterNum = 0;
+    let furnitureFilterNum = 0;
+    let toolsFilterNum = 0;
+    let otherFilterNum = 0;
+    gotPosts.forEach(post => {
+        if (post.category == "food") {
+            foodFilterNum += 1;
+        } else if (post.category == "electronics") {
+            electronicsFilterNum += 1;
+        } else if (post.category == "clothing") {
+            clothingFilterNum += 1;
+        } else if (post.category == "furniture") {
+            furnitureFilterNum += 1;
+        } else if (post.category == "tools") {
+            toolsFilterNum += 1;
+        } else {
+            otherFilterNum += 1;
+        }
+    })
+
     const mockFilterData = [
         {
             filter: "food",
-            filterNum: 14
+            filterNum: foodFilterNum
         },
         {
             filter: "electronics",
-            filterNum: 2
+            filterNum: electronicsFilterNum
         },
         {
-            filter: "clothings",
-            filterNum : 1
+            filter: "clothing",
+            filterNum : clothingFilterNum
         },
         {
-            filter: "furnitures",
-            filterNum : 3
+            filter: "furniture",
+            filterNum : furnitureFilterNum
         },
         {
             filter: "tools",
-            filterNum : 4
+            filterNum : toolsFilterNum
         },
         {
             filter: "other",
-            filterNum : 9
+            filterNum : otherFilterNum
         }
     ]
     return mockFilterData;
@@ -278,7 +292,8 @@ function updateFeed(productData) {
 }
 
 function main() {
-    addInfoHeaderContent(getHeaderInfo(), getUser());
+    const currUser = getUser();
+    addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);
     addFilter(getFilterData());
     updateFeed(getFeed());
 }
