@@ -7,10 +7,13 @@ $('.dropdown-item').click(function() {
     $('#dropdownSelection').html(type)
 })
 
-$('form').submit(function() {
+$('form').on('click', '#register', register)
+
+function register() {
     newUser = {
         userName: $('#userName').val(),
         email: $('#email').val(),
+        phone: $('#phone').val(),
         password: $('#password').val(),
         userType: $('#dropdownSelection').text()
     }
@@ -20,9 +23,11 @@ $('form').submit(function() {
         return
     }
     if (newUser.email.length <= 10) {
-        console.log(newUser.email.length)
-        console.log(newUser.email)
         displayErrorMsg('Invalid Email. For mocking, email address should be longer than 10 characters.')
+        return
+    }
+    if (newUser.phone.length < 10) {
+        displayErrorMsg('Invalid phone number. Phone number should be at least 10 digits.')
         return
     }
     if (newUser.password.length <= 8) {
@@ -47,23 +52,24 @@ $('form').submit(function() {
 
     const popUpMsg = $('#popUpMsg')
     popUpMsg.html(html)
-    popUpMsg[0].style.display = 'block'
+    popUpMsg.css('display', 'block')
     setTimeout(function(){
         $('#mainContainer').html('')
         renderNewRegistration()
-        $('#popUpMsg')[0].style.display = 'none'
+        $('#popUpMsg').css('display', 'none')
     }, 5000);
-})
+}
 
 function displayErrorMsg(msg) {
     console.log(msg)
     const popUpMsg = $('#popUpMsg')
-    popUpMsg[0].innerHTML = msg
+    popUpMsg.html(msg)
     console.log(popUpMsg)
-    popUpMsg[0].style.display = 'block'
+    popUpMsg.css('display', 'block')
     setTimeout(function() {
+        console.log(1)
         popUpMsg.html('')
-        popUpMsg[0].style.display = 'none'
+        popUpMsg.css('display', 'none')
     }, 3000)
 }
 
@@ -113,4 +119,3 @@ function renderNewRegistration() {
     </form>`
     $('#mainContainer').html(html)
 }
-
