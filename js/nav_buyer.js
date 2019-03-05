@@ -2,6 +2,12 @@
 console.log("nav_buyer.js")  // log to the JavaScript console.
 
 const currentUser = getUser();
+
+function getPost() {
+    return currentUser.posts
+}
+
+
 function getUser() {
     let mockUser = {
         name: "User1",

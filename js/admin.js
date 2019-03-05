@@ -40,6 +40,15 @@ $(document).ready(function() {
     renderManagePost();
 })
 
+// // dynamically produce htmls for manageUserSection
+// $(document).ready(function () {
+//     // send get request to server and render
+//     renderManageUsers()
+// })
+// $(document).ready(function() {
+//     //send get request to server and render
+//     renderManagePost()
+//  })
     
 function removeManageUsers() {
     $('div').remove('.manageUserLine')

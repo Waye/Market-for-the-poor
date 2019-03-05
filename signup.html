@@ -10,52 +10,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form>
+                <span class="container">
+                    <h1>Register</h1>
 
-<form action="action_page.php">
-    <span class="container">
-        <h1>Sign up</h1>
+                    <span>
+                    <label for="uname"><b>Username</b></label>
+                    <input id="userName" type="text" placeholder="Enter Username" name="uname" required>
+                    </span>
 
-        <span>
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-        </span>
+                    <span>
+                    <label for="email"><b>Email</b></label>
+                    <input id="email" type="text" placeholder="Email" name="email" required>
+                    </span>
 
-        <span>
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Email" name="email" required>
-        </span>
+                    <span>
+                    <label for="psw"><b>Password</b></label>
+                    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+                    </span>
 
-        <span>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        </span>
+                    <span>
+                    <label for="rppsw"><b>Repeat Password</b></label>
+                    <input id="rpassword" type="repeat_password" placeholder="Repeat Password" name="rppsw" required>
+                    </span>
 
-        <span>
-        <label for="rppsw"><b>Repeat Password</b></label>
-        <input type="repeat_password" placeholder="Repeat Password" name="rppsw" required>
-        </span>
+                    <span class="dropdown">
+                        <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Register as</button>
+                        <span class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Buyer</a>
+                            <a class="dropdown-item" href="#">Seller</a>
+                            <a class="dropdown-item" href="#">Admin</a>
+                        </span>
+                    </span>
 
-        <span class="dropdown">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                Sign up as
-            </button>
-            <span class="dropdown-menu">
-                <a class="dropdown-item" href="#">Buyer</a>
-                <a class="dropdown-item" href="#">Seller</a>
-                <a class="dropdown-item" href="#">Admin</a>
-            </span>
-        </span>
-
-        <span>
-        <button type="submit">Log in</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-        </span>
-
-        <span class="psw"><a href="#">Forgot password?</a></span>
-    </span>
-</form>
-
+                    <span>
+                    <button id="register" type="submit" class="btn btn-success">Register</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                    </span>
+                </span>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <script src="js/signup.js"></script>
 </body>
 </html>
