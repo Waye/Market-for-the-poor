@@ -1,6 +1,7 @@
 "use strict";
 
 function createUserInfo(userNew){
+    console.log(userNew)
 
     $('#userName').text(userNew.userName);
     $('#profileImage').attr("src", userNew.avatar);
@@ -21,7 +22,7 @@ function createUserInfo(userNew){
 
 
     }else{
-        $('#buyerOrseller').text("Seller");
+        $('#buyerOrSeller').text("Seller");
 
     }
     $('#buyerOrseller').addClass("text-primary");
