@@ -19,7 +19,7 @@ function getUser() {
             finishedNum : 3,
             postedNum : 4
         },
-        unreadNum: 5,
+        // unreadNum: 5,
         messages: [
             {
                 from: 'User2',
@@ -255,6 +255,9 @@ function addNavContent(user) {
     profileBtn.appendChild(profileBtnLink);
 
     /// Message button
+    let unreadNum = 0;
+    user.messages.forEach(msg => {if (!msg.isRead) {unreadNum++}})
+
     const msgBtn = document.createElement("li");
     msgBtn.className += "nav-item ml-2";
     const msgBtnLink = document.createElement("a");
@@ -264,7 +267,7 @@ function addNavContent(user) {
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
     msgBtnSpan.innerText = "Messages ";
-    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${user.unreadNum}</span>`;
+    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${unread}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 

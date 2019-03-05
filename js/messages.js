@@ -335,7 +335,8 @@ function sendMessage() {
 }
 
 function modifyNavMsgNum() {
-    const totalMsg = messages.length
-    $('span.msgButtonNav').html(totalMsg)
+    let unreadNum = 0;
+    messages.forEach(msg => {if (!msg.isRead) {unreadNum++}})
+    $('span.msgButtonNav').html(unreadNum)
 }
 
