@@ -55,7 +55,10 @@ function removeManageUsers() {
 }
 
 function renderManageUsers() {
-    //using response, dynamically display
+    // Using response, dynamically display
+   	
+    // Requires users' informations from server
+    // Server below requires server call	
     for (let u of users) {
         const div = document.createElement("div");
         let type = null;
