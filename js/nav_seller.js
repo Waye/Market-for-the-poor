@@ -3,7 +3,7 @@ console.log("nav_seller.js")  // log to the JavaScript console.
 
 function getUser() {
     let mockUser = {
-        name: "seller",
+        name: "User2",
         password: "seller",
         email: "seller@gmail.com",
         phone: "4168888888",
@@ -250,7 +250,7 @@ function addNavContent(user) {
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
     msgBtnSpan.innerText = "Messages ";
-    msgBtnSpan.innerHTML += `<span class="badge badge-light">${user.unreadNum}</span>`;
+    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${user.unreadNum}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 

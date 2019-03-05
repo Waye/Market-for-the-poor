@@ -13,20 +13,17 @@ const Message = function (from, to, title, content, date, isRead, isStarred) {
 }
 
 
-const curUser = new User_post('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111');
-const messages = []
-messages.push(new Message('User2', 'User1', "Offer Question", "Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!", new Date(2019, 1, 11), true, true))
-messages.push(new Message('User1', 'User2', "Answer To Question", "Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.", new Date(2019, 1, 12), true, false))
-messages.push(new Message('User2', 'User1', "Delivery Method", "Thank you very much for your kind response. Can you also inform me the method of delivery? Also, it would be great if you could inform us the processing time as well.", new Date(2019, 1, 14), false, true))
-messages.push(new Message('User3', 'User1', "Regarding the Offer", "Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!", new Date(2019, 2, 11), true, false))
-messages.push(new Message('User1', 'User3', "Response", "Hello, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.", new Date(2019, 2, 13), true, false))
-
+// const curUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111');
+const curUser = getUser();
+// const messages = []
+const messages = curUser.messages;
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
 $(document).ready(function() {
     renderMenuSection()
     renderInboxOrSent(inboxFirstMsgFinder, true)
+    modifyNavMsgNum()
 })
 
 
@@ -57,7 +54,7 @@ $('#starred').click(function() {
 $('#newMsg').click(function() {
     resetActive()
     removeMainContainer()
-    renderNewMessage()
+    renderNewMessageForm()
     $('#newMsg').addClass('active')
 })
 
@@ -113,7 +110,7 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
         }
 
         const date = m.date.toLocaleDateString("en-US", dataFormat)
-        html = html + `<a href="#" class="conversation list-group-item list-group-item-action flex-column align-items-start pr-1">
+        html = html + `<a class="conversation list-group-item list-group-item-action flex-column align-items-start pr-1">
         <div class="d-flex w-100 justify-content-between">
             <ul class="col-2 list-inline m-0 p-0">
                 <img class="list-inline-item rounded-circle avatar" src="./img/avatar_placeholder.png">
@@ -171,9 +168,9 @@ function renderMsgDetail(targetUser) {
                     <li class="list-inline-item"><img class="rounded-circle list-inline-item mb-3 avatar" src="./img/avatar_placeholder.png"></li>
                     <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${date}</p></li>
                     <li class="ml-auto">
-                        <a class="msgToStar active ml-3" href="#">
+                        <a class="msgToStar active ml-3">
                             ${svg}</a>
-                        <a class="msgToDelete active ml-3" href="#">
+                        <a class="msgToDelete active ml-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="rgb(16,108,255)"></path>
                                 <path d="M0 0h24v24H0z" fill="none"></path></svg></a></li></ul>
@@ -185,9 +182,9 @@ function renderMsgDetail(targetUser) {
     $('#mainContainer').html(html)
 }
 
-$('body').on('click', 'a.msgToStar', starNewMessage)
+$('body').on('click', 'a.msgToStar', starOrUnstarMessage)
 
-function starNewMessage() {
+function starOrUnstarMessage() {
     const content = $(this).parent().parent().parent().find('p.msgDetailContent')[0].innerHTML
     for (let msg of messages) {
         if (msg.content == content) {
@@ -203,6 +200,23 @@ function starNewMessage() {
     renderMsgDetail(targetUser)
 }
 
+$('body').on('click', 'a.msgToDelete', deleteMessage)
+
+function deleteMessage() {
+    const content = $(this).parent().parent().parent().find('.msgDetailContent')[0].innerHTML
+
+    // replace this part with DELETE request to server and get messages of this user back.
+    for (let i = 0; i < messages.length; i++) {
+        if (messages[i].content == content) {
+            messages.splice(i, 1)
+        }
+    }
+    const targetUser = $('#replyContainer').find('input')[0].id
+    renderMenuSection()
+    modifyNavMsgNum()
+    renderMsgDetail(targetUser)
+}
+
 
 // const Message = function (from, to, title, content, date, isRead, isStarred
 $('body').on('click', '#reply', sendReply)
@@ -215,6 +229,7 @@ function sendReply() {
     messages.push(new Message(from, to, title, content, new Date(), false, false))
     console.log(messages)
     renderMenuSection()
+    modifyNavMsgNum()
     removeMainContainer()
     renderMsgDetail(to)
 }
@@ -227,7 +242,7 @@ function renderStarred() {
             const date = m.date.toLocaleDateString("en-US", dataFormat)
             let targetUser = (m.from == curUser.name ? m.to : m.from)
 
-            html = html + `<a href='#' class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
+            html = html + `<a class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
             <div class="d-flex w-100 justify-content-between">
                 <ul class="col-2 list-inline m-0 p-0">
                     <img class="list-inline-item rounded-circle avatar" src="./img/avatar_placeholder.png">
@@ -245,7 +260,7 @@ function renderStarred() {
 }
 
 
-function renderNewMessage() {
+function renderNewMessageForm() {
     const html = `<div class="modal-content">
         <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">New Message</h5></div>
         <div class="modal-body"><table class="table"><tbody>
@@ -313,9 +328,14 @@ function sendMessage() {
     messages.push(new Message(from, to, title, content, new Date(), false, false))
     removeMainContainer()
     renderMenuSection()
+    modifyNavMsgNum()
     const html = `<div class='row'><div class='col-md-2'></div>
     <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
     $('#mainContainer').html(html)
 }
 
+function modifyNavMsgNum() {
+    const totalMsg = messages.length
+    $('span.msgButtonNav').html(totalMsg)
+}
 

@@ -29,3 +29,7 @@ img.avatar {
 #text-truncate {
     max-width: 90%;
 }
+
+a {
+    cursor: pointer !important;
+}
