@@ -123,7 +123,7 @@ const Post_post = function (id, date, title, userName, description, price, quant
     this.type = type;
 }
 
-const currentUser = getUser();
+// const currentUser = getUser();
 
 $(document).ready(function () {
     renderCategory()

@@ -14,9 +14,9 @@ const Message = function (from, to, title, content, date, isRead, isStarred) {
 
 
 // const curUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111');
-const curUser = getUser();
+// const currentUser = getUser();
 // const messages = []
-const messages = curUser.messages;
+const messages = currentUser.messages;
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
@@ -71,7 +71,7 @@ function renderMenuSection() {
     let numInbox = 0
     let numStarred = 0
     for (let m of messages) {
-        if (m.from != curUser.name) {
+        if (m.from != currentUser.name) {
             numInbox = numInbox + 1
         } else {
             numSent = numSent + 1
@@ -223,8 +223,8 @@ $('body').on('click', '#reply', sendReply)
 function sendReply() {
     // the reply input field id is set to be the target user.
     const to = $(this).parent().prev()[0].id
-    const from = curUser.name
-    const title = `Reply from ${curUser.name}`
+    const from = currentUser.name
+    const title = `Reply from ${currentUser.name}`
     const content = $(`#${to}`).val()
     messages.push(new Message(from, to, title, content, new Date(), false, false))
     console.log(messages)
@@ -240,7 +240,7 @@ function renderStarred() {
     for (let m of messages) {
         if (m.isStarred) {
             const date = m.date.toLocaleDateString("en-US", dataFormat)
-            let targetUser = (m.from == curUser.name ? m.to : m.from)
+            let targetUser = (m.from == currentUser.name ? m.to : m.from)
 
             html = html + `<a class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
             <div class="d-flex w-100 justify-content-between">
@@ -278,10 +278,10 @@ function renderNewMessageForm() {
 function getUsersInvolved() {
     let users = []
     for (let m of messages) {
-        if (!users.includes(m.from) && m.from != curUser.name) {
+        if (!users.includes(m.from) && m.from != currentUser.name) {
             users.push(m.from)
         }
-        if (!users.includes(m.to) && m.to != curUser.name) {
+        if (!users.includes(m.to) && m.to != currentUser.name) {
             users.push(m.to)
         }
     }
@@ -292,7 +292,7 @@ function getUsersInvolved() {
 function getFirstMsg(op, conversation) {
     const len = conversation.length
     for (let i = len - 1; i >= 0; i--) {
-        if (op(conversation[i].from, curUser.name)) {
+        if (op(conversation[i].from, currentUser.name)) {
             return conversation[i]
         }
     }
@@ -321,7 +321,7 @@ function resetActive() {
 
 function sendMessage() {
     const to = $('#msgTo').val()
-    const from = curUser.name
+    const from = currentUser.name
     const title = $('#msgTitle').val()
     const content = $('#msgContent').val()
     // const date = (new Date()).toLocaleDateString(dataFormat)

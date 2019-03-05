@@ -1,6 +1,7 @@
 "use strict";
 console.log("nav_seller.js")  // log to the JavaScript console.
 
+const currentUser = getUser();
 function getUser() {
     let mockUser = {
         name: "User2",
@@ -35,7 +36,7 @@ function getUser() {
             }, 
             {
                 from: 'User3',
-                to: 'User1',
+                to: 'User2',
                 title: 'Regarding the Offer',
                 content: 'Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!',
                 date: new Date(2019, 2, 11),
@@ -43,7 +44,7 @@ function getUser() {
                 isStarred: false
             },
             {
-                from: 'User1',
+                from: 'User2',
                 to: 'User3',
                 title: 'Response',
                 content: 'Hello, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
@@ -62,6 +63,7 @@ function getUser() {
                 price: 30,
                 userName: "User2",
                 date: new Date(2018, 11, 9),
+                dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
                 image: "img/nestea.jpg"
             }, 
@@ -74,6 +76,7 @@ function getUser() {
                 price: 5.99,
                 userName: "User2",
                 date: new Date(2018, 11, 24),
+                dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
                 image: "img/clif.jpg"
             },
@@ -86,6 +89,7 @@ function getUser() {
                 price: 200,
                 userName: "User2",
                 date: new Date(2019, 0, 3),
+                dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
                 image: "img/crocs.jpg"
             },
@@ -98,6 +102,7 @@ function getUser() {
                 price: 270,
                 userName: "User2",
                 date: new Date(2019, 1, 12),
+                dueDate: null,
                 description: "Good quality mens sweatshirt.",
                 image: "img/shirt.jpeg"
             }

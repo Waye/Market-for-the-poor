@@ -27,8 +27,8 @@ const post = new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetables', 'User
  'Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.',
   100, '10 kg', 'img/frozen_veg.png', new Date(2019, 1, 6), 'request', 'Food');
 
-const currentUser = seller;
-const postOwner = buyer;
+// const currentUser = getUser();
+const postOwner = (currentUser.isBuyer ? seller : buyer);
 
 $(document).ready(function() {
     renderPostTitle()
