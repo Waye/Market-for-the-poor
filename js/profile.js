@@ -1,9 +1,6 @@
 "use strict";
 
 
-// test buyer and seller on your own
-const currentUser1 = getUser();
-
 function createUserInfo(UserNew){
 
     $('#UserName').text(UserNew.UserName);
@@ -35,7 +32,7 @@ function createUserInfo(UserNew){
 }
 
 //create a profile
-createUserInfo(currentUser1);
+createUserInfo(currentUser);
 
 // function createPost(post){
 //     let role = null;
