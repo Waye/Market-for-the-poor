@@ -4,59 +4,65 @@
 <head>
     <title>Sign up | Market for the poor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/signup.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <form>
-                <span class="container">
+                <div class="container">
                     <h1>Register</h1>
 
-                    <span>
-                    <label for="uname"><b>Username</b></label>
-                    <input id="userName" type="text" placeholder="Enter Username" name="uname" required>
-                    </span>
+                    <div>
+                        <label for="userName"><b>Username</b></label>
+                        <input id="userName" type="text" placeholder="Enter Username" required>
+                    </div>
 
-                    <span>
-                    <label for="email"><b>Email</b></label>
-                    <input id="email" type="text" placeholder="Email" name="email" required>
-                    </span>
+                    <div>
+                        <label for="email"><b>Email</b></label>
+                        <input id="email" type="text" placeholder="Email" required>
+                    </div>
 
-                    <span>
-                    <label for="psw"><b>Password</b></label>
-                    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
-                    </span>
+                    <div>
+                        <label for="password"><b>Password</b></label>
+                        <input id="password" type="password" placeholder="Enter Password" required>
+                    </div>
 
-                    <span>
-                    <label for="rppsw"><b>Repeat Password</b></label>
-                    <input id="rpassword" type="repeat_password" placeholder="Repeat Password" name="rppsw" required>
-                    </span>
+                    <div>
+                        <label for="rpassword"><b>Repeat Password</b></label>
+                        <input id="rpassword" type="repeat_password" placeholder="Repeat Password" required>
+                    </div>
 
-                    <span class="dropdown">
-                        <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Register as</button>
+                    <div class="dropdown">
+                        <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle"
+                            data-toggle="dropdown">Register as</button>
                         <span class="dropdown-menu">
                             <a class="dropdown-item" href="#">Buyer</a>
                             <a class="dropdown-item" href="#">Seller</a>
                             <a class="dropdown-item" href="#">Admin</a>
                         </span>
-                    </span>
+                    </div>
 
-                    <span>
-                    <button id="register" type="submit" class="btn btn-success">Register</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                    </span>
-                </span>
+                    <div>
+                        <button id="register" type="submit" class="btn btn-success">Register</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-md-2"></div>
     </div>
-    <script src="js/signup.js"></script>
+    <div>
+        <p id="userCreated"></p>
+    </div>
+    <script type="text/javascript" src="js/signup.js"></script>
 </body>
+
 </html>
