@@ -50,7 +50,7 @@ Under the filter, there is "Min. price" and "Max. price" function which are prom
 
 On the right side of the "feed" bar where it contains the refresh bottom, it also contains a bottom called "Sort". By clicking it you will see a dropdown menu which shows multiple options of sorting the products. Such as, "Newest first", "Oldest first", "Highest price first", "Lowest price first".
 
-On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to make a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page. After making the post, the post object will be logged in console.
+On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to make a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page. After clicking "submit", the post object will be logged in console. By clicking "Profile" and "Message", page will be redirected to according html. 
 
 By clicking "Active orders", "Finished" or "Posted", you will navigate to "orderpage_buyer.html", and can see the progress of your orders as well as your posted request and finished orders. For phase 1, this is still a mock page. Addtionally, we added anchors for all three buttons so when users click them the page will navigate to the location of "Active orders", "Posted orders" and "Finished orders". The effect can be shown when users are using smartphones or device that has narrower width. 
 
@@ -73,17 +73,22 @@ messages_buyer.html
 
 User will be able to see who has sent them messages in the inbox page. By clicking message shown in the inbox page, the page will show the chat
 conversation (all the messages sent and received from the target user). In addition to that, once user has entered the chat page, every message in the
-conversation has 2 buttons on the right, the star and delete. 
+conversation has 2 buttons on the right, the star and delete.  The numbers beside the message is the length of conversation between the two users.
+
 When clicking star, the message clicked will be marked as "Starred" and will be shown in there when users click "Starred" on the right side of the page.
 Also, the message is truncated if the length is longer than the width. When the starred message is clicked, it will reveal the full message.
 By clicking "delete", the message will be removed from the chat history.
+
 These functionalities are shown by small number in the menu bar. (# beside inbox displays all messages received so far, # beside sent displays all
 messages sent, # starred displays all messages starred) When deleting a message, it will be shown by the number change in the menu bar in the left.
 By clicking "Sent messages", users will see all messages that they priviously sent to other users. By clicking the message, user will also be able to
 see complete conversation with the target user.
 
-
-Users can also create "New Message" by clicking the button under the header, for phase 1, this is still a mock function.
+Users can also create "New Message" by clicking the button under the header, for phase 1, this is still a mock function. After filling in the new message
+and clicking send button, the number of sent in the menu bar will increase. If the message is sent to a user that has never communicated, the new message 
+is displayed in the sent box. If the message is sent to a user who has communicated before, the number in the message with this user will be increased by 1
+to indicate the length of conversation. User will have to click on this message to see the full conversation and see the new message sent. Reply function sends
+new message directly from conversation.
 
 ====================
 feedpage_seller.html  

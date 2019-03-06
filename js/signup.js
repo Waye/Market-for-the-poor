@@ -65,12 +65,11 @@ function register() {
 function displayErrorMsg(msg) {
     console.log(msg)
     const popUpMsg = $('#popUpMsg')
-    popUpMsg.html(`<div class="alert alert-success fade show" role="alert" id="forgotPasswordAlert">
+    popUpMsg.html(`<div class="alert alert-success fade show" role="alert">
     ${msg}</div>`)
     setTimeout(function() {
         $('.alert').alert('close')
         $('.alert').alert('dispose')
-        console.log('kknknkn')
     }, 4000)
 }
 

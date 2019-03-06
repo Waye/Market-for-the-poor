@@ -31,7 +31,7 @@ function getUser() {
                 title: 'Offer Question',
                 content: 'Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!',
                 date: new Date(2019, 1, 11),
-                isRead: true,
+                isRead: false,
                 isStarred: true
             }, 
             {
@@ -40,7 +40,7 @@ function getUser() {
                 title: 'Answer To Question',
                 content: 'Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
                 date: new Date(2019, 1, 12),
-                isRead: true,
+                isRead: false,
                 isStarred: false
             }, 
             {
@@ -538,7 +538,7 @@ function addNavContent(user) {
 
     /// Message button
     let unreadNum = 0;
-    user.messages.forEach(msg => {if (!msg.isRead) {unreadNum++}})
+    user.messages.forEach(msg => {if (!msg.isRead && currentUser.name != msg.from) {unreadNum++}})
 
     const msgBtn = document.createElement("li");
     msgBtn.className += "nav-item ml-2";

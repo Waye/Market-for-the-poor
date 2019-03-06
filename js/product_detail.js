@@ -21,6 +21,8 @@ const Post = function(id, date, title, userName, description, price, quantity, i
 }
 
 //logged in as seller and request is from another buyer
+
+//server call: send get request to get all info depending on type of the user logged in
 const seller = new User('User2', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111')
 const buyer = new User('User1', 'Twitter, Inc. 795 Folsom Ave, Suite 600 San Francisco, CA 94107', 'img/avatar_placeholder.png', true, '(123) 456-7890')
 const post = new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetables', 'User1',
@@ -102,3 +104,22 @@ function renderPostDescription() {
     $('#postDescription')[0].innerHTML = html
 }
 
+$('body').on('click', '#makeOfferRequest', makeOffer)
+
+// need server call. For phase 1, just a pop up.
+function makeOffer() {
+    const popUpMsg = $('#popUpMsg')
+    let msg = ''
+    if (currentUser.isBuyer) {
+        msg = 'request'
+    } else {
+        msg = 'offer'
+    }
+    
+    popUpMsg.html(`<div class="alert alert-success fade show" role="alert">
+    You have successfully made the ${msg}!</div>`)
+    setTimeout(function() {
+        $('.alert').alert('close')
+        $('.alert').alert('dispose')
+    }, 4000)
+}
