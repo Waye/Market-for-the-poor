@@ -85,9 +85,6 @@ profile_buyer.html
 
 User will be able to edit their profile information in this page such as, email, phone number, active status and other. Under the header, all 
 of user's post requests will be shown.
-A filter is also included under the header where user can select specific category to the page will display the post that has been posted by user 
-under the category selected.
-
 
 ===================
 messages_buyer.html
@@ -153,4 +150,5 @@ admin.html
 ==========
 
 Once successfully logged in as an admin. The user will be able to manage users and posts for this page. For users, admin will be able to ban or delete them from the server. For posts, admin will be able to delete them, by clicking the corresponding buttons shown on the page.
+
 
