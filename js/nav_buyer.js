@@ -48,7 +48,7 @@ function getUser() {
                 title: 'Regarding the Offer',
                 content: 'Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!',
                 date: new Date(2019, 2, 11),
-                isRead: true,
+                isRead: false,
                 isStarred: false
             },
             {
@@ -630,7 +630,7 @@ function addNavContent(user) {
 
     /// Message button
     let unreadNum = 0;
-    user.messages.forEach(msg => {if (!msg.isRead) {unreadNum++}})
+    user.messages.forEach(msg => {if (!msg.isRead && currentUser.name != msg.from) {unreadNum++}})
 
     const msgBtn = document.createElement("li");
     msgBtn.className += "nav-item ml-2";
