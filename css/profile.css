@@ -14,11 +14,21 @@
 
 } */
 
-/*.image-constrain{*/
-    /*width: 310px!important;*/
-    /*height: 310px!important;*/
+.postCard {
+    max-height: 500px;
+}
 
-/*}*/
+.image-constrain{
+    width: 100%;
+}
+
+.image-constrain img {
+    /*width: 100%;*/
+    /*height: auto;*/
+    /*max-width: 310px;*/
+    height: 200px;
+    object-fit: contain;
+}
 
 #profile-all{
     background-color: #EDEFEE;

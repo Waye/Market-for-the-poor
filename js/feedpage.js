@@ -197,7 +197,7 @@ class Post {
 
         let profile = null
         if (getUser().isBuyer) {
-            profile = 'profile_buyer.html'
+            profile = 'profile_seller.html'
         } else {
             profile = 'profile_seller.html'
         }

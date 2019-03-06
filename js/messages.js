@@ -13,13 +13,11 @@ const Message = function (from, to, title, content, date, isRead, isStarred) {
 }
 
 
-// const curUser = new User('User1', 'Somewhere Over The Rainbow', 'img/avatar_placeholder.png', false, '(123) 111-1111');
-// const currentUser = getUser();
-// const messages = []
+// get request to server to get current user's messages
 const messages = currentUser.messages;
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
-
+//on load render whole page
 $(document).ready(function() {
     renderMenuSection()
     renderInboxOrSent(inboxFirstMsgFinder, true)
@@ -43,7 +41,7 @@ $('#sent').click(function() {
     fillSelectedIcon('#sent path')
 })
 
-
+// Inbox selected in the left menu bar, display inbox messages in the middle
 $('#inbox').click(function() {
     resetActive()
     removeMainContainer()
@@ -52,7 +50,7 @@ $('#inbox').click(function() {
     fillSelectedIcon('#inbox path')
 })
 
-
+// Starred selected in the left menu bar, display starred messages in the middle
 $('#starred').click(function() {
     resetActive()
     removeMainContainer()
@@ -61,7 +59,7 @@ $('#starred').click(function() {
     fillSelectedIcon('#starred path')
 })
 
-
+// New Message selected in the left menu bar, display new message form in the middle
 $('#newMsg').click(function() {
     resetActive()
     removeMainContainer()
@@ -70,24 +68,33 @@ $('#newMsg').click(function() {
     fillSelectedIcon('#newMsg path')
 })
 
-
+// On new message form, cancel is clicked. Remove form from the middle
 $('body').on('click', '#cancel', removeMainContainer)
+
+// On new message form, send is clicked. Send the message.
+// Post request to server for the new message is sent.
 $('body').on('click', '#send', sendMessage)
+
+// On starred section, after clicking the message, show the full content.
 $('body').on('click', 'a.starred', function() {
     $(this).find('p').removeClass('text-truncate').addClass('text-left')
 })
 
+// Clicking on message will show full history)
 $('body').on('click', 'a.conversation', function() {
     const targetUser = $(this).find('small.targetUser')[0].innerHTML
     console.log(targetUser)
     removeMainContainer()
-    // renderReplyForm(targetUser)
     renderMsgDetail(targetUser)
 })
 
-
+// Star or Unstar the message. Send update request to server inside the function to change the status of message
 $('body').on('click', 'a.msgToStar', starOrUnstarMessage)
+
+// Delete the message. Send delete Request to server inside the function.
 $('body').on('click', 'a.msgToDelete', deleteMessage)
+
+// Same as send message but more convenient UI for user. Send Post request to server inside the function
 $('body').on('click', '#reply', sendReply)
 
 function renderMenuSection() {
@@ -112,6 +119,7 @@ function renderMenuSection() {
 
 function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
     const users = getUsersInvolved()
+    
     //get messages from server
     let html = ''
 
@@ -155,8 +163,8 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
 
 
 
-
 function renderMsgDetail(targetUser) {
+    //get messages from server
     const conversation = messages.filter(msg => msg.from == targetUser || msg.to == targetUser)
     const len = conversation.length
     // Assign targetUser as input id so that when reply is made, we can construct new message using this id.
@@ -232,7 +240,6 @@ function deleteMessage() {
 }
 
 
-// const Message = function (from, to, title, content, date, isRead, isStarred
 function sendReply() {
     // the reply input field id is set to be the target user.
     const to = $(this).parent().prev()[0].id
