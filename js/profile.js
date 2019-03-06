@@ -1,5 +1,6 @@
 "use strict";
 
+// server call to get posts
 const posts = getPost()
 // const filterResult =[]
 
