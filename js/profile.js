@@ -82,26 +82,26 @@ function editUserInfo() {
 
 
 function createPost(post){
-    let role = null;
+    let detail
 
-    if(post.isCompleted)
-    {
-        role = "completed"
+    if(post.type==="request"){
+        detail = 'product_detail_buyer.html'
     }
-    else
-    {
-        role ='not completed'
+    else if (post.type==="offer"){
+        detail = 'product_detail_seller.html'
     }
+
+
 
     const onePost=`<!--one post-->
 
                 <div class="col-lg-3 col-md-6 mb-4 post-column">
-                    <div class="card shadow request/offer" >
+                    <div class="card shadow postCard" >
 
                                     <!--Card image-->
                    
-                                    <div class="view overlay image-constrain">
-                                        <img src="${post.image}"  class="card-img-top post-img " >
+                                    <div class="image-constrain">
+                                        <img src="${post.image}"  class="card-img-top post-img p-3" >
                                     </div>
                                     
 
@@ -109,15 +109,13 @@ function createPost(post){
                                     <!--Card content-->
                                     <div class="card-body text-center">
                                         <!--Title & role-->
-                                        <h6 class="post-title font-weight-bold font-italic">${post.title}</h6>
-                                        <h6 class="post-role text-primary">${role}</h6>
+                                        <h6 class="post-title font-weight-bold font-italic text-truncate">${post.title}</h6>
+                                        <h6 class="post-role text-primary">${post.price}, <small>${post.quantity}</small></h6>
+                                        <a href="${detail}" class="btn btn-light">Detail</a>
+                                        <!--<a href="" class="btn btn-light" >Modify</a>-->
                                     </div>
 
 
-                                    <div class="card-body">
-                                            <a href="product_detail.html" class="btn btn-success">Detail</a>
-                                            <a href="" class="btn btn-success" >Modify</a>
-                                    </div>
 
                     </div>
 
