@@ -2,7 +2,7 @@
 
 // server call to get posts
 const posts = getPost()
-// const filterResult =[]
+let filterResult =[]
 
 function createUserInfo() {
 
@@ -164,15 +164,14 @@ function createPagination(groupPost){
 
 //filter for nav-filter-bar
 function filter(keyword){
-    const filterResult = []
-    if (keyword == "Total")
-        return posts
+    filterResult = []
+    if (keyword == "Total") {
+        filterResult = posts
+    } else {
     posts.forEach(f => {
-        if (f.category == keyword){filterResult.push(f)}
-    })
-    // console.log(filterResult)
-    createPagination(filterResult)
-    return filterResult
+        if (f.category == keyword){
+            filterResult.push(f)}
+    })}
 
 }
 
@@ -180,22 +179,25 @@ function filter(keyword){
 $('#pagenav').on('click', '.page-item',function()
 {
     const key = $(this).attr('id')
-    renderPage(key, filter())
+    renderPage(key, filterResult)
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // find keyword to filter
 $('#filter-apply-nav').on('click', '.nav-item',function()
 {
-    renderPage(1,filter($(this).find(".nav-link").attr("id")))
+    filter($(this).find(".nav-link").attr("id"))
+    createPagination(filterResult)
+    renderPage(1,filterResult)
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 
 function main() {
     createUserInfo(currentUser);
-    renderPage(1,filter("Total"));
-    createPagination(filter("Total"));
+    filter('Total')
+    renderPage(1,filterResult);
+    createPagination(filterResult);
 }
 $(document).ready(main);
 
