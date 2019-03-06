@@ -1,5 +1,4 @@
-
-let newUser = null;
+// let newUser = null;
 
 
 $('.dropdown-item').click(function() {
@@ -9,8 +8,9 @@ $('.dropdown-item').click(function() {
 
 $('form').on('click', '#register', register)
 
+// register function
 function register() {
-    newUser = {
+    const newUser = {
         userName: $('#userName').val(),
         email: $('#email').val(),
         phone: $('#phone').val(),
@@ -58,16 +58,10 @@ function register() {
     Password: ${newUser.password}<br>
     Registerd as: ${newUser.userType}`
 
-    const popUpMsg = $('#popUpMsg')
-    popUpMsg.html(html)
-    popUpMsg.css('display', 'block')
-    setTimeout(function(){
-        $('#mainContainer').html('')
-        renderNewRegistration()
-        $('#popUpMsg').css('display', 'none')
-    }, 5000);
+    displayErrorMsg(html)
 }
 
+// error message for registration 
 function displayErrorMsg(msg) {
     console.log(msg)
     const popUpMsg = $('#popUpMsg')
@@ -79,6 +73,7 @@ function displayErrorMsg(msg) {
         console.log('kknknkn')
     }, 4000)
 }
+
 
 function renderNewRegistration() {
     const html = `

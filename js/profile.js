@@ -61,8 +61,8 @@ function displayEditForm() {
     </form>`
     $('#editFormContainer').html(html)
 }
+
 $('body').on('click', '#edit', editUserInfo)
-// $('#edit').click(editUserInfo)
 
 function editUserInfo() {
     const email = $('#emailEdit').val()
@@ -119,24 +119,12 @@ function createPost(post){
                                             <a href="" class="btn btn-success" >Modify</a>
                                     </div>
 
-
-
-
                     </div>
 
                 </div>
                         `;
-
     return onePost;
-
 }
-
-// click
-//     get filter value
-//     posts.filter(p => p.category == filtervakye)
-// filter category
-
-
 
 function renderPage(pagenum) {
 
@@ -175,7 +163,6 @@ function createPagination(groupPost){
 
     let pagenumber=Math.ceil(groupPost.length/8)
 
-
     for(let i=1; i<=pagenumber;i++)
     {
         let li=`<li class="page-item " id="${i}">
@@ -202,8 +189,6 @@ $('#pagenav').on('click', '.page-item',function()
 
 
 function main() {
-
-
     createUserInfo(currentUser);
     renderPage(1);
     createPagination(posts);
