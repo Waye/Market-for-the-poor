@@ -22,6 +22,18 @@ The functionality of all three pages will be explained later.
 By clicking "Forgot password?" button on the bottom of log in page, a mock data(for now), will be displayed on the top on the page under the header, saying an information has been sent to the email of the user.
 
 ===================
+signup.html
+===================
+User will be able to register in this page. There are several restriction on registration.
+1. username: length >= 5 chars
+2. email: length >= 5 chars
+3. phone: length >= 10 chars. must be all digits
+4. password: length >= 5chars and repeat password should match
+5. register as: must be selected from the dropdown.
+If above condition is not met, error message will be shown for 4 seconds, indicating the first violating condition. 
+Upon successful registration, registered information is also shown for 4 seconds by popup.
+
+===================
 feedpage_buyer.html
 ===================
 
@@ -38,7 +50,7 @@ Under the filter, there is "Min. price" and "Max. price" function which are prom
 
 On the right side of the "feed" bar where it contains the refresh bottom, it also contains a bottom called "Sort". By clicking it you will see a dropdown menu which shows multiple options of sorting the products. Such as, "Newest first", "Oldest first", "Highest price first", "Lowest price first".
 
-On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to post a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page.
+On the right side of the header there are four other buttons available, "Post a new request", "Profile", "Messages", and "Log Out". By clicking "Post a new request", a pop up page will be shown and allow users to upload images and enter price and category, etc to make a buyer request, so that other sellers can see the opportunity to sell. For phase 1, this is still a mock page. After making the post, the post object will be logged in console.
 
 By clicking "Active orders", "Finished" or "Posted", you will navigate to "orderpage_buyer.html", and can see the progress of your orders as well as your posted request and finished orders. For phase 1, this is still a mock page. Addtionally, we added anchors for all three buttons so when users click them the page will navigate to the location of "Active orders", "Posted orders" and "Finished orders". The effect can be shown when users are using smartphones or device that has narrower width. 
 
@@ -57,10 +69,17 @@ User will be able to edit their profile information in this page such as, email,
 messages_buyer.html
 ===================
 
-User will be able to see who has sent them messages in the inbox page, by clicking any users shown in the inbox page, the page will move to the chat page specific to those users.
-In addition to that, once user has admin)entered the chat page, on every messages shown, there are 2 buttons on the right, the star and delete. When clicking star, the message clicked will be marked as "Starred" and will be shown in there when users click "Starred" on the right side of the page.
+User will be able to see who has sent them messages in the inbox page. By clicking message shown in the inbox page, the page will show the chat
+conversation (all the messages sent and received from the target user). In addition to that, once user has entered the chat page, every message in the
+conversation has 2 buttons on the right, the star and delete. 
+When clicking star, the message clicked will be marked as "Starred" and will be shown in there when users click "Starred" on the right side of the page.
+Also, the message is truncated if the length is longer than the width. When the starred message is clicked, it will reveal the full message.
 By clicking "delete", the message will be removed from the chat history.
-By clicking "Sent messages", users will see all messages that they priviously sent to other users.
+These functionalities are shown by small number in the menu bar. (# beside inbox displays all messages received so far, # beside sent displays all
+messages sent, # starred displays all messages starred) When deleting a message, it will be shown by the number change in the menu bar in the left.
+By clicking "Sent messages", users will see all messages that they priviously sent to other users. By clicking the message, user will also be able to
+see complete conversation with the target user.
+
 
 Users can also create "New Message" by clicking the button under the header, for phase 1, this is still a mock function.
 
