@@ -5,7 +5,7 @@ const posts = getPost()
 let filterResult =[]
 
 function createUserInfo() {
-    console.log(currentUser)
+
 
     $('#userName').text(currentUser.userName);
     $('#profileImage').attr("src", currentUser.avatar);
@@ -66,7 +66,7 @@ function displayEditForm() {
 
 $('body').on('click', '#edit', editUserInfo)
 
-function editUserInfo() {
+function editUserInfo(){
     const email = $('#emailEdit').val()
     const password = $('#passwordEdit').val()
     const phone = $('#phoneEdit').val()
@@ -81,8 +81,6 @@ function editUserInfo() {
     createUserInfo(currentUser)
 }
 
-
-
 function createPost(post){
     let detail
 
@@ -92,22 +90,14 @@ function createPost(post){
     else if (post.type==="offer"){
         detail = 'product_detail_seller.html'
     }
-
-
-
     const onePost=`<!--one post-->
 
                 <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
                     <div class="card shadow postCard" >
-
                                     <!--Card image-->
-                   
                                     <div class="image-constrain">
                                         <img src="${post.image}"  class="card-img-top post-img p-3" >
                                     </div>
-                                    
-
-
                                     <!--Card content-->
                                     <div class="card-body text-center">
                                         <!--Title & role-->
@@ -116,35 +106,30 @@ function createPost(post){
                                         <a href="${detail}" class="btn btn-light">Detail</a>
                                         <!--<a href="" class="btn btn-light" >Modify</a>-->
                                     </div>
-
-
-
                     </div>
-
                 </div>
                         `;
     return onePost;
 }
 
-function renderPage(pagenum) {
+function renderPage(pagenum,postgroup){
 
     $('#post-TwoRow').html('')
 
     let end = pagenum * 8
     let start = end - 8
-
     let html=``
 
 
-    if (posts.length < end) {
-        end = posts.length
+    if (postgroup.length < end) {
+        end = postgroup.length
     }
 
     html=html+`<div class="row fadeIn post-row">`
     for (let i = start; i < end; i++) {
 
 
-        html=html+createPost(posts[i])
+        html=html+createPost(postgroup[i])
         if (i === start + 3){
             html=html+`</div>`
             html=html+`<div class="row fadeIn post-row">`
@@ -160,6 +145,8 @@ function renderPage(pagenum) {
 }
 
 function createPagination(groupPost){
+    $('#pagenav').html('')
+
 
     let pagenumber=Math.ceil(groupPost.length/8)
 
@@ -172,7 +159,8 @@ function createPagination(groupPost){
                             </li>`;
 
         $('#pagenav').append(li);
-
+    }
+}
 
 //filter for nav-filter-bar
 function filter(keyword){
@@ -180,14 +168,14 @@ function filter(keyword){
     if (keyword == "Total") {
         filterResult = posts
     } else {
-    posts.forEach(f => {
-        if (f.category == keyword){
-            filterResult.push(f)}
-    })}
+        posts.forEach(f => {
+            if (f.category == keyword){
+                filterResult.push(f)}
+        })}
+
 }
 
-
-//use id to listen
+//use id to listen id for pagination
 $('#pagenav').on('click', '.page-item',function()
 {
     const key = $(this).attr('id')
@@ -210,7 +198,6 @@ function main() {
     filter('Total')
     renderPage(1,filterResult);
     createPagination(filterResult);
-
 }
 $(document).ready(main);
 
