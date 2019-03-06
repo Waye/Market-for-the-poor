@@ -174,7 +174,7 @@ class Post {
         productElement.className += "row mt-3 mb-3 border-bottom product";
 
         const imgCol = document.createElement('div');
-        imgCol.className += "col-12 col-md-2 mb-3";
+        imgCol.className += "col-12 col-md-2 mb-3 text-center";
         const imgElement = document.createElement('img');
         imgElement.className += "rounded";
         imgElement.setAttribute("alt", "...");
@@ -197,7 +197,7 @@ class Post {
 
         let profile = null
         if (getUser().isBuyer) {
-            profile = 'profile_buyer.html'
+            profile = 'profile_seller.html'
         } else {
             profile = 'profile_seller.html'
         }

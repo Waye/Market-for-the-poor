@@ -1,167 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="css/nav.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/profile.css">
 
 </head>
+
 <body>
-<!--navigation bar-->
-<nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+    <!--navigation bar-->
+    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
 
 
-<div class="container-fluid" id="profile-all" >
-    <div class="row">
-        <!--profile part-->
-        <div class="col-md-3">
-            <div class="card shadow" >
-                <img class="card-img-top" id="profile-image" src="img/avatar_placeholder.png">
-                <div class="card-body" id="profile-card-body">
-                    <h5 class="card-title" id="UserName">UserName</h5>
-                    <ul class="list-group ">
-                        <li class="list-group-item" id="email">email</li>
-                        <li class="list-group-item" id="phone">phone number</li>
-                        <li class="list-group-item" id="status">status</li>
-                        <li class="list-group-item" id="buyerOrseller">role</li>
-                    </ul>
-                    <p class="card-text" id="description">description</p>
-                    <button type="button" class="btn btn-success" id="Edit-btn">Edit</button>
-                    <button type="button" class="btn btn-success" id="change-password-btn">Change Password</button>
+    <div class="container-fluid" id="profile-all">
+        <div class="row">
+            <!--profile part-->
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <img class="card-img-top" id="profileImage">
+                    <div class="card-body" id="profile-card-body">
+                        <h5 class="card-title" id="userName"></h5>
+                        <ul class="list-group ">
+                            <li class="list-group-item" id="email"></li>
+                            <li class="list-group-item" id="phone"></li>
+                            <li class="list-group-item" id="status"></li>
+                            <li class="list-group-item" id="buyerOrSeller"></li>
+                            <li class="list-group-item" id="userDescription"></li>
+                        </ul>
+                        <!-- <p class="card-text" id="userDescription"></p> -->
+                        <button type="button" class="btn btn-primary mt-3" id="editBtn">Edit/Change Password</button>
+                    </div>
                 </div>
-
-
-
-
             </div>
-        </div>
 
-        <!--post part-->
-        <div class="col-md-9" id="post-part">
-            <main>
-                <div class="container-fluid">
+            <!--post part-->
+            <div class="col-md-9" id="post-part">
+                <main>
+                    <div class="container-fluid">
 
-                    <!--Nav bar-->
-                    <nav class="navbar navbar-expand-lg navbar-light  shadow" id="post-nav-bar">
+                        <!--Nav bar-->
+                        <nav class="navbar navbar-expand-lg navbar-light  shadow" id="post-nav-bar">
 
 
-                        <!-- Collapsible content -->
-                        <div class="collapse navbar-collapse " id="productsNav">
+                            <!-- Collapsible content -->
+                            <div class="collapse navbar-collapse " id="productsNav">
 
                             <!-- Links -->
                             <ul class="navbar-nav mr-auto  ">
                                 <li class="nav-item">
-                                    <a class="nav-link text-primary" href="#Completed">Completed<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-danger" href="#In-completed">In-completed<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link text-info" href="#Total">Total<span class="badge badge-light badge-pill category-sum">120</span></a>
 
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#Shirts">Shirts<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#electronics">electronics<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#clothing">clothing<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#furniture">furniture<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#tools">tools<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-waring" href="#other">other<span class="badge badge-light badge-pill category-sum">20</span></a>
-                                </li>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#Shirts">Shirts<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#electronics">electronics<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#clothing">clothing<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#furniture">furniture<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tools">tools<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-waring" href="#other">other<span class="badge badge-light badge-pill category-sum">20</span></a>
+                                    </li>
 
-                            </ul>
+                                </ul>
 
-                        </div>
-                    </nav>
+                            </div>
+                        </nav>
 
 
                     <!--Section: Product display-->
-                    <section class="text-center mb-4 post-TwoRow">
-                        <!--first row-->
-                        <div class="row fadeIn " id="post-row1"></div>
-                        <!--second row-->
-                        <div class="row fadeIn" id="post-row2"></div>
+                    <section class="text-center mb-4 " id="post-TwoRow">
 
-                    </section>
+                        </section>
 
 
                     <!--Pagination-->
-                    <nav class="d-flex justify-content-center wow fadeIn" id="paginationStuff">
-                        <ul class="pagination pg-blue" id="pagenav">
-
+                    <nav class="d-flex justify-content-center wow fadeIn" >
+                        <ul class="pagination pg-blue page-item" id="pagenav">
 
                         </ul>
                     </nav>
                     <!--Pagination-->
 
-                </div>
-            </main>
+                    </div>
+                </main>
+
+            </div>
+
+
 
         </div>
+        <!--Footer-->
+        <footer class="page-footer text-center font-small mt-4  fadeIn bg-light shadow">
+
+            <!--Call to action-->
+            <div class="pt-4">
+                <a class="btn btn-outline-white" href=""
+                    target="_blank" role="button">OurGithub
+                    <i class="fas fa-download ml-2"></i>
+                </a>
+                <a class="btn btn-outline-white" href="" target="_blank"
+                    role="button">About this people
+                    <i class="fas fa-graduation-cap ml-2"></i>
+                </a>
+            </div>
+            <!--/.Call to action-->
+
+            <hr class="my-4">
+
+            <!-- Social icons -->
+            <div class="pb-4">
+
+
+            </div>
+            <!-- Social icons -->
 
 
 
+
+        </footer>
+        <div id="editFormContainer">
+        </div>
     </div>
-    <!--Footer-->
-    <footer class="page-footer text-center font-small mt-4  fadeIn bg-light shadow">
-
-        <!--Call to action-->
-        <div class="pt-4">
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">OurGithub
-                <i class="fas fa-download ml-2"></i>
-            </a>
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">About this people
-                <i class="fas fa-graduation-cap ml-2"></i>
-            </a>
-        </div>
-        <!--/.Call to action-->
-
-        <hr class="my-4">
-
-        <!-- Social icons -->
-        <div class="pb-4">
 
 
-        </div>
-        <!-- Social icons -->
-
-
-
-
-    </footer>
-
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-<script type="text/javascript" src="js/nav_seller.js"></script>
-<script type="text/javascript" src="js/profile.js"></script>
-<script type="text/javascript" src="js/post.js"></script>
+    <script type="text/javascript" src="js/nav_seller.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
 </body>
+
 </html>

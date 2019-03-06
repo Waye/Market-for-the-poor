@@ -47,7 +47,7 @@ function displayOrders(orderList, gotBuyerList) {
                 </div>
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-4 d-none d-sm-block text-center"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item mb-3 avatar"/></div>
+                        <div class="col-4 d-none d-sm-block text-center mt-auto mb-auto"><img alt="..." src="${gotBuyerList[i].avatar}" class="rounded-circle list-inline-item avatar"/></div>
                         <div class="col-sm-8">
                             <a href="#">${gotBuyerList[i].userName}</a>
                             <p><strong>Deliver to:</strong> ${order.shipAddr}</p>

@@ -11,10 +11,10 @@ index.html
 ==========
 
 There are 3 buttons available in our index page, "Log in", "Sign up" and "Join Us".
-By clicking "Sign up" and "Join us", you will be transfered to "signup.html" and be propmted to create an account of your own.
+By clicking "Sign up" and "Join us", you will be transferred to "signup.html" and be prompted to create an account of your own.
 For now, since phase 1 does not allow us to connect with server. This is still a mock page.
 
-By clicking "Log in", you will be transfered to "login.html" and can log in to 3 different pages by the credentials we provide:
+By clicking "Log in", you will be transferred to "login.html" and can log in to 3 different pages by the credentials we provide:
 - By entering "user" as username and password, user will be logged in into the buyer page.
 - By entering "user2" as username and password, user will be logged in into the seller page.
 - By entering "admin" as username and password, user will be logged in into the admin page.
@@ -63,7 +63,9 @@ Clicking "Profile", "Messages" and "Log Out" will link users to "profile_buyer.h
 profile_buyer.html
 ==================
 
-User will be able to edit their profile information in this page such as, email, phone number, active status and other. For phase 1, this is still a mock page.
+User will be able to edit their profile information in this page such as, email, phone number, active status and other. Under the header, all of user's post requests will be shown.
+A filter is also included under the header where user can select specific category to the page will display the request that has been posted by user under the category selected.
+
 
 ===================
 messages_buyer.html
@@ -101,6 +103,7 @@ profile_seller.html
 ===================
 
 All functionalities are the same as "profile_buyer.html".
+Except we use two different Nav_seller.js to implement seller User profile.
 
 ===================
 message_seller.html

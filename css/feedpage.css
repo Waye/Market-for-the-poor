@@ -7,17 +7,23 @@ body {
 }
 
 .product img {
-    /* width: auto; */
+    max-height: 200px;
     max-width: 100px;
+    object-fit: scale-down;
+    /* max-width: 100px; */
 }
 
 .result img {
-    max-width: 100px;
+    /* max-width: 100px; */
+    width: 100%;
+    object-fit: scale-down;
 }
 
 .order img {
     /* width: auto; */
-    max-width: 100px;
+    /* max-width: 100px; */
+    width: 100px;
+    object-fit: scale-down;
 }
 
 img.avatar {
