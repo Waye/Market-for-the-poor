@@ -29,3 +29,13 @@
     max-height: 300px;
     overflow: scroll;
 }
+
+.result img {
+    /* max-width: 100px; */
+    width: 100%;
+    object-fit: scale-down;
+}
+
+.modal-backdrop {
+    background-color: rgba(0,0,0,.0001) !important;
+}
