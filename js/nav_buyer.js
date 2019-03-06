@@ -641,7 +641,7 @@ function addNavContent(user) {
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
     msgBtnSpan.innerText = "Messages ";
-    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-light">${unreadNum}</span>`;
+    msgBtnSpan.innerHTML += `<span class="msgButtonNav badge badge-danger">${unreadNum}</span>`;
     msgBtnLink.appendChild(msgBtnSpan);
     msgBtn.appendChild(msgBtnLink);
 

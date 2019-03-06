@@ -26,12 +26,21 @@ $(document).ready(function() {
     modifyNavMsgNum()
 })
 
+function fillSelectedIcon(iconSelector) {
+    $('#sent path').attr('fill', 'black')
+    $('#inbox path').attr('fill', 'black')
+    $('#starred path').attr('fill', 'black')
+    $('#newMsg path').attr('fill', 'black')
+    $(iconSelector).attr('fill', 'white')
+}
+
 
 $('#sent').click(function() {
     resetActive()
     removeMainContainer()
     renderInboxOrSent(sentFirstMsgFinder, false)
     $('#sent').addClass('active')
+    fillSelectedIcon('#sent path')
 })
 
 
@@ -40,6 +49,7 @@ $('#inbox').click(function() {
     removeMainContainer()
     renderInboxOrSent(inboxFirstMsgFinder, true)
     $('#inbox').addClass('active')
+    fillSelectedIcon('#inbox path')
 })
 
 
@@ -48,6 +58,7 @@ $('#starred').click(function() {
     removeMainContainer()
     renderStarred()
     $('#starred').addClass('active')
+    fillSelectedIcon('#starred path')
 })
 
 
@@ -56,6 +67,7 @@ $('#newMsg').click(function() {
     removeMainContainer()
     renderNewMessageForm()
     $('#newMsg').addClass('active')
+    fillSelectedIcon('#newMsg path')
 })
 
 
@@ -112,13 +124,13 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
             continue
         }
         let targetUser = (isRenderingInbox ? m.from : m.to)
-        let status = null
+        let status = ''
         if (isRenderingInbox) {
             targetUser = m.from
-            status = (m.isRead ? 'Read' : 'New')
+            status = (m.isRead ? '<span class="badge badge-pill badge-light">Read <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg></span></span>' : '<span class="badge badge-pill badge-primary">New</span>')
         } else {
             targetUser = m.to
-            status = 'Sent'
+            status = '<span class="badge badge-pill badge-light">Sent<span>'
         }
 
         const date = m.date.toLocaleDateString("en-US", dataFormat)
@@ -131,7 +143,7 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
             <div class="col-10">
                 <div class="d-flex justify-content-between">
                     <h5>${m.title} <small class="border rounded p-1">${conversation.length}</small></h5><span>${date}
-                    <span class="badge badge-pill badge-primary">${status}</span></span>
+                    ${status}</span>
                 </div>
                 <p class="text-truncate">${m.content}</p>
             </div>
@@ -157,14 +169,13 @@ function renderMsgDetail(targetUser) {
         let date = m.date.toLocaleDateString("en-US", dataFormat)
         let svg = null
         if (m.isStarred) {
-            svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#007bff">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-            <path d="M0 0h24v24H0z" fill="none"/></svg>`
+            svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#007bff"/>
+            </svg>`
         } else {
             svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" fill="rgb(16,108,255)"></path>
-            <path d="M0 0h24v24H0z" fill="none"></path></svg>`
+            </svg>`
         }
         html = html +  `
         <div class="card mr-3 ml-3 mb-3 bg-light">
@@ -178,7 +189,7 @@ function renderMsgDetail(targetUser) {
                         <a class="msgToDelete active ml-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="rgb(16,108,255)"></path>
-                                <path d="M0 0h24v24H0z" fill="none"></path></svg></a></li></ul>
+                                </svg></a></li></ul>
                 <h5 class="card-title">${m.title}</h5>
                 <p class="card-text msgDetailContent">${m.content}</p>
             </div2>
@@ -263,15 +274,15 @@ function renderStarred() {
 
 
 function renderNewMessageForm() {
-    const html = `<div class="modal-content">
-        <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">New Message</h5></div>
+    const html = `<div class="modal-content border-0">
+        <div class="modal-header border-0 border-top rounded-0"><h5 class="modal-title" id="exampleModalLabel">New Message</h5></div>
         <div class="modal-body"><table class="table"><tbody>
         <tr><td>Message To:</td><td><input id="msgTo" type="text"></td></tr>
         <tr><td>Message Title:</td><td><input id="msgTitle" type="text"></td></tr>
         <tr><td>Content:</td><td><textarea id="msgContent" rows="5" cols="50" placeholder="Write your message"></textarea></td><td></td></tr>
         </tbody></table></div></div>
         <div class="modal-footer">
-        <button id="cancel" type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+        <button id="cancel" type="button" class="btn btn-secondary cancel" data-dismiss="modal">Discard</button>
         <button id="send" type="button" class="btn btn-primary send">Send</button></div>`
     $('#mainContainer').html(html)
 }
