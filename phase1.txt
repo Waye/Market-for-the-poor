@@ -85,6 +85,9 @@ profile_buyer.html
 
 User will be able to edit their profile information in this page such as, email, phone number, active status and other. Under the header, all 
 of user's post requests will be shown.
+A filter is also included under the header where user can select specific category to the page will display the post that has been posted by user 
+under the category selected.
+
 
 ===================
 messages_buyer.html
