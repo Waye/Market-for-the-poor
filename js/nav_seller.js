@@ -485,6 +485,11 @@ function addNavContent(user) {
     })
     $("#topNav").on('keypress', '#searchInput',function(){
         console.log("pressed")
+        const inputPos = $("input").position();
+        console.log("Top: " + inputPos.top + " Left: " + inputPos.left);
+        // $('#searchrResultModal').attr("top", `"calc(${x.top}px + 20px)"`);
+        // $('#searchrResultModal').attr("left", `"calc(${x.left}px)"`);
+        $("#searchrResultModal").css({top: inputPos.top + 20, left: 20});
         $('#searchrResultModal').modal('show');
     });
 
