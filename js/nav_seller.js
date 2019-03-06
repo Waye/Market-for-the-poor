@@ -65,20 +65,6 @@ function getUser() {
         posts: [
             {
                 id: 31,
-                title: "Nestea Lemon, Pack of 12 cans",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
-
-            },
-            {
-                id: 32,
                 title: "CLIF Energy Bar, Chocolate Brownie flavour",
                 type: "offer",
                 category: "food",
@@ -89,6 +75,20 @@ function getUser() {
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
                 image: "img/clif.jpg",
+
+            },
+            {
+                id: 32,
+                title: "Nestea Lemon, Pack of 12 cans",
+                type: "offer",
+                category: "food",
+                quantity: "5 packs",
+                price: 30,
+                userName: "User2",
+                date: new Date(2018, 11, 9),
+                dueDate: null,
+                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
+                image: "img/nestea.jpg",
 
             },
             {
@@ -149,20 +149,6 @@ function getUser() {
             },
             {
                 id: 37,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
-
-            },
-            {
-                id: 38,
                 title: "Affordable Mens Sweatshirt",
                 type: "offer",
                 category: "clothing",
@@ -173,6 +159,20 @@ function getUser() {
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
                 image: "img/shirt.jpeg",
+
+            },
+            {
+                id: 38,
+                title: "Crocs Clog",
+                type: "offer",
+                category: "clothing",
+                quantity: "20 count",
+                price: 200,
+                userName: "User2",
+                date: new Date(2019, 0, 3),
+                dueDate: null,
+                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
+                image: "img/crocs.jpg",
 
             },
             {
@@ -219,6 +219,19 @@ function getUser() {
             },
             {
                 id: 42,
+                title: "Nestea Lemon, Pack of 12 cnas",
+                type: "offer",
+                category: "food",
+                quantity: "5 packs",
+                price: 30,
+                userName: "User2",
+                date: new Date(2018, 11, 9),
+                dueDate: null,
+                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
+                image: "img/nestea.jpg"
+            },
+            {
+                id: 43,
                 title: "Affordable Mens Sweatshirt",
                 type: "offer",
                 category: "clothing",
@@ -230,19 +243,6 @@ function getUser() {
                 description: "Good quality mens sweatshirt.",
                 image: "img/shirt.jpeg",
 
-            },
-            {
-                id: 43,
-                title: "Nestea Lemon, Pack of 12 cnas",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg"
             },
             {
                 id: 44,
@@ -356,48 +356,6 @@ function getUser() {
                 image: "img/nestea.jpg",
 
             },
-            {
-                id: 52,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
-                category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
-
-            },
-            {
-                id: 53,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
-
-            },
-            {
-                id: 54,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
-
-            }
         ],
         isBanned: false,
         isBuyer: false,

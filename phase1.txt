@@ -154,3 +154,4 @@ admin.html
 
 Once successfully logged in as an admin. The user will be able to manage users and posts for this page. For users, admin will be able to ban or delete them from the server. For posts, admin will be able to delete them, by clicking the corresponding buttons shown on the page.
 
+
