@@ -95,7 +95,7 @@ function createPost(post){
 
     const onePost=`<!--one post-->
 
-                <div class="col-lg-3 col-md-6 mb-4 post-column">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
                     <div class="card shadow postCard" >
 
                                     <!--Card image-->
@@ -164,7 +164,7 @@ function createPagination(groupPost){
     for(let i=1; i<=pagenumber;i++)
     {
         let li=`<li class="page-item " id="${i}">
-                                <a class="page-link " href="#${i}">${i}
+                                <a class="page-link " href="#">${i}
                                     <!--<span class="sr-only">(current)</span>-->
                                 </a>
                             </li>`;

@@ -16,10 +16,10 @@ function check(form)/*function to check userid & password*/
     if (!form) {
         alert("Error Password or Username");/*displays error message*/
     }
-    else if(form.uname.value == "seller" && form.psw.value == "seller") {
+    else if(form.uname.value == "user2" && form.psw.value == "user2") {
         window.open('./feedpage_seller.html');/*opens the target page while Id & password matches*/
     }
-    else if(form.uname.value == "buyer" && form.psw.value == "buyer") {    
+    else if(form.uname.value == "user" && form.psw.value == "user") {    
         window.open('./feedpage_buyer.html');
     }
     else if(form.uname.value == "admin" && form.psw.value == "admin") {
