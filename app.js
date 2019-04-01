@@ -2,7 +2,7 @@ const express = require('express')
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser') // middleware for parsing HTTP body from client
 const session = require('express-session')
-
+const cookieParser = require('cookie-parser')
 const { ObjectID } = require('mongodb')
 
 // Import mongoose connection
@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended:true }))
 // static directory for js/css/html
 app.use(express.static(__dirname + '/public'))
 
+app.use(cookieParser())
 
 // Add express sesssion middleware
 app.use(session({
