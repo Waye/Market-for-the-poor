@@ -1,22 +1,22 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Notification = new mongoose.Schema({
-  userEmail: String,
-  userTime: Date,
-  userName: String
+const MessageSchema = new mongoose.Schema({
+    time: Date,
+    to: String,
+    from: String,
+    content: String
 });
 
-var UserSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  pwd: String,
-  role: Number,
-  canvas: [String],
-  occupation: String,
-  status: Number,
-  phone: String,
-  company: String,
-  notification: [Notification]
+const UserSchema = new mongoose.Schema({
+    name: String,
+    password: String,
+    email: String,
+    messages: [MessageSchema],
+    role: String,
+    status: Boolean,
+    posts: [String],
+    phone: String,
+    description: String
 });
 
 module.exports = mongoose.model("User", UserSchema);

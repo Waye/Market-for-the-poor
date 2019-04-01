@@ -21,7 +21,7 @@ user(buyer/seller) : {
 users = []
 post = []
 
-request/offer: {
+Post: {
 	userName:string
 	id: string
 	type: string
