@@ -197,9 +197,9 @@ class Post {
 
         let profile = null
         if (getUser().isBuyer) {
-            profile = 'profile_seller.html'
+            profile = 'profile/seller'
         } else {
-            profile = 'profile_seller.html'
+            profile = 'profile/seller'
         }
         contentInfoLink.setAttribute("href", profile);
         contentInfoLink.appendChild(document.createTextNode(this.userName));

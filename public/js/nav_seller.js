@@ -74,7 +74,7 @@ function getUser() {
                 date: new Date(2018, 11, 24),
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
+                image: "/img/clif.jpg",
 
             },
             {
@@ -88,7 +88,7 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
+                image: "/img/nestea.jpg",
 
             },
             {
@@ -102,7 +102,7 @@ function getUser() {
                 date: new Date(2019, 0, 3),
                 dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
+                image: "/img/crocs.jpg",
 
             },
             {
@@ -116,7 +116,7 @@ function getUser() {
                 date: new Date(2019, 1, 12),
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
+                image: "/img/shirt.jpeg",
 
             },
             {
@@ -130,7 +130,7 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
+                image: "/img/nestea.jpg",
 
             },
             {
@@ -144,7 +144,7 @@ function getUser() {
                 date: new Date(2018, 11, 24),
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
+                image: "/img/clif.jpg",
 
             },
             {
@@ -158,7 +158,7 @@ function getUser() {
                 date: new Date(2019, 1, 12),
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
+                image: "/img/shirt.jpeg",
 
             },
             {
@@ -172,7 +172,7 @@ function getUser() {
                 date: new Date(2019, 0, 3),
                 dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
+                image: "/img/crocs.jpg",
 
             },
             {
@@ -186,7 +186,7 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
+                image: "/img/nestea.jpg",
 
             },
             {
@@ -200,7 +200,7 @@ function getUser() {
                 date: new Date(2018, 11, 24),
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
+                image: "/img/clif.jpg",
 
             },
             {
@@ -214,7 +214,7 @@ function getUser() {
                 date: new Date(2019, 0, 3),
                 dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
+                image: "/img/crocs.jpg",
 
             },
             {
@@ -228,7 +228,7 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg"
+                image: "/img/nestea.jpg"
             },
             {
                 id: 43,
@@ -241,7 +241,7 @@ function getUser() {
                 date: new Date(2019, 1, 12),
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
+                image: "/img/shirt.jpeg",
 
             },
             {
@@ -255,7 +255,7 @@ function getUser() {
                 date: new Date(2018, 11, 24),
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
+                image: "/img/clif.jpg",
 
             },
             {
@@ -269,7 +269,7 @@ function getUser() {
                 date: new Date(2019, 0, 3),
                 dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
+                image: "/img/crocs.jpg",
 
             },
             {
@@ -283,7 +283,7 @@ function getUser() {
                 date: new Date(2019, 1, 12),
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
+                image: "/img/shirt.jpeg",
 
             },
             {
@@ -297,7 +297,7 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
+                image: "/img/nestea.jpg",
 
             },
             {
@@ -311,7 +311,7 @@ function getUser() {
                 date: new Date(2018, 11, 24),
                 dueDate: null,
                 description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "img/clif.jpg",
+                image: "/img/clif.jpg",
 
             },
             {
@@ -325,7 +325,7 @@ function getUser() {
                 date: new Date(2019, 0, 3),
                 dueDate: null,
                 description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "img/crocs.jpg",
+                image: "/img/crocs.jpg",
 
             },
             {
@@ -339,7 +339,7 @@ function getUser() {
                 date: new Date(2019, 1, 12),
                 dueDate: null,
                 description: "Good quality mens sweatshirt.",
-                image: "img/shirt.jpeg",
+                image: "/img/shirt.jpeg",
 
             },
             {
@@ -353,13 +353,13 @@ function getUser() {
                 date: new Date(2018, 11, 9),
                 dueDate: null,
                 description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "img/nestea.jpg",
+                image: "/img/nestea.jpg",
 
             },
         ],
         isBanned: false,
         isBuyer: false,
-        avatar: "img/avatar_placeholder.png",
+        avatar: "/img/avatar_placeholder.png",
         description: "End hunger in our city."
     };
     return mockUser;
@@ -368,21 +368,21 @@ function getUser() {
 function getSearchResult() {
     return `
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
             <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
 
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
             <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
         
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
             <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
