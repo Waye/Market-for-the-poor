@@ -5,6 +5,7 @@ const session = require('express-session')
 const ejs = require('ejs')
 const fs = require('fs')
 
+const cookieParser = require('cookie-parser')
 const { ObjectID } = require('mongodb')
 
 // Import mongoose connection
@@ -25,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended:true }))
 app.use(express.static(__dirname + '/public'))
 // set the view library
 app.set('view engine', 'ejs')
+
+app.use(cookieParser())
 
 // Add express sesssion middleware
 app.use(session({
