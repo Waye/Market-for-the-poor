@@ -43,7 +43,7 @@ UserSchema.statics.findByEmailPassword = function(email, password) {
 	const User = this
 
 	return User.findOne({email: email}).then((user) => {
-		if (!user) {
+		if (!user) { 
 			return Promise.reject()
 		}
 
@@ -59,7 +59,7 @@ UserSchema.statics.findByEmailPassword = function(email, password) {
 	})
 }
 
-// This function runs before saving user to database
+// This function runs before saving/modifying user to database
 UserSchema.pre('save', function(next) {
 	const user = this
 
