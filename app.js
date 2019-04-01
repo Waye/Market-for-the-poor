@@ -50,9 +50,6 @@ const sessionChecker = (req, res, next) => {
 }
 
 app.get('/', (req, res) => {
-	// fs.readFile('views/index.html', 'utf8', (err, text) => {
-    //     res.send(text);
-	// });
 	res.render('index');
 })
 app.get('/admin', (req, res) => {
@@ -64,12 +61,36 @@ app.get('/feedpage/seller', (req, res) => {
 app.get('/feedpage/buyer', (req, res) => {
 	res.render('feedpage_buyer');	
 })
-app.get('/login', (req, res) => {
-	res.render('login');	
-})
-app.get('/signup', (req, res) => {
-	res.render('signup');	
-})
+app.route('/login')
+	.get((req, res) => {
+		res.render('login');	
+	})
+	.post((req, res) => {
+		// const email = req.body.email
+		// const password = req.body.password
+
+		// User.findByEmailPassword(email, password).then((user) => {
+		// 	if(!user) {
+		// 		res.redirect('login')
+		// 	} else {
+		// 		// Add the user to the session cookie that we will
+		// 		// send to the client
+		// 		req.session.user = user._id;
+		// 		req.session.email = user.email
+		// 		res.redirect('feedpage')
+		// 	}
+		// }).catch((error) => {
+		// 	res.status(400).redirect('login')
+		// })
+		res.render('login');	
+	})
+app.route('/signup')
+	.get((req, res) => {
+		res.render('signup');	
+	})
+	.post((req, res) => {
+		res.render('signup');	
+	})
 app.get('/messages/seller', (req, res) => {
 	res.render('messages_seller');	
 })
@@ -116,7 +137,7 @@ app.post('/users/login', (req, res) => {
 	})
 })
 
-app.get('/users/logout', (req, res) => {
+app.get('/logout', (req, res) => {
 	req.session.destroy((error) => {
 		if (error) {
 			res.status(500).send(error)
