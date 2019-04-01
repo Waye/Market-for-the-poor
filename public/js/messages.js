@@ -145,7 +145,7 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
         html = html + `<a class="conversation list-group-item list-group-item-action flex-column align-items-start pr-1">
         <div class="d-flex w-100 justify-content-between">
             <ul class="col-2 list-inline m-0 p-0">
-                <img class="list-inline-item rounded-circle avatar" src="./img/avatar_placeholder.png">
+                <img class="list-inline-item rounded-circle avatar" src="/img/avatar_placeholder.png">
                 <li class="list-inline-item"><small class="targetUser">${targetUser}</small></li>
             </ul>
             <div class="col-10">
@@ -189,7 +189,7 @@ function renderMsgDetail(targetUser) {
         <div class="card mr-3 ml-3 mb-3 bg-light">
             <div2 class="card-body">
                 <ul class="list-inline m-0 d-flex">
-                    <li class="list-inline-item"><img class="rounded-circle list-inline-item mb-3 avatar" src="./img/avatar_placeholder.png"></li>
+                    <li class="list-inline-item"><img class="rounded-circle list-inline-item mb-3 avatar" src="/img/avatar_placeholder.png"></li>
                     <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${date}</p></li>
                     <li class="ml-auto">
                         <a class="msgToStar active ml-3">
@@ -265,7 +265,7 @@ function renderStarred() {
             html = html + `<a class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
             <div class="d-flex w-100 justify-content-between">
                 <ul class="col-2 list-inline m-0 p-0">
-                    <img class="list-inline-item rounded-circle avatar" src="./img/avatar_placeholder.png">
+                    <img class="list-inline-item rounded-circle avatar" src="/img/avatar_placeholder.png">
                     <li class="list-inline-item"><small>${targetUser}</small></li></ul>
                 <div class="col-10">
                     <div class="d-flex justify-content-between">

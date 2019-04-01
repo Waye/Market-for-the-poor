@@ -140,9 +140,9 @@ function addFilter(filterDataList) {
 
 function getProductPageUrl(id) {
     if (getUser().isBuyer) {
-        return "product_detail_buyer.html"
+        return "/detail/buyer"
     }
-    return "product_detail_seller.html"
+    return "/detail/seller"
 }
 
 class Post {
@@ -197,9 +197,9 @@ class Post {
 
         let profile = null
         if (getUser().isBuyer) {
-            profile = 'profile/seller'
+            profile = '/profile/seller'
         } else {
-            profile = 'profile/seller'
+            profile = '/profile/seller'
         }
         contentInfoLink.setAttribute("href", profile);
         contentInfoLink.appendChild(document.createTextNode(this.userName));

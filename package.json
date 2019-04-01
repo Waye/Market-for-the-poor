@@ -18,6 +18,8 @@
     "express-session": "^1.15.6",
     "method-override": "^3.0.0",
     "mongodb": "^3.2.2",
-    "mongoose": "^5.4.20"
+    "mongoose": "^5.4.20",
+    "validator": "^10.11.0",
+    "bcryptjs": "^2.4.3"
   }
 }
