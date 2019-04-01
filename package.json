@@ -8,7 +8,7 @@
       "start": "node app.js",
       "populatedb": "npm install async && node populatedb mongodb+srv://leeestephen:qb2Z42TWDYj34qZ@cluster0-w2ffd.mongodb.net/csc309?retryWrites=true"
     },
-    "author": "Junkai Li, Jaehyun Ma, Henry, Wynee",
+    "author": "Junkai Li, Jaehyun Ma, Weiyi Hu, Xuhui Zhang",
     "license": "ISC",
     "dependencies": {
       "async": "^2.6.2",
