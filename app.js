@@ -2,6 +2,8 @@ const express = require('express')
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser') // middleware for parsing HTTP body from client
 const session = require('express-session')
+const ejs = require('ejs')
+const fs = require('fs')
 
 const { ObjectID } = require('mongodb')
 
@@ -21,7 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }))
 // static directory for js/css/html
 app.use(express.static(__dirname + '/public'))
-
+// set the view library
+app.set('view engine', 'ejs')
 
 // Add express sesssion middleware
 app.use(session({
@@ -43,6 +46,51 @@ const sessionChecker = (req, res, next) => {
 	}
 }
 
+app.get('/', (req, res) => {
+	// fs.readFile('views/index.html', 'utf8', (err, text) => {
+    //     res.send(text);
+	// });
+	res.render('index');
+})
+app.get('/admin', (req, res) => {
+	res.render('admin');
+})
+app.get('/feedpage/seller', (req, res) => {
+	res.render('feedpage_seller');
+})
+app.get('/feedpage/buyer', (req, res) => {
+	res.render('feedpage_buyer');	
+})
+app.get('/login', (req, res) => {
+	res.render('login');	
+})
+app.get('/signup', (req, res) => {
+	res.render('signup');	
+})
+app.get('/messages/seller', (req, res) => {
+	res.render('messages_seller');	
+})
+app.get('/messages/buyer', (req, res) => {
+	res.render('messages_buyer');	
+})
+app.get('/orders/seller', (req, res) => {
+	res.render('orderpage_seller');	
+})
+app.get('/orders/buyer', (req, res) => {
+	res.render('orderpage_buyer');	
+})
+app.get('/detail/seller', (req, res) => {
+	res.render('product_detail_seller');	
+})
+app.get('/detail/buyer', (req, res) => {
+	res.render('product_detail_buyer');	
+})
+app.get('/profile/seller', (req, res) => {
+	res.render('profile_seller');
+})
+app.get('/profile/buyer', (req, res) => {
+	res.render('profile_buyer');
+})
 
 // User login and logout routes
 
@@ -93,3 +141,11 @@ const authenticate = (req, res, next) => {
 		res.redirect('/login')
 	}
 }
+
+app.listen(port, (err) => {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log('Listening on port 3000...')
+	}
+})
