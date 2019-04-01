@@ -74,7 +74,7 @@ function updateStickyTitleInfo(headerInfo) {
 function getOrders() {
     const mockOrderList = []
     const mockOrder1 = {
-        producImage: "img/frozen_veg.png",
+        producImage: "/img/frozen_veg.png",
         productName: "Frozen vegetables",
         status: "active",
         arriveDate: new Date(2019, 8, 21),
@@ -83,7 +83,7 @@ function getOrders() {
     }
     mockOrderList.push(mockOrder1);
     const mockOrder2 = {
-        producImage: "img/canned_soup.jpg",
+        producImage: "/img/canned_soup.jpg",
         productName: "Frozen vegetables",
         status: "finished",
         arriveDate: new Date(2019, 5, 12),
@@ -92,7 +92,7 @@ function getOrders() {
     }
     mockOrderList.push(mockOrder2);
     const mockOrder3 = {
-        producImage: "img/nestea.jpg",
+        producImage: "/img/nestea.jpg",
         productName: "Nestea Lemon",
         status: "posted",
         arriveDate: null,
@@ -106,12 +106,12 @@ function getOrders() {
 function getBuyerList() {
     const gotBuyer1 = {
         userId: "1",
-        avatar: "img/avatar_placeholder.png",
+        avatar: "/img/avatar_placeholder.png",
         userName: "user1",
     }
     const gotBuyer2 = {
         userId: "2",
-        avatar: "img/avatar_placeholder.png",
+        avatar: "/img/avatar_placeholder.png",
         userName: "user2",
     }
     const gotBuyerList = [gotBuyer1, gotBuyer2];

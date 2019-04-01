@@ -17,13 +17,13 @@ function check(form)/*function to check userid & password*/
         alert("Error Password or Username");/*displays error message*/
     }
     else if(form.uname.value == "user2" && form.psw.value == "user2") {
-        window.open('./feedpage_seller.html');/*opens the target page while Id & password matches*/
+        window.open('/feedpage/seller');/*opens the target page while Id & password matches*/
     }
     else if(form.uname.value == "user" && form.psw.value == "user") {    
-        window.open('./feedpage_buyer.html');
+        window.open('/feedpage/buyer');
     }
     else if(form.uname.value == "admin" && form.psw.value == "admin") {
-        window.open('./admin.html');
+        window.open('/admin');
     } else {
         alert("Error Password or Username");/*displays error message*/
     }

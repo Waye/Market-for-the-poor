@@ -8,7 +8,7 @@ database = {
 
 user(buyer/seller) : {
     id: string
-	name: string
+	name: string (Unique!)
 	password: string
 	email: string
 	messages : [message]

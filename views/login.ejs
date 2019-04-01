@@ -4,13 +4,13 @@
 <head>
     <title>Log in | Market for the poor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
     <nav class="navbar  navbar-expand bg-light" id="mainNav">
 
-            <a class="navbar-brand text-muted d-flex" href="index.html">
+            <a class="navbar-brand text-muted d-flex" href="/index">
                 <span><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -52,7 +52,7 @@
                     class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="signup.html">Sign
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/signup">Sign
                             up</a></li>
                 </ul>
             </div>
@@ -89,10 +89,9 @@
             <div class="col-3 d-none d-md-block"></div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    
+    <% include ./partials/importScript %>
+    <script type="text/javascript" src="/js/login.js"></script>
 </body>
 
 </html>

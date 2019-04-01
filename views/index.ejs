@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="css/welcome.css">
+    <link rel="stylesheet" href="/css/welcome.css">
 </head>
 
 <body>
@@ -44,9 +44,9 @@
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="login.html">Log
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/login">Log
                             in</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="signup.html">Sign
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/signup">Sign
                             up</a></li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                         <h2 class="brand-heading">Market for the poor</h2>
                         <p class="intro-text">Excess goods should not be wasted.</p>
                         <p class="intro-text lead">We collaborate with companies to collect excess products, and help the poor to get what they need at a reasonable price.</p>
-                        <a class="btn btn-primary btn-lg btn-default" role="button" href="signup.html">Join us</a>
+                        <a class="btn btn-primary btn-lg btn-default" role="button" href="/signup">Join us</a>
                     </div>
                 </div>
             </div>
@@ -98,12 +98,8 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    
+    <% include ./partials/importScript %>
 </body>
 
 </html>

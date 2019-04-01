@@ -73,7 +73,7 @@ function getUser() {
                 date: new Date(2018, 11, 10),
                 dueDate: new Date(2018, 12, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/canned_soup.jpg",
+                image: "/img/canned_soup.jpg",
                 isCompleted:true
 
             }, 
@@ -88,7 +88,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -102,7 +102,7 @@ function getUser() {
                 date: new Date(2019, 0, 9),
                 dueDate: new Date(2019, 1, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/frozen_veg.png",
+                image: "/img/frozen_veg.png",
                 isCompleted:true
             },
             {
@@ -116,7 +116,7 @@ function getUser() {
                 date: new Date(2019, 1, 10),
                 dueDate: new Date(2019, 3, 1),
                 description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
-                image: "img/tablet.jpg",
+                image: "/img/tablet.jpg",
                 isCompleted:true
             },
             {
@@ -130,7 +130,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -144,7 +144,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -158,7 +158,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -172,7 +172,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -186,7 +186,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: true
             },
             {
@@ -200,7 +200,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -214,7 +214,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -228,7 +228,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: true
             },
             {
@@ -242,7 +242,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -256,7 +256,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: true
             },
             {
@@ -270,7 +270,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -284,7 +284,7 @@ function getUser() {
                 date: new Date(2018, 11, 10),
                 dueDate: new Date(2018, 12, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/canned_soup.jpg",
+                image: "/img/canned_soup.jpg",
                 isCompleted:true
 
             },
@@ -299,7 +299,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -313,7 +313,7 @@ function getUser() {
                 date: new Date(2019, 0, 9),
                 dueDate: new Date(2019, 1, 30),
                 description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
-                image: "img/frozen_veg.png",
+                image: "/img/frozen_veg.png",
                 isCompleted:true
             },
             {
@@ -327,7 +327,7 @@ function getUser() {
                 date: new Date(2019, 1, 10),
                 dueDate: new Date(2019, 3, 1),
                 description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
-                image: "img/tablet.jpg",
+                image: "/img/tablet.jpg",
                 isCompleted:true
             },
             {
@@ -341,7 +341,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -355,7 +355,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -369,7 +369,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -383,7 +383,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -397,7 +397,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -411,7 +411,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -425,7 +425,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -439,7 +439,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },{
                 id: 28,
@@ -452,7 +452,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },{
                 id: 29,
@@ -465,7 +465,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             },
             {
@@ -479,7 +479,7 @@ function getUser() {
                 date: new Date(2018, 11, 23),
                 dueDate: new Date(2019, 0, 10),
                 description: "Our office is in need of desk lamp. ",
-                image: "img/lamp.jpg",
+                image: "/img/lamp.jpg",
                 isCompleted: false
             }
 
@@ -489,7 +489,7 @@ function getUser() {
         ],
         isBanned: false,
         isBuyer: true,
-        avatar: "img/profile-image.jpg",
+        avatar: "/img/profile-image.jpg",
         description: "Somewhere Over The Rainbow"
     };
     return mockUser;
@@ -498,24 +498,24 @@ function getUser() {
 function getSearchResult() {
     return `
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
-            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="profile_seller.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
 
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
-            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="profile_seller.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
         
         <div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="img/nestea.jpg"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
-            <h5><a href="product_detail_buyer.html">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="profile_seller.html">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
+            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>`;
 }
 
@@ -523,7 +523,7 @@ function addNavContent(user) {
     // Logo and home page redirect
     const logoLink = document.createElement("a");
     logoLink.className += "navbar-brand";
-    logoLink.setAttribute("href", "feedpage_buyer.html");
+    logoLink.setAttribute("href", "/feedpage/buyer");
     const svgFillColor = "#17a2b8";
     logoLink.innerHTML = `<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns:dc="http://purl.org/dc/elements/1.1/"
        xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -619,7 +619,7 @@ function addNavContent(user) {
     profileBtn.className += "nav-item ml-2";
     const profileBtnLink = document.createElement("a");
     profileBtnLink.className += "btn nav-link btn-info";
-    profileBtnLink.setAttribute("href", "profile_seller.html");
+    profileBtnLink.setAttribute("href", "/profile/seller");
     profileBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const profileBtnSpan = document.createElement("span")
     profileBtnSpan.className += "d-none d-md-block";
@@ -635,7 +635,7 @@ function addNavContent(user) {
     msgBtn.className += "nav-item ml-2";
     const msgBtnLink = document.createElement("a");
     msgBtnLink.className += "btn nav-link btn-info";
-    msgBtnLink.setAttribute("href", "messages_buyer.html");
+    msgBtnLink.setAttribute("href", "/messages/buyer");
     msgBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";
@@ -649,7 +649,7 @@ function addNavContent(user) {
     logoutBtn.className += "nav-item ml-2";
     const logoutBtnLink = document.createElement("a");
     logoutBtnLink.className += "btn nav-link btn-light";
-    logoutBtnLink.setAttribute("href", "index.html");
+    logoutBtnLink.setAttribute("href", "/index");
     logoutBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>`;
     const logoutBtnSpan = document.createElement("span")
     logoutBtnSpan.className += "d-none d-md-block";

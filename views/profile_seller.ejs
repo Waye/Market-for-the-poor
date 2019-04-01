@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="css/nav.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="/css/profile.css">
 
 </head>
 
@@ -49,7 +49,6 @@
                     <h3>My posts</h3>
                 </div>
                 <div class="container-fluid">
-
                     <!--Nav bar-->
                     <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
 
@@ -87,6 +86,7 @@
                         </div>
                     </nav>
 
+
                     <!--Section: Product display-->
                     <section class="text-center mb-4 " id="post-TwoRow">
 
@@ -102,7 +102,6 @@
                     <!--Pagination-->
 
                 </div>
-
 
             </div>
 
@@ -141,16 +140,10 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-    <script type="text/javascript" src="js/nav_buyer.js"></script>
-    <script type="text/javascript" src="js/profile.js"></script>
-    <script type="text/javascript" src="js/post.js"></script>
+    <% include ./partials/importScript %>
+    <script type="text/javascript" src="/js/nav_seller.js"></script>
+    <script type="text/javascript" src="/js/profile.js"></script>
+    <script type="text/javascript" src="/js/post.js"></script>
 </body>
 
 </html>
