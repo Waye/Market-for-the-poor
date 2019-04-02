@@ -59,11 +59,11 @@ function register() {
         data: newUser,
         success: function (result) {
             if (result) {
-                window.location.href = 'feedpage' 
+                window.location.href = '/feedpage/seller';
             } else {
-                console.log('Fail')
+                console.log("Failed!")
             }
-        }   
+        }
     })
 }
 //     const html = `Registration successful.<br>
