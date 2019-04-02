@@ -58,6 +58,11 @@ function register() {
         url: "/signup",
         data: newUser,
         success: function (result) {
+            if (result) {
+                window.location.href = '/feedpage_buyer' 
+            } else {
+                console.log('Fail')
+            }
         }   
     })
 }
