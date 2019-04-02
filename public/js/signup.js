@@ -61,9 +61,9 @@ function register() {
             if (result) {
                 window.location.href = '/feedpage/seller';
             } else {
-                console.log('Fail')
+                console.log("Failed!")
             }
-        }   
+        }
     })
 }
 //     const html = `Registration successful.<br>

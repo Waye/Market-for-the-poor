@@ -135,8 +135,8 @@ app.route('/signup')
 		})
 		.then((result) => {
 			req.session.user = result;
-			res.redirect('feedpage_seller');
-			// res.send(true);
+			// res.redirect('feedpage_seller');
+			res.send(true);
 		})
 		.catch((err)=>{
 			console.log(err);
