@@ -23,15 +23,11 @@ const UserSchema = new mongoose.Schema({
 		minlength: 5,
 		trim: true, // trim whitespace
 		unique: true,
-		validate: {
-			validator: validator.isEmail,
-			message: 'Not valid email'
-		}
     },
     //array of message id
     messages: [MessageSchema],
     isBuyer: Boolean,
-    status: Boolean,
+    isBanned: Boolean,
     //array of post id
     posts: [String],
     phone: String,

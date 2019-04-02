@@ -10,12 +10,13 @@ $('form').on('click', '#register', register)
 
 // register function
 function register() {
+    const role = $('#dropdownSelection').text().trim()
     const newUser = {
         name: $('#userName').val(),
         email: $('#email').val(),
         phone: $('#phone').val(),
         password: $('#password').val(),
-        role: $('#dropdownSelection').text()
+        isBuyer: role == 'Buyer'
     }
     const rpassword = $('#rpassword').val()
     // if (newUser.userName.length < 5) {
@@ -46,7 +47,7 @@ function register() {
         displayMsg('Password doest not match!')
         return
     }
-    if (newUser.role == 'Register as') {
+    if (role == 'Register as') {
         displayMsg('Please select "Register as".')
         return
     }
