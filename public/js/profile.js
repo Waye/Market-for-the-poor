@@ -88,7 +88,7 @@ function createPost(post){
         detail = 'product_detail_buyer.html'
     }
     else if (post.type==="offer"){
-        detail = 'product_detail_seller.html'
+        detail = 'product_detail_seller.ejs'
     }
     const onePost=`<!--one post-->
 

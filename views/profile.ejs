@@ -24,15 +24,15 @@
             <!--profile part-->
             <div class="col-md-3">
                 <div class="card shadow">
-                    <img class="card-img-top" id="profileImage">
+                    <img class="card-img-top" id="profileImage" src="<%=seller.profilePicture%>">
                     <div class="card-body" id="profile-card-body">
-                        <h5 class="card-title" id="userName"></h5>
+                        <h5 class="card-title" id="userName"><%=seller.userName%></h5>
                         <ul class="list-group ">
-                            <li class="list-group-item" id="email"></li>
-                            <li class="list-group-item" id="phone"></li>
-                            <li class="list-group-item" id="status"></li>
-                            <li class="list-group-item" id="buyerOrSeller"></li>
-                            <li class="list-group-item" id="userDescription"></li>
+                            <li class="list-group-item" id="email"><%=seller.email%></li>
+                            <li class="list-group-item" id="phone"><%=seller.phone%></li>
+                            <li class="list-group-item" id="status"><%=seller.status%></li>
+                            <li class="list-group-item" id="buyerOrSeller"><%=seller.buyerOrSeller%></li>
+                            <li class="list-group-item" id="userDescription"><%=seller.UserDescription%></li>
                         </ul>
                         <!-- <p class="card-text" id="userDescription"></p> -->
                         <button type="button" class="btn btn-primary mt-3" id="editBtn">Edit/Change Password</button>
@@ -49,7 +49,6 @@
                     <h3>My posts</h3>
                 </div>
                 <div class="container-fluid">
-
                     <!--Nav bar-->
                     <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
 
@@ -87,6 +86,7 @@
                         </div>
                     </nav>
 
+
                     <!--Section: Product display-->
                     <section class="text-center mb-4 " id="post-TwoRow">
 
@@ -102,7 +102,6 @@
                     <!--Pagination-->
 
                 </div>
-
 
             </div>
 
@@ -142,7 +141,7 @@
 
 
     <% include ./partials/importScript %>
-    <script type="text/javascript" src="/js/nav_buyer.js"></script>
+    <script type="text/javascript" src="/js/nav_seller.js"></script>
     <script type="text/javascript" src="/js/profile.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
 </body>
