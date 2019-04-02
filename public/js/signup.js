@@ -59,7 +59,7 @@ function register() {
         data: newUser,
         success: function (result) {
             if (result) {
-                window.location.href = '/feedpage_buyer' 
+                window.location.href = '/feedpage/seller';
             } else {
                 console.log('Fail')
             }

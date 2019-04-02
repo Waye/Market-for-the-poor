@@ -12,9 +12,12 @@ const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose')
 
 // Import the models
-const { User } = require('./models/user')
-const { Admin } = require('./models/admin')
-const { Post } = require('./models/post')
+require('./models/user')
+require('./models/admin')
+require('./models/post')
+const User = mongoose.model('User');
+const Admin = mongoose.model('Admin');
+const Post = mongoose.model('Post');
 
 
 // express
@@ -32,13 +35,14 @@ app.use(cookieParser())
 
 // Add express sesssion middleware
 app.use(session({
+	name: 'test',
 	secret: 'oursecret',
 	resave: false,
 	saveUninitialized: false,
-	cookie: {
-		maxAge: 3600000,
-		httpOnly: true
-	}
+	// cookie: {
+	// 	maxAge: 3600000,
+	// 	httpOnly: true
+	// }
 }))
 
 // Add middleware to check for logged-in users
@@ -50,9 +54,19 @@ const sessionChecker = (req, res, next) => {
 	}
 }
 
+const loginChecker = (req, res, next) => {
+	if (req.session.user) {
+		next();
+	} else if (req.url =="/signup") {
+		res.render('signup');
+	} else if (req.url =="/login") {
+		res.render('login');
+	}
+}
+
 app.route('/login')
-	.get(sessionChecker, (req, res) => {
-		res.render('feedpage');	
+	.get(loginChecker, (req, res) => {
+		res.render('feedpage_seller');	
 	})
 	.post((req, res) => {
 		const email = req.body.email
@@ -65,7 +79,7 @@ app.route('/login')
 				// Add the user to the session cookie that we will
 				// send to the client
 				req.session.user = user
-				res.redirect('feedpage')
+				res.redirect('feedpage_seller')
 			}
 		}).catch((error) => {
 			res.status(400).redirect('login')
@@ -87,8 +101,8 @@ app.get('/feedpage/buyer', (req, res) => {
 })
 
 app.route('/signup')
-	.get(sessionChecker, (req, res) => {
-		res.render('signup');
+	.get(loginChecker, (req, res) => {
+		res.render('feedpage_seller');
 	})
 	.post((req, res) => {
 		// res.render('signup');
@@ -116,18 +130,18 @@ app.route('/signup')
 				return User.create(newUser);
 			} else { // found
 				console.log('This email has already been signed up.');
-          		res.send(fal);
+          		res.send(false);
 			}
 		})
 		.then((result) => {
-			res.session.user = result;
+			req.session.user = result;
+			res.redirect('feedpage_seller');
+			// res.send(true);
 		})
 		.catch((err)=>{
 			console.log(err);
 			res.send(err);
 		})
-		// render to feedpage
-		res.render('feedpage_buyer')
 	})
 app.get('/messages/seller', (req, res) => {
 	res.render('messages_seller');

@@ -305,12 +305,13 @@ function updateFeed(productData) {
 }
 
 function main() {
-
+    console.log(1)
     //get request 
     $.ajax({
         type: "GET",
         url: "/feedpage",
         success: function (result) {
+            console.log(result)
             currUser = result.user
             addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);
             addFilter(getFilterData());
