@@ -16,6 +16,13 @@ const { User } = require('./models/user')
 const { Admin } = require('./models/admin')
 const { Post } = require('./models/post')
 
+// use Mongoose
+// const User = mongoose.model('User');
+// const Sticky = mongoose.model('Sticky');
+// const Canvas = mongoose.model('Canvas');
+// mongoose.set('useFindAndModify', false);
+// mongoose.Promise = global.Promise;
+
 // express
 const app = express();
 // body-parser middleware setup.  Will parse the JSON and convert to object
@@ -62,31 +69,31 @@ app.get('/feedpage/buyer', (req, res) => {
 	res.render('feedpage_buyer');	
 })
 app.route('/login')
-	.get((req, res) => {
+	.get(sessionChecker, (req, res) => {
 		res.render('login');	
 	})
 	.post((req, res) => {
-		// const email = req.body.email
-		// const password = req.body.password
+		const email = req.body.email
+		const password = req.body.password
 
-		// User.findByEmailPassword(email, password).then((user) => {
-		// 	if(!user) {
-		// 		res.redirect('login')
-		// 	} else {
-		// 		// Add the user to the session cookie that we will
-		// 		// send to the client
-		// 		req.session.user = user._id;
-		// 		req.session.email = user.email
-		// 		res.redirect('feedpage')
-		// 	}
-		// }).catch((error) => {
-		// 	res.status(400).redirect('login')
-		// })
-		res.render('login');	
+		User.findByEmailPassword(email, password).then((user) => {
+			if(!user) {
+				res.redirect('login')
+			} else {
+				// Add the user to the session cookie that we will
+				// send to the client
+				req.session.user = user.name
+				req.session.email = user.email
+				res.redirect('feedpage')
+			}
+		}).catch((error) => {
+			res.status(400).redirect('login')
+		})
+			
 	})
 app.route('/signup')
-	.get((req, res) => {
-		res.render('signup');	
+	.get(sessionChecker, (req, res) => {
+		res.render('signup');
 	})
 	.post((req, res) => {
 		res.render('signup');	
