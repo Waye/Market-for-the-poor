@@ -14,13 +14,13 @@ const UserSchema = new mongoose.Schema({
     password:  {
 		type: String,
 		required: true,
-        minlength: 6
+        minlength: 5
     },
     email: {
 		type: String,
 		//mongoose schema attribute required
 		required: true,
-		minlength: 3,
+		minlength: 5,
 		trim: true, // trim whitespace
 		unique: true,
 		validate: {
@@ -30,12 +30,18 @@ const UserSchema = new mongoose.Schema({
     },
     //array of message id
     messages: [MessageSchema],
-    role: String,
+    isBuyer: Boolean,
     status: Boolean,
     //array of post id
     posts: [String],
     phone: String,
-    description: String
+    description: String,
+    orderInfo: {
+        twoMonthTotal : Number,
+        activeNum : Number,
+        finishedNum : Number,
+        postedNum : Number
+    }
 });
 
 // Our own student finding function 

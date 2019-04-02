@@ -11,58 +11,66 @@ $('form').on('click', '#register', register)
 // register function
 function register() {
     const newUser = {
-        userName: $('#userName').val(),
+        name: $('#userName').val(),
         email: $('#email').val(),
         phone: $('#phone').val(),
         password: $('#password').val(),
-        userType: $('#dropdownSelection').text()
+        role: $('#dropdownSelection').text()
     }
     const rpassword = $('#rpassword').val()
-    if (newUser.userName.length < 5) {
-        displayErrorMsg('Username should be at least 5 characters.')
-        return
-    }
+    // if (newUser.userName.length < 5) {
+    //     displayMsg('Username should be at least 5 characters.')
+    //     return
+    // }
     if (newUser.email.length < 5) {
-        displayErrorMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
+        displayMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
         return
     }
     const phone = newUser.phone
     if (phone.length < 10) {
-        displayErrorMsg('Invalid phone number. Phone number should be at least 10 digits.')
+        displayMsg('Invalid phone number. Phone number should be at least 10 digits.')
         return
     }
     for (let i = 0; i < phone.length; i++) {
         if (isNaN(parseInt(phone.charAt(i), 10))) {
-            displayErrorMsg('Phone number should be in digits only')
+            displayMsg('Phone number should be in digits only')
             return
         }
     }
     if (newUser.password.length < 5) {
-        displayErrorMsg('Invalid password. Password should be longer than 5 characters.')
+        displayMsg('Invalid password. Password should be longer than 5 characters.')
         return
     }
 
     if (newUser.password != rpassword) {
-        displayErrorMsg('Password doest not match!')
+        displayMsg('Password doest not match!')
         return
     }
-    if (newUser.userType == 'Register as') {
-        displayErrorMsg('Please select "Register as".')
+    if (newUser.role == 'Register as') {
+        displayMsg('Please select "Register as".')
         return
     }
     console.log('User created!')
 
-    const html = `Registration successful.<br>
-    User Name: ${newUser.userName}<br>
-    Email: ${newUser.email}<br>
-    Password: ${newUser.password}<br>
-    Registerd as: ${newUser.userType}`
-
-    displayErrorMsg(html)
+    $.ajax({
+        type: "POST",
+        url: "/signup",
+        data: newUser,
+        success: function (result) {
+        }   
+    })
 }
+//     const html = `Registration successful.<br>
+//     User Name: ${newUser.userName}<br>
+//     Email: ${newUser.email}<br>
+//     Password: ${newUser.password}<br>
+//     Registerd as: ${newUser.userType}`
+
+//     displayMsg(html)
+// }
 
 // error message for registration 
-function displayErrorMsg(msg) {
+function displayMsg(msg) {
     console.log(msg)
     const popUpMsg = $('#popUpMsg')
     popUpMsg.html(`<div class="alert alert-success fade show" role="alert">
