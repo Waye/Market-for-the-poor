@@ -14,15 +14,15 @@ const UserSchema = new mongoose.Schema({
     password:  {
 			type: String,
 			required: true,
-			minlength: 6
+			minlength: 5
     },
     email: {
-		type: String,
-		//mongoose schema attribute required
-		required: true,
-		minlength: 3,
-		trim: true, // trim whitespace
-		unique: true,
+			type: String,
+			//mongoose schema attribute required
+			required: true,
+			minlength: 5,
+			trim: true, // trim whitespace
+			unique: true,
 		validate: {
 			validator: validator.isEmail,
 			message: 'Not valid email'
@@ -30,12 +30,18 @@ const UserSchema = new mongoose.Schema({
     },
     //array of message id
     messages: [MessageSchema],
-    role: String,
+    isBuyer: Boolean,
     status: Boolean,
     //array of post id
     posts: [String],
     phone: String,
-    description: String
+    description: String,
+    orderInfo: {
+        twoMonthTotal : Number,
+        activeNum : Number,
+        finishedNum : Number,
+        postedNum : Number
+    }
 });
 
 // Our own student finding function 
@@ -43,7 +49,7 @@ UserSchema.statics.findByEmailPassword = function(email, password) {
 	const User = this
 
 	return User.findOne({email: email}).then((user) => {
-		if (!user) {
+		if (!user) { 
 			return Promise.reject()
 		}
 
@@ -59,7 +65,7 @@ UserSchema.statics.findByEmailPassword = function(email, password) {
 	})
 }
 
-// This function runs before saving user to database
+// This function runs before saving/modifying user to database
 UserSchema.pre('save', function(next) {
 	const user = this
 

@@ -1,6 +1,8 @@
 "use strict";
 console.log("feedpage.js") // log to the JavaScript console.
 
+let currUser = null;
+
 // Refresh
 $("#refreshBtn").on('click', function() {
     clearAllFilter();
@@ -139,7 +141,7 @@ function addFilter(filterDataList) {
 }
 
 function getProductPageUrl(id) {
-    if (getUser().isBuyer) {
+    if (currUser.isBuyer) {
         return "/detail/buyer"
     }
     return "/detail/seller"
@@ -196,7 +198,7 @@ class Post {
         const contentInfoLink = document.createElement('a');
 
         let profile = null
-        if (getUser().isBuyer) {
+        if (currUser.isBuyer) {
             profile = '/profile/seller'
         } else {
             profile = '/profile/seller'
@@ -228,7 +230,7 @@ class Post {
 }
 
 function getFeed() {
-    const gotPosts = getUser().posts;
+    const gotPosts = currUser.posts;
     const parsedPosts = [];
     gotPosts.forEach(gotPost => {
         const post1 = new Post(gotPost.id, gotPost.title, gotPost.category, 
@@ -241,7 +243,7 @@ function getFeed() {
 }
 
 function getFilterData() {
-    const gotPosts = getUser().posts;
+    const gotPosts = currUser.posts;
     let foodFilterNum = 0;
     let electronicsFilterNum = 0;
     let clothingFilterNum = 0;
@@ -303,9 +305,18 @@ function updateFeed(productData) {
 }
 
 function main() {
-    const currUser = getUser();
-    addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);
-    addFilter(getFilterData());
-    updateFeed(getFeed());
+
+    //get request 
+    $.ajax({
+        type: "GET",
+        url: "/feedpage",
+        success: function (result) {
+            currUser = result.user
+            addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);
+            addFilter(getFilterData());
+            updateFeed(getFeed());
+        }   
+    })
+
 }
 $(document).ready(main);

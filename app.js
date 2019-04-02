@@ -16,12 +16,6 @@ const { User } = require('./models/user')
 const { Admin } = require('./models/admin')
 const { Post } = require('./models/post')
 
-// use Mongoose
-// const User = mongoose.model('User');
-// const Sticky = mongoose.model('Sticky');
-// const Canvas = mongoose.model('Canvas');
-// mongoose.set('useFindAndModify', false);
-// mongoose.Promise = global.Promise;
 
 // express
 const app = express();
@@ -49,12 +43,35 @@ app.use(session({
 
 // Add middleware to check for logged-in users
 const sessionChecker = (req, res, next) => {
-	if (req.session.user) {
-		res.redirect('feedpage')
+	if (!req.session.user) {
+		res.redirect('login')
 	} else {
 		next();
 	}
 }
+
+app.route('/login')
+	.get(sessionChecker, (req, res) => {
+		res.render('feedpage');	
+	})
+	.post((req, res) => {
+		const email = req.body.email
+		const password = req.body.password
+
+		User.findByEmailPassword(email, password).then((user) => {
+			if(!user) {
+				res.redirect('login')
+			} else {
+				// Add the user to the session cookie that we will
+				// send to the client
+				req.session.user = user
+				res.redirect('feedpage')
+			}
+		}).catch((error) => {
+			res.status(400).redirect('login')
+		})
+			
+	})
 
 app.get('/', (req, res) => {
 	res.render('index');
@@ -68,29 +85,7 @@ app.get('/feedpage/seller', (req, res) => {
 app.get('/feedpage/buyer', (req, res) => {
 	res.render('feedpage_buyer');	
 })
-app.route('/login')
-	.get(sessionChecker, (req, res) => {
-		res.render('login');	
-	})
-	.post((req, res) => {
-		const email = req.body.email
-		const password = req.body.password
 
-		User.findByEmailPassword(email, password).then((user) => {
-			if(!user) {
-				res.redirect('login')
-			} else {
-				// Add the user to the session cookie that we will
-				// send to the client
-				req.session.user = user.name
-				req.session.email = user.email
-				res.redirect('feedpage')
-			}
-		}).catch((error) => {
-			res.status(400).redirect('login')
-		})
-			
-	})
 app.route('/signup')
 	.get(sessionChecker, (req, res) => {
 		res.render('signup');
