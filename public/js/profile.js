@@ -85,10 +85,10 @@ function createPost(post){
     let detail
 
     if(post.type==="request"){
-        detail = 'product_detail_buyer.html'
+        detail = '/detail/buyer'
     }
     else if (post.type==="offer"){
-        detail = 'product_detail_seller.html'
+        detail = '/detail/seller'
     }
     const onePost=`<!--one post-->
 
