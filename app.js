@@ -96,25 +96,61 @@ app.route('/signup')
 		res.render('signup');
 	})
 	.post((req, res) => {
-		res.render('signup');	
+		// res.render('signup');
+		const name = req.body.name;
+		const email = req.body.email;
+		const phone = req.body.phone;
+		const password = req.body.password;
+		const isBuyer = req.body.isBuyer;	
+		// create new user to db
+		const queryCondition = { name: name, email: email }; // double check
+		User.findOne(queryCondition).exec()
+		.then((result) => {
+			if (!result) { // Not found
+				const newUser = new User({
+					name: name,
+    				password:  password,
+    				email: email,
+    				messages: [],
+    				isBuyer: isBuyer,
+    				isBanned: false,
+    				posts: [],
+    				phone: phone,
+    				description: ""
+				});
+				return User.create(newUser);
+			} else { // found
+				console.log('This email has already been signed up.');
+          		res.send(fal);
+			}
+		})
+		.then((result) => {
+			res.session.user = result;
+		})
+		.catch((err)=>{
+			console.log(err);
+			res.send(err);
+		})
+		// render to feedpage
+		res.render('feedpage_buyer')
 	})
 app.get('/messages/seller', (req, res) => {
-	res.render('messages_seller');	
+	res.render('messages_seller');
 })
 app.get('/messages/buyer', (req, res) => {
-	res.render('messages_buyer');	
+	res.render('messages_buyer');
 })
 app.get('/orders/seller', (req, res) => {
-	res.render('orderpage_seller');	
+	res.render('orderpage_seller');
 })
 app.get('/orders/buyer', (req, res) => {
-	res.render('orderpage_buyer');	
+	res.render('orderpage_buyer');
 })
 app.get('/detail/seller', (req, res) => {
-	res.render('product_detail_seller');	
+	res.render('product_detail_seller');
 })
 app.get('/detail/buyer', (req, res) => {
-	res.render('product_detail_buyer');	
+	res.render('product_detail_buyer');
 })
 app.get('/profile/seller', (req, res) => {
 	res.render('profile_seller');

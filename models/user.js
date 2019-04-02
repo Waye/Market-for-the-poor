@@ -12,9 +12,9 @@ const MessageSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     name: String,
     password:  {
-		type: String,
-		required: true,
-        minlength: 6
+			type: String,
+			required: true,
+			minlength: 6
     },
     email: {
 		type: String,
