@@ -217,16 +217,20 @@ app.delete('/adminpage/delete_post', (req, res) => {
 // 	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
 // })
 
-app.get('/messages/inbox', authenticate, (req, res) => {
-	res.send(req.user)
+app.get('/messages/updated', authenticate, (req, res) => {
+	User.findOne({email: req.user.email}).then((user) => {
+		req.user = user
+		res.send(user)
+	})
 }, (error) => {
 	res.status(500).send(error)
 })
 
 app.get('/messages', authenticate, (req, res) => {
-	const starredNum = 0
-	const inboxNum = 0
-	const sentNum = 0
+	let starredNum = 0
+	let inboxNum = 0
+	let sentNum = 0
+	
 	for (let msg of req.user.messages) {
 		if (msg.isStarred) {
 			starredNum++
@@ -242,13 +246,23 @@ app.get('/messages', authenticate, (req, res) => {
 	res.status(500).send(error)
 })
 	
-// #################################################################################
-// app.post('/messages/send_new', authenticate, (req, res) => {
-// 	User.findOneAndUpdate({email: req.user.email}, {$push: {messages: req.body}}).exec().then(re
-// 		const d
-// 		User.findOneAndUpdate({email: req.body.to}, {$})
-// 	).then()
-// })
+app.post('/messages/send_new', authenticate, (req, res) => {
+	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec().then((targetUser) => {
+		if (!targetUser) {
+			return Promise.reject()
+		}
+		return User.findOneAndUpdate({email:req.user.email}, {$push: {messages: req.body}}).exec()
+	}).then((user) => {
+		if (!user) {
+			res.status(404).send()
+		}
+		else {
+			res.send(user.messages)
+		}
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
 
 // app.get('/messages/inbox', authenticate, (req, res) => {
 // 	if (req.session.user) {
@@ -305,7 +319,7 @@ app.route('/signup')
 				return User.create(newUser);
 			} else { // Found then reject
 				console.log('This email has already been signed up.');
-				return Promise.reject(result);
+				return Promise.reject();
 			}
 		})
 		.then(
@@ -314,7 +328,13 @@ app.route('/signup')
 				res.send('/feedpage');
 			}, 
 			(reject) => {
-				req.session.user = reject;
+				req.session.destroy((error) => {
+					if (error) {
+						res.status(500).send(error)
+					} else {
+						res.redirect('/')
+					}
+				});
 				res.send('/login');
 			}
 		)
