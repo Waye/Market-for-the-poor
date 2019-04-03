@@ -70,7 +70,7 @@ const tempChecker = (req, res, next) => {
 	} else if (req.session.user.email == "admin@gmail.com") {
 		res.redirect('/adminpage');
 	} else {
-		res.redirect('/feedpage_seller');
+		res.redirect('/feedpage');
 	}
 }
 
@@ -78,7 +78,7 @@ app.route('/login')
 	.get(tempChecker, (req, res) => {
 		// console.log(req.session.user)
 		console.log('get for login')
-		res.render('login.ejs');	
+		res.render('login');	
 	})
 	
 app.post('/login', (req, res) => {
@@ -107,15 +107,13 @@ app.post('/login', (req, res) => {
 	})
 })
 
-
-
-// app.get('/', (req, res) => {
-// 	res.render('index');
-// })
+app.get('/', (req, res) => {
+	res.render('index');
+})
 app.get('/adminpage', (req, res) => {
 	//return admin and users and posts
 	console.log('adminpage rendering')
-	res.render('adminpage.ejs');
+	res.render('adminpage');
 })
 
 app.get('/adminpage/info', (req, res) => {
