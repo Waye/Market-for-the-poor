@@ -13,26 +13,40 @@ const Post = function(id, date, title, userName, ) {
     this.userName = userName;
 }
 
-
+let admin = null;
 const users = []
 const posts = []
 
-users.push(new User("User1", false, false));
-users.push(new User("User2", true, true));
-users.push(new User("User3", true, false));
+// users.push(new User("User1", false, false));
+// users.push(new User("User2", true, true));
+// users.push(new User("User3", true, false));
 
-posts.push(new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetable', 'User1'))
-posts.push(new Post('0002', new Date(2018, 10, 30), 'Mango Juice', 'User2'))
-posts.push(new Post('0003', new Date(2019, 0, 31), 'Strawberry Juice', 'User3'))
+// posts.push(new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetable', 'User1'))
+// posts.push(new Post('0002', new Date(2018, 10, 30), 'Mango Juice', 'User2'))
+// posts.push(new Post('0003', new Date(2019, 0, 31), 'Strawberry Juice', 'User3'))
 
-// user's post array stores post ids
-users[0].post.push('0001')
-users[1].post.push('0002')
-users[2].post.push('0003')
+// // user's post array stores post ids
+// users[0].post.push('0001')
+// users[1].post.push('0002')
+// users[2].post.push('0003')
 
 
 //Total user number display
 $(document).ready(function() {
+    console.log('successful!')
+    $.ajax({
+        type: 'GET',
+        url: '/adminpage/info',
+        success: function (result) {
+            console.log(result)
+            // admin = result.admin
+            // users = result.users
+            // posts = result.posts
+            renderManageUsers()
+            renderManagePost()
+        }
+    })
+
     $(totalUserNum)[0].innerHTML = users.length;
     
     // send get request to server and render dynamically

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
 const MessageSchema = new mongoose.Schema({
@@ -52,6 +51,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
 		}
 
 		return new Promise((resolve, reject) => {
+			console.log(password, user.password)
 			bcrypt.compare(password, user.password, (error, result) => {
 				if (result) {
 					resolve(user);

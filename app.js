@@ -55,49 +55,109 @@ const sessionChecker = (req, res, next) => {
 }
 
 const loginChecker = (req, res, next) => {
+	// console.log(req.session.user)
 	if (req.session.user) {
 		next();
 	} else if (req.url =="/signup") {
-		res.render('signup');
+		res.render('/signup');
 	} else if (req.url =="/login") {
-		res.render('login');
+		res.redirect('/login');
+	}
+}
+
+const tempChecker = (req, res, next) => {
+	if (!req.session.user) {
+		next();
+	} else if (req.session.user.email == "admin@gmail.com") {
+		res.redirect('/adminpage');
+	} else {
+		res.redirect('/feedpage_seller');
 	}
 }
 
 app.route('/login')
-	.get(loginChecker, (req, res) => {
-		res.render('feedpage_seller');	
+	.get(tempChecker, (req, res) => {
+		// console.log(req.session.user)
+		console.log('get for login')
+		res.render('login.ejs');	
 	})
-	.post((req, res) => {
-		const email = req.body.email
-		const password = req.body.password
+	
+app.post('/login', (req, res) => {
+	const email = req.body.uname;
+	const password = req.body.psw;
+	Admin.findByEmailPassword(email, password).then((admin) => {
+	
+		console.log('admin')
+		// console.log(admin)
+		req.session.user = admin
+		res.redirect('/adminpage')
 
+	}, (error) => {
+		console.log('user')
 		User.findByEmailPassword(email, password).then((user) => {
-			if(!user) {
-				res.redirect('login')
-			} else {
-				// Add the user to the session cookie that we will
-				// send to the client
-				req.session.user = user
-				res.redirect('feedpage_seller')
-			}
-		}).catch((error) => {
-			res.status(400).redirect('login')
+			req.session.user = user
+			res.redirect('/feedpage_seller')
+		}, (error) => {
+			res.status(400).redirect('/login')
 		})
-			
 	})
+})
 
-app.get('/', (req, res) => {
-	res.render('index');
+
+
+// app.get('/', (req, res) => {
+// 	res.render('index');
+// })
+app.get('/adminpage', (req, res) => {
+	//return admin and users and posts
+	console.log('adminpage rendering')
+	res.render('adminpage.ejs');
 })
-app.get('/admin', (req, res) => {
-	res.render('admin');
+
+app.get('/adminpage/info', (req, res) => {
+	//return admin and users and posts
+	let info = []
+	User.find({}).then((users) => {
+		if (users) {
+			console.log(users)
+			info.push(users)
+			return Post.find({})
+		} 
+	}).then((posts) => {
+		if (posts) {
+			console.log(posts)
+			info.push(posts)
+			res.send(info)
+		}
+	}).catch((error) => {
+		console.log(error)
+		res.status(500)
+	})
 })
+
 app.get('/feedpage/seller', (req, res) => {
 	res.render('feedpage_seller');
 })
 app.get('/feedpage/buyer', (req, res) => {
 	res.render('feedpage_buyer');	
+})
+
+app.post('/admin_init', (req, res) => {
+	const newAdmin = new Admin({
+		name: req.body.name,
+		password: req.body.password,
+		email: req.body.email,
+		sellers: [],
+		buyers: [],
+		requests: [],
+		offers: []
+	})
+	Admin.create(newAdmin).then((result) => {
+		req.session.user = result
+		// console.log(result)
+	}, (error) => {
+		res.status(500).send(error)
+	})
 })
 
 app.route('/signup')
@@ -130,7 +190,7 @@ app.route('/signup')
 				return User.create(newUser);
 			} else { // found
 				console.log('This email has already been signed up.');
-          		res.send(false);
+          		res.send("exist");
 			}
 		})
 		.then((result) => {
@@ -168,26 +228,6 @@ app.get('/profile/buyer', (req, res) => {
 	res.render('profile_buyer');
 })
 
-// User login and logout routes
-
-app.post('/users/login', (req, res) => {
-	const email = req.body.email
-	const password = req.body.password
-
-	User.findByEmailPassword(email, password).then((user) => {
-		if(!user) {
-			res.redirect('/login')
-		} else {
-			// Add the user to the session cookie that we will
-			// send to the client
-			req.session.user = user._id;
-			req.session.email = user.email
-			res.redirect('/dashboard')
-		}
-	}).catch((error) => {
-		res.status(400).redirect('/login')
-	})
-})
 
 app.get('/logout', (req, res) => {
 	req.session.destroy((error) => {
