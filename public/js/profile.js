@@ -157,17 +157,18 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function getLatestPosts() {
-    $.get("/get?q=posts", function(data, status){
-        console.log(data);
-        posts = data;
-    });
+    return $.get("/get?q=posts");
 }
 
 
 function main() {
-    getLatestPosts();
-    filter('Total')
-    renderPage(1, filterResult);
-    createPagination(filterResult);
+    getLatestPosts().then(
+    (result) => {
+        posts = result;
+        filter('Total');
+        console.log(posts);
+        renderPage(1, filterResult);
+        createPagination(filterResult);    
+    });
 }
 $(document).ready(main);
