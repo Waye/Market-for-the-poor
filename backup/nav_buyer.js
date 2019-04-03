@@ -501,21 +501,21 @@ function getSearchResult() {
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
 
         <div class="row mt-2 mb-2 border-bottom result">
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
         
         <div class="row mt-2 mb-2 border-bottom result">
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/seller">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>`;
 }
 
@@ -619,7 +619,7 @@ function addNavContent(user) {
     profileBtn.className += "nav-item ml-2";
     const profileBtnLink = document.createElement("a");
     profileBtnLink.className += "btn nav-link btn-info";
-    profileBtnLink.setAttribute("href", "/profile/seller");
+    profileBtnLink.setAttribute("href", "/profile");
     profileBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const profileBtnSpan = document.createElement("span")
     profileBtnSpan.className += "d-none d-md-block";
@@ -635,7 +635,7 @@ function addNavContent(user) {
     msgBtn.className += "nav-item ml-2";
     const msgBtnLink = document.createElement("a");
     msgBtnLink.className += "btn nav-link btn-info";
-    msgBtnLink.setAttribute("href", "/messages/buyer");
+    msgBtnLink.setAttribute("href", "/messages");
     msgBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";

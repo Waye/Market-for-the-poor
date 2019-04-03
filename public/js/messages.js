@@ -20,9 +20,9 @@ const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 //on load render whole page
 $(document).ready(function() {
     //get request to set user 
-    renderMenuSection()
+    // renderMenuSection()
     renderInboxOrSent(inboxFirstMsgFinder, true)
-    modifyNavMsgNum()
+    // modifyNavMsgNum()
 })
 
 function fillSelectedIcon(iconSelector) {
