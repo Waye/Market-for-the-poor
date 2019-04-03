@@ -15,9 +15,11 @@ const { mongoose } = require('./db/mongoose')
 require('./models/user')
 require('./models/admin')
 require('./models/post')
+require('./models/order')
 const User = mongoose.model('User');
 const Admin = mongoose.model('Admin');
 const Post = mongoose.model('Post');
+const Order = mongoose.model('Order');
 
 
 // express
@@ -89,8 +91,7 @@ app.route('/login')
 		console.log('get for login')
 		res.render('login');	
 	})
-	
-app.post('/login', (req, res) => {
+	.post((req, res) => {
 	const email = req.body.uemail;
 	const password = req.body.psw;
 	Admin.findByEmailPassword(email, password).then(
@@ -266,15 +267,9 @@ app.get('/messages', authenticate, (req, res) => {
 // 	}
 // })
 
-
-
-
-// app.get('/feedpage', (req, res) => {
-// 	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
-// })
-
-
-
+app.get('/feedpage', (req, res) => {
+	res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});
+})
 
 app.route('/signup')
 	.get(loginChecker, (req, res) => {
@@ -324,7 +319,7 @@ app.route('/signup')
 		})
 	})
 app.get('/messages', (req, res) => {
-	res.render('messages', {userName: "UserX", msgCount: 30, isBuyer: false, inboxNum: 3, sentNum: 2, starredNum: 1});
+	res.render('messages', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, inboxNum: 3, sentNum: 2, starredNum: 1});
 })
 app.get('/orders/seller', (req, res) => {
 	res.render('orderpage_seller');
@@ -339,18 +334,64 @@ app.get('/detail/buyer', (req, res) => {
 	res.render('product_detail_buyer');
 })
 app.get('/profile', sessionChecker, (req, res) => {
-	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
+	res.render('profile', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, userImg: "/img/profile-image.jpg", userEmail: req.session.user.email, userPhone: req.session.user.phone, isBanned: req.session.user.isBanned, userDescription: req.session.user.description});
 })
 
+app.get('/get_feeds_header', (req, res) => {
+	User.findOne({ email: req.session.user.email }).exec()
+	.then(async (foundUser) => {
+		if (req.session.user.isBuyer) {
+			const foundActiveOrderCount = await Order.find({ buyerEmail: req.session.user.email, status: "active" }).exec();
+			return [foundUser, foundActiveOrderCount.length];
+		} else if (!req.session.user.isBuyer) {
+			const foundActiveOrderCount_1 = await Order.find({ sellerEmail: req.session.user.email, status: "active" }).exec();
+			return [foundUser, foundActiveOrderCount_1.length];
+		}
+	})
+	.then(async (result) => {
+		if (req.session.user.isBuyer) {
+			const foundFinishedOrderCount = await Order.find({ buyerEmail: req.session.user.email, status: "finished" }).exec();
+			result.push(foundFinishedOrderCount.length);
+			return result;
+		} else if (!req.session.user.isBuyer) {
+			const foundFinishedOrderCount_1 = await Order.find({ sellerEmail: req.session.user.email, status: "finished" }).exec();
+			result.push(foundFinishedOrderCount_1.length);
+			return result;
+		}
+	})
+	.then(async (result) => {
+		const foundPostedCount = await Post.find({ email: req.session.user.email }).exec();
+		result.push(foundPostedCount.length);
+		return result;
+	})
+	.then((result) => {
+		res.send(result);
+	})
+	.catch((err) => {
+		console.log(err);
+		res.send(err);
+	})
+})
 
-app.get('/get', (req, res) => {
-	if (req.query.q == "posts") {
-		Post.find({ email: req.session.user.email }).exec()
+app.get('/get_feeds', (req, res) => {
+	if (req.session.user.isBuyer) {
+		Post.find({ type: "offer" }).exec()
 		.then((result) => {
 			res.send(result);
 		})
-		// res.json([{hi: "hi"}]);
+	} else if (!req.session.user.isBuyer) {
+		Post.find({ type: "request" }).exec()
+		.then((result) => {
+			res.send(result);
+		})
 	}
+})
+
+app.get('/get_posts', (req, res) => {
+	Post.find({ email: req.session.user.email }).exec()
+	.then((result) => {
+		res.send(result);
+	})
 })
 
 app.get('/search', (req, res) => {
@@ -378,10 +419,13 @@ app.post('/posts', (req, res) => {
 	Post.create(newPost).then(
 	(result) => {
 		req.session.user = result;
-	}, 
+		User.findOneAndUpdate({ email: req.session.user.email }, { $push: { posts: result._id } }, (err, result) => {
+			if (err) console.log("Update posts in user:", err)
+		});
+	},
 	(reject) => {
 		res.status(500).send(reject);
-	});
+	})
 })
 
 app.get('/logout', (req, res) => {
