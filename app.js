@@ -259,6 +259,37 @@ app.get('/get', (req, res) => {
 	}
 })
 
+app.get('/search', (req, res) => {
+	// Post.find({ email: req.session.user.email }).exec()
+	// .then((result) => {
+	// 	res.send(result);
+	// })
+
+})
+
+app.post('/posts', (req, res) => {
+	const newPost = new Post({
+		email: req.session.user.email,
+		type: req.session.user.isBuyer ? "request" : "offer",
+		date: new Date(),
+		title: req.body.title,
+		description: req.body.description,
+		price: req.body.price,
+		quantity: req.body.quantity,
+		image: req.body.image,
+		completed: false,
+		dueDate: req.body.dueDate,
+		category: req.body.category
+	})
+	Post.create(newPost).then(
+	(result) => {
+		req.session.user = result;
+	}, 
+	(reject) => {
+		res.status(500).send(reject);
+	});
+})
+
 app.get('/logout', (req, res) => {
 	req.session.destroy((error) => {
 		if (error) {
