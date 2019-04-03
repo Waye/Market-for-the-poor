@@ -48,23 +48,13 @@ app.use(session({
 // Add middleware to check for logged-in users
 const sessionChecker = (req, res, next) => {
 	if (!req.session.user) {
-		res.redirect('login')
+		res.redirect('/login')
 	} else {
 		next();
 	}
 }
 
 const loginChecker = (req, res, next) => {
-	// console.log(req.session.user)
-	if (req.session.user) {
-		// next();
-		res.redirect('/feedpage');
-	} else {
-		next();
-	}
-}
-
-const tempChecker = (req, res, next) => {
 	if (!req.session.user) {
 		next();
 	} else if (req.session.user.email == "admin@gmail.com") {
@@ -75,14 +65,14 @@ const tempChecker = (req, res, next) => {
 }
 
 app.route('/login')
-	.get(tempChecker, (req, res) => {
+	.get(loginChecker, (req, res) => {
 		// console.log(req.session.user)
 		console.log('get for login')
 		res.render('login');	
 	})
 	
 app.post('/login', (req, res) => {
-	const email = req.body.uname;
+	const email = req.body.uemail;
 	const password = req.body.psw;
 	Admin.findByEmailPassword(email, password).then(
 	(admin) => {
@@ -159,7 +149,6 @@ app.route('/signup')
 		res.render('signup');
 	})
 	.post((req, res) => {
-		// res.render('signup');
 		const name = req.body.name;
 		const email = req.body.email;
 		const phone = req.body.phone;
@@ -202,11 +191,8 @@ app.route('/signup')
 			res.send(err);
 		})
 	})
-app.get('/messages/seller', (req, res) => {
-	res.render('messages_seller');
-})
-app.get('/messages/buyer', (req, res) => {
-	res.render('messages_buyer');
+app.get('/messages', (req, res) => {
+	res.render('messages', {userName: "UserX", msgCount: 30, isBuyer: false, inboxNum: 3, sentNum: 2, starredNum: 1});
 })
 app.get('/orders/seller', (req, res) => {
 	res.render('orderpage_seller');
@@ -220,13 +206,19 @@ app.get('/detail/seller', (req, res) => {
 app.get('/detail/buyer', (req, res) => {
 	res.render('product_detail_buyer');
 })
-app.get('/profile/seller', (req, res) => {
-	res.render('profile_seller');
-})
-app.get('/profile/buyer', (req, res) => {
-	res.render('profile_buyer');
+app.get('/profile', sessionChecker, (req, res) => {
+	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
 })
 
+app.get('/get', (req, res) => {
+	if (req.query.q == "posts") {
+		Post.find({ email: req.session.user.email }).exec()
+		.then((result) => {
+			res.send(result);
+		})
+		// res.json([{hi: "hi"}]);
+	}
+})
 
 app.get('/logout', (req, res) => {
 	req.session.destroy((error) => {

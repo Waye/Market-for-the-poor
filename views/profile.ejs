@@ -3,36 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="/css/nav.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <title>Profile | Market for the poor</title>
     <link rel="stylesheet" href="/css/profile.css">
+    <%- include('./partials/head') %>
 
 </head>
 
 <body>
-    <!--navigation bar-->
-    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <%- include('./partials/topnavbar', {userName: userName, msgCount: msgCount, isBuyer: isBuyer}) %>    
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
-
-
 
     <div class="container-fluid" id="profile-all">
         <div class="row">
             <!--profile part-->
             <div class="col-md-3">
                 <div class="card shadow">
-                    <img class="card-img-top" id="profileImage">
+                    <img class="card-img-top" id="profileImage" src="<%= userImg %>">
                     <div class="card-body" id="profile-card-body">
-                        <h5 class="card-title" id="userName"></h5>
+                        <h5 class="card-title" id="userName"><%= userName %></h5>
                         <ul class="list-group ">
-                            <li class="list-group-item" id="email"></li>
-                            <li class="list-group-item" id="phone"></li>
-                            <li class="list-group-item" id="status"></li>
-                            <li class="list-group-item" id="buyerOrSeller"></li>
-                            <li class="list-group-item" id="userDescription"></li>
+                            <li class="list-group-item" id="email"><%= userEmail %></li>
+                            <li class="list-group-item" id="phone"><%= userPhone %></li>
+                            <% if (isBanned) { %>
+                                <li class="list-group-item text-danger" id="status">Banned</li>
+                            <% } else { %>
+                                <li class="list-group-item text-success" id="status">Active</li>                                
+                            <% } %>
+                            </li>
+                            <% if (isBuyer) { %>
+                                <li class="list-group-item text-primary" id="buyerOrSeller">Buyer</li>
+                            <% } else { %>
+                                <li class="list-group-item text-primary" id="buyerOrSeller">Buyer</li>                                
+                            <% } %>
+                            </li>
+                            <li class="list-group-item" id="userDescription"><%= userDescription %></li>
                         </ul>
                         <!-- <p class="card-text" id="userDescription"></p> -->
                         <button type="button" class="btn btn-primary mt-3" id="editBtn">Edit/Change Password</button>
@@ -49,7 +53,6 @@
                     <h3>My posts</h3>
                 </div>
                 <div class="container-fluid">
-
                     <!--Nav bar-->
                     <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
 
@@ -87,6 +90,7 @@
                         </div>
                     </nav>
 
+
                     <!--Section: Product display-->
                     <section class="text-center mb-4 " id="post-TwoRow">
 
@@ -102,7 +106,6 @@
                     <!--Pagination-->
 
                 </div>
-
 
             </div>
 
@@ -139,12 +142,10 @@
         <div id="editFormContainer">
         </div>
     </div>
-
-
-    <% include ./partials/importScript %>
-    <script type="text/javascript" src="/js/nav_buyer.js"></script>
-    <script type="text/javascript" src="/js/profile.js"></script>
+    <%- include('./partials/importScript') %>
+    <script type="text/javascript" src="/js/nav_search.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
+    <script type="text/javascript" src="/js/profile.js"></script>
 </body>
 
 </html>
