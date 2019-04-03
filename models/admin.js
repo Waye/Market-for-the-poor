@@ -4,11 +4,7 @@ const bcrypt = require('bcryptjs')
 const AdminSchema = new mongoose.Schema({
     name: String,
     password: String,
-    email: String,
-    sellers: [String],
-    buyers: [String],
-    requests: [String],
-    offers: [String]
+    email: String
 });
 
 

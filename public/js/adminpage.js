@@ -1,35 +1,8 @@
 "use strict";
 
-const User = function(name, isBuyer, isBanned) {
-	this.name = name;
-    this.isBuyer = isBuyer;
-    this.isBanned = isBanned;
-    this.post = [];
-}
-const Post = function(id, date, title, userName, ) {
-    this.id = id;
-    this.date = date;
-    this.title = title;
-    this.userName = userName;
-}
-
 let admin = null;
-const users = []
-const posts = []
-
-// users.push(new User("User1", false, false));
-// users.push(new User("User2", true, true));
-// users.push(new User("User3", true, false));
-
-// posts.push(new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetable', 'User1'))
-// posts.push(new Post('0002', new Date(2018, 10, 30), 'Mango Juice', 'User2'))
-// posts.push(new Post('0003', new Date(2019, 0, 31), 'Strawberry Juice', 'User3'))
-
-// // user's post array stores post ids
-// users[0].post.push('0001')
-// users[1].post.push('0002')
-// users[2].post.push('0003')
-
+let users = []
+let posts = []
 
 //Total user number display
 $(document).ready(function() {
@@ -39,9 +12,8 @@ $(document).ready(function() {
         url: '/adminpage/info',
         success: function (result) {
             console.log(result)
-            // admin = result.admin
-            // users = result.users
-            // posts = result.posts
+            users = result[0]
+            posts = result[1]
             renderManageUsers()
             renderManagePost()
         }
@@ -96,7 +68,7 @@ function renderManageUsers() {
         } else {
             banButton = 'Ban'
         }
-        const html = `<span><span class='userName'>${u.name}</span> (<span class="userType">${type}</span>)  <span class="${spanClass} status">${status}</span></span>
+        const html = `<span><span class='userName'>${u.email}</span> (<span class="userType">${type}</span>)  <span class="${spanClass} status">${status}</span></span>
         <button class='ml-auto ban btn btn-primary'>${banButton}</button><button class="ml-3 delDiv btn btn-primary">Delete</button>`
         div.innerHTML = html
         div.className = "d-flex list-group-item manageUserLine"
@@ -109,26 +81,33 @@ $('body').on('click', 'button.ban', banClick)
 
 function banClick() {
     const topSpan = $(this).prev();
-    const userName = topSpan.find('.userName')[0].innerHTML;
+    const userEmail = topSpan.find('.userName')[0].innerHTML;
+    console.log(userEmail)
     // send update request to server
+    const data = {
+        email: userEmail
+    }
+    $.ajax({
+        
+    })
 
-    banOrUnbanUser(userName);
+    // banOrUnbanUser(userEmail);
     removeManageUsers();
     renderManageUsers();
 }
 
 
 
-function banOrUnbanUser(userName) {
-    const user = users.find(function(user) {
-        return user.name == userName;
-    })
-    if (user.isBanned) {
-        user.isBanned = false;
-    } else {
-        user.isBanned = true;
-    }
-}
+// function banOrUnbanUser(email) {
+//     const user = users.find(function(user) {
+//         return user.email == email;
+//     })
+//     if (user.isBanned) {
+//         user.isBanned = false;
+//     } else {
+//         user.isBanned = true;
+//     }
+// }
 
 function removeManagePost() {
     $('tr').remove('.managePostRow')
@@ -178,26 +157,26 @@ function removePost(postId) {
 $('body').on('click', 'button.delDiv', delDivClick)
 
 function delDivClick() {
-    const userName = $(this).prev().prev().children('span.userName')[0].innerHTML
+    const userEmail = $(this).prev().prev().children('span.userName')[0].innerHTML
     // send delete(user)/update(post) request to server
     
-    removeUser(userName)
+    removeUser(userEmail)
     removeManageUsers()
     renderManageUsers()
     removeManagePost()
     renderManagePost()
 }
 
-function removeUser(userName) {
+function removeUser(email) {
     const index = users.findIndex(function(user) {
-        return user.name == userName;
+        return user.email == email;
     })
 
     users.splice(index, 1)
     let postToRemove = []
 
     for (let p of posts) {
-        if (p.userName == userName) {
+        if (p.email == email) {
             postToRemove.push(p)
         }
     }

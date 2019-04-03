@@ -147,10 +147,6 @@ app.post('/admin_init', (req, res) => {
 		name: req.body.name,
 		password: req.body.password,
 		email: req.body.email,
-		sellers: [],
-		buyers: [],
-		requests: [],
-		offers: []
 	})
 	Admin.create(newAdmin).then((result) => {
 		req.session.user = result
