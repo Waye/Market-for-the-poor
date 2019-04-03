@@ -283,7 +283,7 @@ app.get('/messages/inbox', authenticate, (req, res) => {
 
 
 app.get('/feedpage', (req, res) => {
-    res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
+    res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});
 })
 
 
