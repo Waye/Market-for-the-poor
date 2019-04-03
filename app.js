@@ -100,6 +100,22 @@ app.post('/login', (req, res) => {
 app.get('/', (req, res) => {
 	res.render('index');
 })
+
+app.post('/admin_init', (req, res) => {
+	const newAdmin = new Admin({
+		name: req.body.name,
+		password: req.body.password,
+		email: req.body.email,
+	})
+	Admin.create(newAdmin).then((result) => {
+		req.session.user = result
+		// console.log(result)
+	}, (error) => {
+		res.status(500).send(error)
+	})
+})
+
+
 app.get('/adminpage', (req, res) => {
 	//return admin and users and posts
 	console.log('adminpage rendering')
@@ -126,23 +142,46 @@ app.get('/adminpage/info', (req, res) => {
 		res.status(500)
 	})
 })
+
+app.patch('/adminpage/ban_user', (req, res) => {
+	User.findOneAndUpdate({email: req.body.email}, {$set: {isBanned: req.body.isBanned}}, {new: true})
+	.then((user) => {
+		if (!user) {
+			res.status(404).send()
+		} else {
+			res.send(user)
+		}
+	}).catch((error) => {
+		res.status(500).send(error)
+	}) 
+})
+
+app.delete('/adminpage/delete_user', (req, res) => {
+	User.findOneAndDelete({email: req.body.email}).then((user) => {
+		if (!user) {
+			return Promise.reject()
+		} else {
+			return Post.deleteMany({email: req.body.emai}).exec()
+		}
+	}).then((posts) => {
+		if (posts) {
+			res.send(posts)
+		}
+	}, (reject) => {
+		res.status(404).send()
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+
+
 app.get('/feedpage', (req, res) => {
 	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
 })
 
-app.post('/admin_init', (req, res) => {
-	const newAdmin = new Admin({
-		name: req.body.name,
-		password: req.body.password,
-		email: req.body.email,
-	})
-	Admin.create(newAdmin).then((result) => {
-		req.session.user = result
-		// console.log(result)
-	}, (error) => {
-		res.status(500).send(error)
-	})
-})
+
+
 
 app.route('/signup')
 	.get(loginChecker, (req, res) => {

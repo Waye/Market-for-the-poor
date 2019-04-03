@@ -16,25 +16,15 @@ $(document).ready(function() {
             posts = result[1]
             renderManageUsers()
             renderManagePost()
+            $(totalUserNum)[0].innerHTML = users.length;
+
         }
     })
 
-    $(totalUserNum)[0].innerHTML = users.length;
     
-    // send get request to server and render dynamically
-    renderManageUsers();
-    renderManagePost();
+
 })
 
-// // dynamically produce htmls for manageUserSection
-// $(document).ready(function () {
-//     // send get request to server and render
-//     renderManageUsers()
-// })
-// $(document).ready(function() {
-//     //send get request to server and render
-//     renderManagePost()
-//  })
     
 function removeManageUsers() {
     $('div').remove('.manageUserLine')
@@ -81,33 +71,29 @@ $('body').on('click', 'button.ban', banClick)
 
 function banClick() {
     const topSpan = $(this).prev();
-    const userEmail = topSpan.find('.userName')[0].innerHTML;
-    console.log(userEmail)
+    const email = topSpan.find('.userName')[0].innerHTML;
+    const user = users.find(user => user.email == email);
     // send update request to server
     const data = {
-        email: userEmail
+        email: email,
+        isBanned: !user.isBanned
     }
     $.ajax({
-        
+        type: "PATCH",
+        url: "/adminpage/ban_user",
+        data: data,
+        success: function(result) {
+            if (result) {
+                user.isBanned = result.isBanned
+                removeManageUsers()
+                renderManageUsers()
+            } else {
+                alert("Error")
+            }
+        }
     })
-
-    // banOrUnbanUser(userEmail);
-    removeManageUsers();
-    renderManageUsers();
 }
 
-
-
-// function banOrUnbanUser(email) {
-//     const user = users.find(function(user) {
-//         return user.email == email;
-//     })
-//     if (user.isBanned) {
-//         user.isBanned = false;
-//     } else {
-//         user.isBanned = true;
-//     }
-// }
 
 function removeManagePost() {
     $('tr').remove('.managePostRow')
@@ -130,9 +116,9 @@ function renderManagePost() {
     }
 }
 
-$('body').on('click', 'button.delRow', delRowClick)
+$('body').on('click', 'button.delRow', deletePost)
 
-function delRowClick() {
+function deletePost() {
     const postId = $(this).parent().siblings()[0].innerHTML
     // send delete(post)/update(user.post) request to server
 
@@ -154,17 +140,32 @@ function removePost(postId) {
     posts.splice(index, 1)
 }
 
-$('body').on('click', 'button.delDiv', delDivClick)
+$('body').on('click', 'button.delDiv', deleteUser)
 
-function delDivClick() {
-    const userEmail = $(this).prev().prev().children('span.userName')[0].innerHTML
+function deleteUser() {
+    const email = $(this).prev().prev().children('span.userName')[0].innerHTML
     // send delete(user)/update(post) request to server
-    
-    removeUser(userEmail)
-    removeManageUsers()
-    renderManageUsers()
-    removeManagePost()
-    renderManagePost()
+    $.ajax({
+        method: 'DELETE',
+        data: {
+            email: email
+        },
+        url: 'adminpage/delete_user',
+        success: function(result) {
+            if (result) {
+                users.splice(users.findIndex(user => user.email == email), 1)
+                let postsToRemove = result
+                posts = posts.filter(post => !postsToRemove.includes(post.email))
+                removeManageUsers()
+                removeManagePost()
+                renderManageUsers()
+                renderManagePost()
+
+            } else {
+                alert('Error')
+            }
+        }
+    })
 }
 
 function removeUser(email) {
