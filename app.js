@@ -282,7 +282,7 @@ app.get('/messages/inbox', authenticate, (req, res) => {
 })
 
 
-app.get('/feedpage', (req, res) => {
+app.get('/feedpage', authenticate, (req, res) => {
     res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});
 })
 
@@ -355,8 +355,8 @@ app.get('/detail/buyer', (req, res) => {
     res.render('product_detail_buyer');
 })
 
-app.get('/profile', sessionChecker, (req, res) => {
-    const user = req.session.user
+app.get('/profile', authenticate, (req, res) => {
+    const user = req.user
     // const Posts=User.posts
 
     Post.find({email: req.session.user.email, category: "food"}).exec().then((r1) => {
