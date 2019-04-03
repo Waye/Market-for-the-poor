@@ -64,6 +64,25 @@ const loginChecker = (req, res, next) => {
 	}
 }
 
+// Middleware for authentication for resources
+const authenticate = (req, res, next) => {
+	if (req.session.user) {
+		User.findById(req.session.user).then((user) => {
+			if (!user) {
+				return Promise.reject()
+			} else {
+				req.user = user
+				next()
+			}
+		}).catch((error) => {
+			res.redirect('/login')
+		})
+	} else {
+		res.redirect('/login')
+	}
+}
+
+
 app.route('/login')
 	.get(loginChecker, (req, res) => {
 		// console.log(req.session.user)
@@ -194,10 +213,65 @@ app.delete('/adminpage/delete_post', (req, res) => {
 	})
 })
 
+// app.get('/profile', sessionChecker, (req, res) => {
+// 	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
+// })
 
-app.get('/feedpage', (req, res) => {
-	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
+app.get('/messages/inbox', authenticate, (req, res) => {
+	res.send(req.user)
+}, (error) => {
+	res.status(500).send(error)
 })
+
+app.get('/messages', authenticate, (req, res) => {
+	const starredNum = 0
+	const inboxNum = 0
+	const sentNum = 0
+	for (let msg of req.user.messages) {
+		if (msg.isStarred) {
+			starredNum++
+		} else if (msg.from == req.user.email) {
+			sentNum++
+		} else {
+			inboxNum++
+		}
+	}
+	res.render('messages', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer,
+	inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum})	
+}, (error) => {
+	res.status(500).send(error)
+})
+	
+// #################################################################################
+// app.post('/messages/send_new', authenticate, (req, res) => {
+// 	User.findOneAndUpdate({email: req.user.email}, {$push: {messages: req.body}}).exec().then(re
+// 		const d
+// 		User.findOneAndUpdate({email: req.body.to}, {$})
+// 	).then()
+// })
+
+// app.get('/messages/inbox', authenticate, (req, res) => {
+// 	if (req.session.user) {
+// 		User.findOne({email: req.session.user.email}).then((user) => {
+// 			if (user) {
+// 				res.send(user)	
+// 			} else {
+// 				res.status(404).send()
+// 			}
+// 		}).catch((error) => {
+// 			res.status(500).send(error)
+// 		})
+// 	} else {
+// 		res.redirect('/login')
+// 	}
+// })
+
+
+
+
+// app.get('/feedpage', (req, res) => {
+// 	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
+// })
 
 
 
@@ -268,6 +342,7 @@ app.get('/profile', sessionChecker, (req, res) => {
 	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
 })
 
+
 app.get('/get', (req, res) => {
 	if (req.query.q == "posts") {
 		Post.find({ email: req.session.user.email }).exec()
@@ -289,23 +364,6 @@ app.get('/logout', (req, res) => {
 })
 
 
-// Middleware for authentication for resources
-const authenticate = (req, res, next) => {
-	if (req.session.user) {
-		User.findById(req.session.user).then((user) => {
-			if (!user) {
-				return Promise.reject()
-			} else {
-				req.user = user
-				next()
-			}
-		}).catch((error) => {
-			res.redirect('/login')
-		})
-	} else {
-		res.redirect('/login')
-	}
-}
 
 app.listen(port, (err) => {
 	if (err) {
