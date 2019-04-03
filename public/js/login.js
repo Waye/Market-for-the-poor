@@ -28,3 +28,8 @@ function check(form)/*function to check userid & password*/
         alert("Error Password or Username");/*displays error message*/
     }
 }
+
+function main() {
+    // $.get('/login', ()=>{});
+}
+$(document).ready(main);

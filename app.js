@@ -56,17 +56,19 @@ const sessionChecker = (req, res, next) => {
 
 const loginChecker = (req, res, next) => {
 	if (req.session.user) {
+		// next();
+		res.redirect('/feedpage');
+	} else {
 		next();
-	} else if (req.url =="/signup") {
-		res.render('signup');
-	} else if (req.url =="/login") {
-		res.render('login');
 	}
 }
 
 app.route('/login')
 	.get(loginChecker, (req, res) => {
-		res.render('feedpage_seller');	
+		// res.redirect('/feedpage');
+		console.log('rendering login')
+		res.render('login');
+		res.end('It worked!');
 	})
 	.post((req, res) => {
 		const email = req.body.email
@@ -74,15 +76,15 @@ app.route('/login')
 
 		User.findByEmailPassword(email, password).then((user) => {
 			if(!user) {
-				res.redirect('login')
+				res.redirect('/login')
 			} else {
 				// Add the user to the session cookie that we will
 				// send to the client
-				req.session.user = user
-				res.redirect('feedpage_seller')
+				req.session.user = user;
+				res.redirect('/feedpage');
 			}
 		}).catch((error) => {
-			res.status(400).redirect('login')
+			res.status(400).redirect('/login')
 		})
 			
 	})
@@ -93,16 +95,13 @@ app.get('/', (req, res) => {
 app.get('/admin', (req, res) => {
 	res.render('admin');
 })
-app.get('/feedpage/seller', (req, res) => {
-	res.render('feedpage_seller');
-})
-app.get('/feedpage/buyer', (req, res) => {
-	res.render('feedpage_buyer');	
+app.get('/feedpage', (req, res) => {
+	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
 })
 
 app.route('/signup')
 	.get(loginChecker, (req, res) => {
-		res.render('feedpage_seller');
+		res.render('signup');
 	})
 	.post((req, res) => {
 		// res.render('signup');
@@ -115,7 +114,7 @@ app.route('/signup')
 		const queryCondition = { name: name, email: email }; // double check
 		User.findOne(queryCondition).exec()
 		.then((result) => {
-			if (!result) { // Not found
+			if (!result) { // Not found then sign up
 				const newUser = new User({
 					name: name,
     				password:  password,
@@ -128,16 +127,21 @@ app.route('/signup')
     				description: ""
 				});
 				return User.create(newUser);
-			} else { // found
+			} else { // Found then reject
 				console.log('This email has already been signed up.');
-          		res.send(false);
+				return Promise.reject(result);
 			}
 		})
-		.then((result) => {
-			req.session.user = result;
-			// res.redirect('feedpage_seller');
-			res.send(true);
-		})
+		.then(
+			(resolve) => {
+				req.session.user = resolve;
+				res.send('/feedpage');
+			}, 
+			(reject) => {
+				req.session.user = reject;
+				res.send('/login');
+			}
+		)
 		.catch((err)=>{
 			console.log(err);
 			res.send(err);

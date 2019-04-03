@@ -305,9 +305,10 @@ function updateFeed(productData) {
 }
 
 function main() {
+    console.log('getting feedpage')
     $.ajax({
         type: "GET",
-        url: "/feedpage/seller",
+        url: "/feedpage",
         success: function (result) {
             currUser = result.user
             addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);

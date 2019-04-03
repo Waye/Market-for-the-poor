@@ -51,20 +51,18 @@ function register() {
         displayMsg('Please select "Register as".')
         return
     }
-    console.log('User created!')
+    console.log('User created:', newUser);
 
     $.ajax({
         type: "POST",
         url: "/signup",
         data: newUser,
         success: function (result) {
-            if (result) {
-                window.location.href = '/feedpage/seller';
-            } else {
-                console.log("Failed!")
-            }
+            console.log('signup post success')
+            console.log(result);
+            window.location = result;
         }
-    })
+    });
 }
 //     const html = `Registration successful.<br>
 //     User Name: ${newUser.userName}<br>
