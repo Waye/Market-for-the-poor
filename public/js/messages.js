@@ -22,15 +22,21 @@ let currentUser = null
 //on load render whole page
 $(document).ready(function() {
     //get request to set user 
-    $.ajax({
-        type: 'GET',
-        url: '/messages/inbox',
-        success: function(result) {
-            messages = result.messages
-            currentUser = result
-            renderInboxOrSent(inboxFirstMsgFinder, true)            
-        }     
+    getUpdatedMessage().then(result => {
+        currentUser = result.email
+        renderInboxOrSent(inboxFirstMsgFinder, true)
+    }).catch((error) => {
+        console.log("Error occurred")
     })
+    // $.ajax({
+    //     type: 'GET',
+    //     url: '/messages/updated',
+    //     success: function(result) {
+    //         messages = result.messages
+    //         currentUser = result
+    //         renderInboxOrSent(inboxFirstMsgFinder, true)            
+    //     }     
+    // })
     // renderMenuSection()
     // renderInboxOrSent(inboxFirstMsgFinder, true)
     // modifyNavMsgNum()
@@ -44,22 +50,49 @@ function fillSelectedIcon(iconSelector) {
     $(iconSelector).attr('fill', 'white')
 }
 
-
+function getUpdatedMessage() {
+    return $.ajax({
+        type: 'GET',
+        url: '/messages/updated',
+        success: function(result) {
+            for (let msg of result.messages) {
+                msg.date = new Date(msg.date)
+            } 
+            messages = result.messages
+        },
+        error: function (error) {
+            return error
+        }
+    })
+}
 $('#sent').click(function() {
-    resetActive()
-    removeMainContainer()
-    renderInboxOrSent(sentFirstMsgFinder, false)
-    $('#sent').addClass('active')
-    fillSelectedIcon('#sent path')
+    getUpdatedMessage().then((result) => {
+        messages = result.messages
+        console.log(messages[0].date)
+        console.log(typeof(messages[0].date))
+        resetActive()
+        removeMainContainer()
+        renderInboxOrSent(sentFirstMsgFinder, false)
+        $('#sent').addClass('active')
+        fillSelectedIcon('#sent path')
+    }).catch((error) => {
+        console.log("Error occurred")
+        console.log(error)
+    })
 })
 
 // Inbox selected in the left menu bar, display inbox messages in the middle
 $('#inbox').click(function() {
-    resetActive()
-    removeMainContainer()
-    renderInboxOrSent(inboxFirstMsgFinder, true)
-    $('#inbox').addClass('active')
-    fillSelectedIcon('#inbox path')
+    getUpdatedMessage().then((result) => {
+        messages = result.messages
+        resetActive()
+        removeMainContainer()
+        renderInboxOrSent(inboxFirstMsgFinder, true)
+        $('#inbox').addClass('active')
+        fillSelectedIcon('#inbox path')
+    }).catch((error) => {
+        console.log(error)
+    })
 })
 
 // Starred selected in the left menu bar, display starred messages in the middle
@@ -110,11 +143,15 @@ $('body').on('click', 'a.msgToDelete', deleteMessage)
 $('body').on('click', '#reply', sendReply)
 
 function renderMenuSection() {
+    console.log(messages)
     let numSent = 0
     let numInbox = 0
     let numStarred = 0
     for (let m of messages) {
-        if (m.from != currentUser.email) {
+        console.log(m.from)
+        console.log(currentUser)
+        console.log(m.from == currentUser)
+        if (m.from != currentUser) {
             numInbox = numInbox + 1
         } else {
             numSent = numSent + 1
@@ -255,8 +292,8 @@ function deleteMessage() {
 function sendReply() {
     // the reply input field id is set to be the target user.
     const to = $(this).parent().prev()[0].id
-    const from = currentUser.email
-    const title = `Reply from ${currentUser.email}`
+    const from = currentUser
+    const title = `Reply from ${currentUser}`
     const content = $(`#${to}`).val()
     messages.push(new Message(from, to, title, content, new Date(), false, false))
     console.log(messages)
@@ -272,7 +309,7 @@ function renderStarred() {
     for (let m of messages) {
         if (m.isStarred) {
             const date = m.date.toLocaleDateString("en-US", dataFormat)
-            let targetUser = (m.from == currentUser.email ? m.to : m.from)
+            let targetUser = (m.from == currentUser ? m.to : m.from)
 
             html = html + `<a class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
             <div class="d-flex w-100 justify-content-between">
@@ -310,10 +347,10 @@ function renderNewMessageForm() {
 function getUsersInvolved() {
     let users = []
     for (let m of messages) {
-        if (!users.includes(m.from) && m.from != currentUser.email) {
+        if (!users.includes(m.from) && m.from != currentUser) {
             users.push(m.from)
         }
-        if (!users.includes(m.to) && m.to != currentUser.email) {
+        if (!users.includes(m.to) && m.to != currentUser) {
             users.push(m.to)
         }
     }
@@ -324,7 +361,7 @@ function getUsersInvolved() {
 function getFirstMsg(op, conversation) {
     const len = conversation.length
     for (let i = len - 1; i >= 0; i--) {
-        if (op(conversation[i].from, currentUser.email)) {
+        if (op(conversation[i].from, currentUser)) {
             return conversation[i]
         }
     }
@@ -353,7 +390,7 @@ function resetActive() {
 
 function sendMessage() {
     const to = $('#msgTo').val()
-    const from = currentUser.email
+    const from = currentUser
     const title = $('#msgTitle').val()
     const content = $('#msgContent').val()
     const data = {
@@ -361,6 +398,7 @@ function sendMessage() {
         from: from,
         title: title,
         content: content,
+        isStarred: false,
         date: new Date()
     }
 
@@ -370,14 +408,13 @@ function sendMessage() {
         url: '/messages/send_new',
         success: function(result) {
             if (result) {
-                messages.push(result)
+                messages = result
                 removeMainContainer()
                 renderMenuSection()
                 modifyNavMsgNum()
                 const html = `<div class='row'><div class='col-md-2'></div>
                 <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
                 $('#mainContainer').html(html)
-
             }
         }
 
@@ -395,7 +432,7 @@ function sendMessage() {
 
 function modifyNavMsgNum() {
     let unreadNum = 0;
-    messages.forEach(msg => {if (!msg.isRead && msg.from != currentUser.name) {unreadNum++}})
+    messages.forEach(msg => {if (!msg.isRead && msg.from != currentUser) {unreadNum++}})
     $('span.msgButtonNav').html(unreadNum)
 }
 

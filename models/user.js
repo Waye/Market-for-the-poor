@@ -7,7 +7,8 @@ const MessageSchema = new mongoose.Schema({
 	from: String,
 	content: String,
 	isStarred: Boolean,
-	date: Date
+	date: Date,
+	title: String
 });
 
 const UserSchema = new mongoose.Schema({
