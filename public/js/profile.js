@@ -159,6 +159,7 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 function getLatestPosts() {
     $.get("/get?q=posts", function(data, status){
         console.log(data);
+        posts = data;
     });
 }
 
