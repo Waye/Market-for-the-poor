@@ -166,6 +166,8 @@ app.delete('/adminpage/delete_user', (req, res) => {
 	}).then((posts) => {
 		if (posts) {
 			res.send(posts)
+		} else {
+			res.status(404).send()
 		}
 	}, (reject) => {
 		res.status(404).send()
@@ -174,6 +176,23 @@ app.delete('/adminpage/delete_user', (req, res) => {
 	})
 })
 
+app.delete('/adminpage/delete_post', (req, res) => {
+	User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}).then((user) => {
+		if (!user) {
+			return Promise.reject()
+		} else {
+			return Post.findOneAndDelete({_id: req.body.id}).exec()
+		}
+	}).then((post) => {
+		if (post) {
+			res.send(post)
+		} else {
+			res.status(404).send()
+		}
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
 
 
 app.get('/feedpage', (req, res) => {
