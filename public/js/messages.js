@@ -14,14 +14,25 @@ const Message = function (from, to, title, content, date, isRead, isStarred) {
 
 
 // get request to server to get current user's messages
-const messages = currentUser.messages;
+// const messages = currentUser.messages;
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
+let messages = []
+let currentUser = null
 
 //on load render whole page
 $(document).ready(function() {
     //get request to set user 
+    $.ajax({
+        type: 'GET',
+        url: '/messages/inbox',
+        success: function(result) {
+            messages = result.messages
+            currentUser = result
+            renderInboxOrSent(inboxFirstMsgFinder, true)            
+        }     
+    })
     // renderMenuSection()
-    renderInboxOrSent(inboxFirstMsgFinder, true)
+    // renderInboxOrSent(inboxFirstMsgFinder, true)
     // modifyNavMsgNum()
 })
 
@@ -103,7 +114,7 @@ function renderMenuSection() {
     let numInbox = 0
     let numStarred = 0
     for (let m of messages) {
-        if (m.from != currentUser.name) {
+        if (m.from != currentUser.email) {
             numInbox = numInbox + 1
         } else {
             numSent = numSent + 1
@@ -244,8 +255,8 @@ function deleteMessage() {
 function sendReply() {
     // the reply input field id is set to be the target user.
     const to = $(this).parent().prev()[0].id
-    const from = currentUser.name
-    const title = `Reply from ${currentUser.name}`
+    const from = currentUser.email
+    const title = `Reply from ${currentUser.email}`
     const content = $(`#${to}`).val()
     messages.push(new Message(from, to, title, content, new Date(), false, false))
     console.log(messages)
@@ -261,7 +272,7 @@ function renderStarred() {
     for (let m of messages) {
         if (m.isStarred) {
             const date = m.date.toLocaleDateString("en-US", dataFormat)
-            let targetUser = (m.from == currentUser.name ? m.to : m.from)
+            let targetUser = (m.from == currentUser.email ? m.to : m.from)
 
             html = html + `<a class="starred list-group-item list-group-item-action flex-column align-items-start pr-1">
             <div class="d-flex w-100 justify-content-between">
@@ -299,10 +310,10 @@ function renderNewMessageForm() {
 function getUsersInvolved() {
     let users = []
     for (let m of messages) {
-        if (!users.includes(m.from) && m.from != currentUser.name) {
+        if (!users.includes(m.from) && m.from != currentUser.email) {
             users.push(m.from)
         }
-        if (!users.includes(m.to) && m.to != currentUser.name) {
+        if (!users.includes(m.to) && m.to != currentUser.email) {
             users.push(m.to)
         }
     }
@@ -313,7 +324,7 @@ function getUsersInvolved() {
 function getFirstMsg(op, conversation) {
     const len = conversation.length
     for (let i = len - 1; i >= 0; i--) {
-        if (op(conversation[i].from, currentUser.name)) {
+        if (op(conversation[i].from, currentUser.email)) {
             return conversation[i]
         }
     }
@@ -342,17 +353,44 @@ function resetActive() {
 
 function sendMessage() {
     const to = $('#msgTo').val()
-    const from = currentUser.name
+    const from = currentUser.email
     const title = $('#msgTitle').val()
     const content = $('#msgContent').val()
+    const data = {
+        to: to,
+        from: from,
+        title: title,
+        content: content,
+        date: new Date()
+    }
+
+    $.ajax({
+        type: 'POST',
+        data: data,
+        url: '/messages/send_new',
+        success: function(result) {
+            if (result) {
+                messages.push(result)
+                removeMainContainer()
+                renderMenuSection()
+                modifyNavMsgNum()
+                const html = `<div class='row'><div class='col-md-2'></div>
+                <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
+                $('#mainContainer').html(html)
+
+            }
+        }
+
+    })
+
     // const date = (new Date()).toLocaleDateString(dataFormat)
-    messages.push(new Message(from, to, title, content, new Date(), false, false))
-    removeMainContainer()
-    renderMenuSection()
-    modifyNavMsgNum()
-    const html = `<div class='row'><div class='col-md-2'></div>
-    <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
-    $('#mainContainer').html(html)
+    // messages.push(new Message(from, to, title, content, new Date(), false, false))
+    // removeMainContainer()
+    // renderMenuSection()
+    // modifyNavMsgNum()
+    // const html = `<div class='row'><div class='col-md-2'></div>
+    // <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
+    // $('#mainContainer').html(html)
 }
 
 function modifyNavMsgNum() {
