@@ -169,35 +169,3 @@ function renderManagePost() {
     }
 }
 
-
-// function removePost(postId) {
-//     let user = users.find(function(user) {
-//         return user.post.includes(postId)
-//     })
-//     user.post = user.post.filter(function(post) {
-//         return post.id != postId
-//     })
-//     const index = posts.findIndex(function(post) {
-//         return post.id == postId
-//     })
-//     posts.splice(index, 1)
-// }
-
-// function removeUser(email) {
-//     const index = users.findIndex(function(user) {
-//         return user.email == email;
-//     })
-
-//     users.splice(index, 1)
-//     let postToRemove = []
-
-//     for (let p of posts) {
-//         if (p.email == email) {
-//             postToRemove.push(p)
-//         }
-//     }
-//     for (let p of postToRemove) {
-//         const index = posts.indexOf(p)
-//         posts.splice(index, 1)
-//     }
-// }
