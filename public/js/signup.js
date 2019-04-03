@@ -48,22 +48,23 @@ function register() {
         displayMsg('Please select "Register as".')
         return
     }
-    console.log('User created!')
+    console.log('User created:', newUser);
 
     $.ajax({
         type: "POST",
         url: "/signup",
         data: newUser,
         success: function (result) {
-            if (result) {
-                window.location.href = '/feedpage/seller'
-            } else if (result == "exist") {
+            if (result == "/login") {
                 alert('The user information alreay exists')
+                window.location.href = result;
+            } else if (result) {
+                window.location.href = result;
             } else {
                 alert('Problem with server. Please try again later')
             }
         }
-    })
+    });
 }
 
 // error message for registration 

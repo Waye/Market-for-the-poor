@@ -57,11 +57,10 @@ const sessionChecker = (req, res, next) => {
 const loginChecker = (req, res, next) => {
 	// console.log(req.session.user)
 	if (req.session.user) {
+		// next();
+		res.redirect('/feedpage');
+	} else {
 		next();
-	} else if (req.url =="/signup") {
-		res.render('/signup');
-	} else if (req.url =="/login") {
-		res.redirect('/login');
 	}
 }
 
@@ -71,7 +70,7 @@ const tempChecker = (req, res, next) => {
 	} else if (req.session.user.email == "admin@gmail.com") {
 		res.redirect('/adminpage');
 	} else {
-		res.redirect('/feedpage_seller');
+		res.redirect('/feedpage');
 	}
 }
 
@@ -79,39 +78,42 @@ app.route('/login')
 	.get(tempChecker, (req, res) => {
 		// console.log(req.session.user)
 		console.log('get for login')
-		res.render('login.ejs');	
+		res.render('login');	
 	})
 	
 app.post('/login', (req, res) => {
 	const email = req.body.uname;
 	const password = req.body.psw;
-	Admin.findByEmailPassword(email, password).then((admin) => {
-	
+	Admin.findByEmailPassword(email, password).then(
+	(admin) => {
 		console.log('admin')
 		// console.log(admin)
 		req.session.user = admin
 		res.redirect('/adminpage')
-
-	}, (error) => {
+	}, 
+	(user) => {
 		console.log('user')
-		User.findByEmailPassword(email, password).then((user) => {
+		User.findByEmailPassword(email, password).then(
+		(user) => {
 			req.session.user = user
-			res.redirect('/feedpage_seller')
-		}, (error) => {
+			res.redirect('/feedpage')
+		}, 
+		(reject) => {
 			res.status(400).redirect('/login')
 		})
+	}).catch((error) => {
+		console.log(error)
+		res.status(500)
 	})
 })
 
-
-
-// app.get('/', (req, res) => {
-// 	res.render('index');
-// })
+app.get('/', (req, res) => {
+	res.render('index');
+})
 app.get('/adminpage', (req, res) => {
 	//return admin and users and posts
 	console.log('adminpage rendering')
-	res.render('adminpage.ejs');
+	res.render('adminpage');
 })
 
 app.get('/adminpage/info', (req, res) => {
@@ -134,12 +136,8 @@ app.get('/adminpage/info', (req, res) => {
 		res.status(500)
 	})
 })
-
-app.get('/feedpage/seller', (req, res) => {
-	res.render('feedpage_seller');
-})
-app.get('/feedpage/buyer', (req, res) => {
-	res.render('feedpage_buyer');	
+app.get('/feedpage', (req, res) => {
+	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
 })
 
 app.post('/admin_init', (req, res) => {
@@ -158,7 +156,7 @@ app.post('/admin_init', (req, res) => {
 
 app.route('/signup')
 	.get(loginChecker, (req, res) => {
-		res.render('feedpage_seller');
+		res.render('signup');
 	})
 	.post((req, res) => {
 		// res.render('signup');
@@ -171,7 +169,7 @@ app.route('/signup')
 		const queryCondition = { name: name, email: email }; // double check
 		User.findOne(queryCondition).exec()
 		.then((result) => {
-			if (!result) { // Not found
+			if (!result) { // Not found then sign up
 				const newUser = new User({
 					name: name,
     				password:  password,
@@ -184,16 +182,21 @@ app.route('/signup')
     				description: ""
 				});
 				return User.create(newUser);
-			} else { // found
+			} else { // Found then reject
 				console.log('This email has already been signed up.');
-          		res.send("exist");
+				return Promise.reject(result);
 			}
 		})
-		.then((result) => {
-			req.session.user = result;
-			// res.redirect('feedpage_seller');
-			res.send(true);
-		})
+		.then(
+			(resolve) => {
+				req.session.user = resolve;
+				res.send('/feedpage');
+			}, 
+			(reject) => {
+				req.session.user = reject;
+				res.send('/login');
+			}
+		)
 		.catch((err)=>{
 			console.log(err);
 			res.send(err);
