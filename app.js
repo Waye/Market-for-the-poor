@@ -140,7 +140,8 @@ app.get('/feedpage/seller', (req, res) => {
 })
 
 app.get('/feedpage/buyer', (req, res) => {
-	res.render('feedpage_buyer');	
+    res.render('feedpage_buyer');
+})
 
 app.get('/adminpage', (req, res) => {
     //return admin and users and posts
