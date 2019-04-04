@@ -18,8 +18,8 @@ function displayEditForm() {
             <td><input id="emailEdit" type="text" placeholder="Email"></td></tr>
             <tr><td>Phone:</td>
             <td><input id="phoneEdit" type="text" placeholder="Phone"></td></tr>
-            <tr><td>Password:</td>
-            <td><input id="passwordEdit" type="text" placeholder="Enter Password"></td></tr>
+            <!--<tr><td>Password:</td>-->
+            <!--<td><input id="passwordEdit" type="text" placeholder="Enter Password"></td></tr>-->
             <tr><td>Description:</td>
             <td><textarea id="descriptionEdit" type="text" placeholder="Description" rows="4" cols="30"></textarea></td></tr>
             </table>
@@ -51,22 +51,22 @@ function displayMsg(msg) {
     }, 4000)
 }
 
-// let isBuyer;
-//
-// function getProfileInfo(){
-//     $.ajax({
-//         type: "GET",
-//         url: "/profile_info",
-//         success: function (data) {
-//             isBuyer = data.isBuyer;
-//         }
-//     })
-// }
+let isBuyer;
+
+function getProfileInfo(){
+    $.ajax({
+        type: "GET",
+        url: "/profile_info",
+        success: function (data) {
+            isBuyer = data.isBuyer;
+        }
+    })
+}
 
 
 function editUserInfo() {
     const email = $('#emailEdit').val()
-    const password = $('#passwordEdit').val()
+    //const password = $('#passwordEdit').val()
     const phone = $('#phoneEdit').val()
     const description = $('#descriptionEdit').val()
 
@@ -85,10 +85,10 @@ function editUserInfo() {
             return
         }
     }
-    if (password.length < 5) {
-        displayMsg('Invalid password. Password should be longer than 5 characters.')
-        return
-    }
+    // if (password.length < 5) {
+    //     displayMsg('Invalid password. Password should be longer than 5 characters.')
+    //     return
+    // }
 
     if(description ==''){
         displayMsg('please leave description.')
@@ -98,7 +98,7 @@ function editUserInfo() {
     const data={
         email:email,
         phone:phone,
-        password:password,
+        //password:password,
         description:description,
     }
 
