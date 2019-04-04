@@ -17,17 +17,16 @@ $(document).ready(function() {
         renderInboxOrSent(inboxFirstMsgFinder, true)
         // modifyNavMsgNum()
     }).catch((error) => {
-        console.log("Error occurred")
+        alert("Server error Please try again later"")
     })
 })
 
-
+// general get for getting messages updated
 function getUpdatedMessage() {
     return $.ajax({
         type: 'GET',
         url: '/messages/updated',
         success: function(result) {
-            console.log(result)
             messageDatefy(result)
         },
         error: function (error) {
@@ -37,7 +36,10 @@ function getUpdatedMessage() {
 }
 
 
-$('#sent').click(function() {
+$('#sent').click(displaySentSection)
+
+// used when sending messages or sending reply
+function displaySentSection() {
     getUpdatedMessage().then((result) => {
         messages = result.messages
         resetActive()
@@ -46,10 +48,9 @@ $('#sent').click(function() {
         $('#sent').addClass('active')
         fillSelectedIcon('#sent path')
     }).catch((error) => {
-        console.log("Error occurred")
-        console.log(error)
+        alert("Server Error Please try again later"")
     })
-})
+}
 
 // Inbox selected in the left menu bar, display inbox messages in the middle
 $('#inbox').click(function() {
@@ -61,7 +62,7 @@ $('#inbox').click(function() {
         $('#inbox').addClass('active')
         fillSelectedIcon('#inbox path')
     }).catch((error) => {
-        console.log(error)
+        alert("Server Error. Please try again later")
     })
 })
 
@@ -99,10 +100,8 @@ $('body').on('click', 'a.starred', function() {
 })
 
 // Clicking on message will show full history
-// Need to update all inbox with this target user to read
 $('body').on('click', 'a.conversation', function() {
     const targetUser = $(this).find('small.targetUser')[0].innerHTML
-    console.log(targetUser)
     if ($('#inbox').hasClass("active")) {
         const data = {
             from: targetUser,
@@ -159,12 +158,18 @@ function sendMessage() {
         success: function(result) {
             if (result) {
                 messages = result
+                alert('Message sent successfully')
                 removeMainContainer()
                 renderMenuSection()
-                modifyNavMsgNum()
-                const html = `<div class='row'><div class='col-md-2'></div>
-                <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
-                $('#mainContainer').html(html)
+                displaySentSection()
+            }
+        },
+        error: function(result) {
+            if (result.status == '404') {
+                alert('Invalid user email. Please enter correct email')
+                renderNewMessageForm()
+            } else {
+                alert('There is a problem with server. Please try again later')
             }
         }
     })
@@ -178,8 +183,6 @@ function starOrUnstarMessage() {
         content: content,
         target: targetUser
     }
-    console.log(content)
-    console.log($(this).hasClass('active'))
     $.ajax({
         type: 'PATCH',
         data: data,
@@ -206,7 +209,6 @@ function deleteMessage() {
         data: data,
         url: '/messages/delete',
         success: function(result) {
-            console.log(result)
             messageDatefy(result)
             renderMenuSection()
             modifyNavMsgNum()
@@ -223,8 +225,6 @@ function sendReply() {
     const from = currentUser
     const title = `Reply from ${currentUser}`
     const content = $(this).parent().prev().val()
-    console.log(to)
-    console.log(content)
     const data = {
         to: to,
         from: from,
@@ -274,7 +274,6 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
     //get messages from server
     let html = ''
     
-    
     for (let i = users.length - 1; i >= 0; i--) {
         const conversation = messages.filter(msg => msg.from == users[i] || msg.to == users[i])
 
@@ -286,10 +285,8 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
         let targetUser = (isRenderingInbox ? m.from : m.to)
         let status = ''
         if (isRenderingInbox) {
-            // targetUser = m.from
             status = (m.isRead ? '<span class="badge badge-pill badge-light">Read <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg></span></span>' : '<span class="badge badge-pill badge-primary">New</span>')
         } else {
-            // targetUser = m.to
             status = '<span class="badge badge-pill badge-light">Sent<span>'
         }
 
@@ -314,7 +311,6 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
 }
 
 
-
 function renderMsgDetail(targetUser) {
     const conversation = messages.filter(msg => msg.from == targetUser || msg.to == targetUser)
     const len = conversation.length
@@ -328,7 +324,6 @@ function renderMsgDetail(targetUser) {
         m.date = new Date(m.date)
         let date = m.date.toLocaleDateString("en-US", dataFormat)
         let svg = null
-        // console.log(m.isStarred)
         if (m.isStarred) {
             svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#007bff"/>
