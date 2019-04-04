@@ -518,24 +518,34 @@ app.post('/post_data', (req, res) => {
 // Edit profile
 app.patch('/profile/Edit', (req, res) => {
     // Add code here
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const password = req.body.password;
-    const description = req.body.description;
+    let email = req.body.email;
+    let phone = req.body.phone;
+    let password = req.body.password;
+    let description = req.body.description;
 
-    User.findOne({email:req.session.user.email}).exec()
-        .then((user) => {
-          user.email= email;
-            user.phone=phone;
-            user.password=password;
-            user.description=description;
 
-            user.save().then((result) => {
+
+    User.findOneAndUpdate({_id: req.session.user._id}, {$set: {email: email, phone: phone,
+            password: password, description: description}}, {new: true})
+        .then((result) => {
             res.send(result)
-        }, (error) => {
-            res.status(400).send(error)
-        })
+        }).catch((error)  => {
+        res.status(500).send(error)
     })
+
+    // User.findOne({_id: req.session.user._id}).exec()
+    //     .then((user) => {
+    //         user.email= email;
+    //         user.phone=phone;
+    //         user.password=password;
+    //         user.description=description;
+    //
+    //         user.save().then((result) => {
+    //         res.send(result)
+    //     }, (error) => {
+    //         res.status(400).send(error)
+    //     })
+    // })
 })
 
 

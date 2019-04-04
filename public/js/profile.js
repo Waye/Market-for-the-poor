@@ -51,17 +51,17 @@ function displayMsg(msg) {
     }, 4000)
 }
 
-let isBuyer;
-
-function getProfileInfo(){
-    $.ajax({
-        type: "GET",
-        url: "/profile_info",
-        success: function (data) {
-            isBuyer = data.isBuyer;
-        }
-    })
-}
+// let isBuyer;
+//
+// function getProfileInfo(){
+//     $.ajax({
+//         type: "GET",
+//         url: "/profile_info",
+//         success: function (data) {
+//             isBuyer = data.isBuyer;
+//         }
+//     })
+// }
 
 
 function editUserInfo() {
@@ -106,7 +106,7 @@ function editUserInfo() {
         type: 'PATCH',
         data: data,
         url:'/profile/Edit',
-        success: function(data){
+        success: function(result){
             $('#email').val($('#emailEdit').text())
             $('#phone').val($('#phoneEdit').text())
             $('#userDescription').val($('#descriptionEdit').text())
@@ -226,7 +226,7 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function main() {
-    getProfileInfo();
+    //getProfileInfo();
     $.get("/get_posts").then(
     (result) => {
         console.log(result);
