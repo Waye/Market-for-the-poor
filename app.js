@@ -346,7 +346,7 @@ app.route('/signup')
         const queryCondition = {$or: [{name: name}, {email: email}]}; // double check
         User.find(queryCondition).exec()
             .then((result) => {
-                if (!result) { // Not found then sign up
+                if (result.length == 0) { // Not found then sign up
                     const newUser = new User({
                         name: name,
                         password: password,
@@ -525,19 +525,7 @@ app.patch('/profile/Edit', (req, res) => {
         res.status(500).send(error)
     })
 
-    // User.findOne({_id: req.session.user._id}).exec()
-    //     .then((user) => {
-    //         user.email= email;
-    //         user.phone=phone;
-    //         user.password=password;
-    //         user.description=description;
-    //
-    //         user.save().then((result) => {
-    //         res.send(result)
-    //     }, (error) => {
-    //         res.status(400).send(error)
-    //     })
-    // })
+
 })
 
 

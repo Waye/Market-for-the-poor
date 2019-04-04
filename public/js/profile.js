@@ -4,7 +4,10 @@
 let posts = []
 let filterResult = []
 
+
 $('#editBtn').click(displayEditForm);
+
+
 
 
 function displayEditForm() {
@@ -116,6 +119,7 @@ function editUserInfo() {
     // console.log(description)
     // console.log(currentUser.description)
     $('#editFormContainer').html('')
+    location.reload();
 }
 
 function createPost(post) {
@@ -223,7 +227,7 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function main() {
-    //getProfileInfo();
+    getProfileInfo();
     $.get("/get_posts").then(
     (result) => {
         console.log(result);
