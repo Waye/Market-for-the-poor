@@ -238,10 +238,12 @@ app.get('/messages', authenticate, (req, res) => {
 		if (msg.isStarred) {
             starredNum++
 		} 
-		if (!msg.isRead && msg.to == req.user) {
+		if (!msg.isRead && msg.to == req.user.email) {
 			unread++
 		}
     }
+    console.log('inside get messagees')
+    console.log(unread)
     res.render('messages', {
         userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer,
         inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum

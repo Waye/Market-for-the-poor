@@ -269,13 +269,14 @@ function renderMenuSection() {
 
 
 function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
-    const users = getUsersInvolved()
+    const users = getUsersInvolved(isRenderingInbox)
     
     //get messages from server
     let html = ''
-
-    for (let u of users) {
-        const conversation = messages.filter(msg => msg.from == u || msg.to == u)
+    
+    
+    for (let i = users.length - 1; i >= 0; i--) {
+        const conversation = messages.filter(msg => msg.from == users[i] || msg.to == users[i])
 
         // fist inbox message of conversation
         let m = getFirstMsg(firstMsgFinder, conversation)
@@ -285,10 +286,10 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
         let targetUser = (isRenderingInbox ? m.from : m.to)
         let status = ''
         if (isRenderingInbox) {
-            targetUser = m.from
+            // targetUser = m.from
             status = (m.isRead ? '<span class="badge badge-pill badge-light">Read <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg></span></span>' : '<span class="badge badge-pill badge-primary">New</span>')
         } else {
-            targetUser = m.to
+            // targetUser = m.to
             status = '<span class="badge badge-pill badge-light">Sent<span>'
         }
 
@@ -399,13 +400,21 @@ function renderNewMessageForm() {
 }
 
 
-function getUsersInvolved() {
+function getUsersInvolved(isInbox) {
     let users = []
     for (let m of messages) {
-        if (!users.includes(m.from) && m.from != currentUser) {
+        //inbox
+        if (isInbox && m.to == currentUser) {
+            if (users.includes(m.from)) {
+                users.splice(users.findIndex(u => u == m.from), 1)
+            }
             users.push(m.from)
         }
-        if (!users.includes(m.to) && m.to != currentUser) {
+        //outbox
+        else if (!isInbox && m.from == currentUser) {
+            if (users.includes(m.to)) {
+                users.splice(users.findIndex(u => u == m.to), 1)
+            }
             users.push(m.to)
         }
     }
