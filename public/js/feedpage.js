@@ -2,7 +2,7 @@
 console.log("feedpage.js") // log to the JavaScript console.
 
 let currUser = null;
-
+let currFeedData = [];
 // Refresh
 $("#refreshBtn").on('click', function() {
     clearAllFilter();
@@ -12,7 +12,7 @@ $("#refreshBtn").on('click', function() {
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
     const sortMethod = $(this).attr('id');
-    let sortedFeed = feedData;
+    let sortedFeed = currFeedData;
     if (sortMethod == "sortNew") {
         sortNew(sortedFeed);
     } else if (sortMethod == "sortOld") {
@@ -53,12 +53,12 @@ function sortLow(feed) {
 // Filter
 $("#collapseFilter").on('click', '#minPriceBtn', function() {
     const minPrice = $("#minPriceInput").val();
-    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, feedData));
+    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currFeedData));
     $("#maxPriceInput").val('');
 });
 $("#collapseFilter").on('click', '#maxPriceBtn', function() {
     const maxPrice = $("#maxPriceInput").val();
-    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, feedData));
+    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currFeedData));
     $("#minPriceInput").val('');
 });
 function filterMinPrice(minPrice, feedList) {
@@ -88,7 +88,7 @@ function filterFeed(filterList, feedList) {
     if (filterList.length <= 0) return feedList;
     const filterResult = [];
     feedList.forEach(f => {
-        if (filterList.includes(f.type)) filterResult.push(f);
+        if (filterList.includes(f.category)) filterResult.push(f);
     })
     return filterResult;
 }
@@ -99,14 +99,14 @@ function handleFilter() {
         activeFilters.push(foundActiveFilters[i].id);
     }
     console.log(activeFilters);
-    updateFeed(filterFeed(activeFilters, feedData));
+    updateFeed(filterFeed(activeFilters, currFeedData));
 }
 $('#collapseCard').on('click', '#clearFilter', clearAllFilter)
 
 function clearAllFilter() { // Click clear filter
     $('#collapseCard').find('.active').removeClass('active');
     $("#clearFilter").remove();
-    updateFeed(feedData); // force update all feed
+    updateFeed(currFeedData); // force update all feed
 }
 
 function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
@@ -300,6 +300,7 @@ function main() {
         return $.get("/get_feeds")
     })
     .then((feedData) => {
+        currFeedData = feedData
         console.log(feedData)
         addFilter(feedData);
         updateFeed(feedData);

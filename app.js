@@ -359,12 +359,12 @@ app.get('/profile', authenticate, (req, res) => {
     const user = req.user
     // const Posts=User.posts
 
-    Post.find({email: req.session.user.email, category: "food"}).exec().then((r1) => {
-        return Post.find({email: req.session.user.email, category: "electronics"}).exec().then((r2) => {
-            return Post.find({email: req.session.user.email, category: "clothing"}).exec().then((r3) => {
-                return Post.find({email: req.session.user.email, category: "furniture"}).exec().then((r4) => {
-                    return Post.find({email: req.session.user.email, category: "tool"}).exec().then((r5) => {
-                            return Post.find({email: req.session.user.email, category: "other"}).exec().then((r6) => {
+    Post.find({email: user.email, category: "food"}).exec().then((r1) => {
+        return Post.find({email: user.email, category: "electronics"}).exec().then((r2) => {
+            return Post.find({email: user.email, category: "clothing"}).exec().then((r3) => {
+                return Post.find({email: user.email, category: "furniture"}).exec().then((r4) => {
+                    return Post.find({email: user.email, category: "tool"}).exec().then((r5) => {
+                            return Post.find({email: user.email, category: "other"}).exec().then((r6) => {
                                 return [r1, r2, r3, r4, r5, r6];
                             })
                         }
@@ -374,7 +374,7 @@ app.get('/profile', authenticate, (req, res) => {
         });
     }).then((rList) => {
         res.render('profile', {
-            userName: user.userName,
+            userName: user.name,
             msgCount: user.messages.length,
             isBuyer: user.isBuyer,
             userImg: "/img/profile-image.jpg",
