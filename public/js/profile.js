@@ -29,9 +29,26 @@ function displayEditForm() {
         </div>
     </form>`
     $('#editFormContainer').html(html)
+    $('#emailEdit').val($('#email').text())
+    $('#phoneEdit').val($('#phone').text())
+    $('#descriptionEdit').val($('#userDescription').text())
+    $('#close').click(function (){$('#editFormContainer').html('')});
 }
 
 $('body').on('click', '#edit', editUserInfo)
+
+
+function displayMsg(msg) {
+    console.log(msg)
+    const popUpMsg = $('#popUpMsg')
+    popUpMsg.html(`<div class="alert alert-danger fade show fixed-top" role="alert">
+    ${msg}</div>`)
+    popUpMsg.show();
+    setTimeout(function() {
+        $('.alert').alert('close')
+        $('.alert').alert('dispose')
+    }, 4000)
+}
 
 let isBuyer;
 
@@ -51,6 +68,50 @@ function editUserInfo() {
     const password = $('#passwordEdit').val()
     const phone = $('#phoneEdit').val()
     const description = $('#descriptionEdit').val()
+
+    if (email.length < 5) {
+        displayMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
+        return
+    }
+
+    if (phone.length < 10) {
+        displayMsg('Invalid phone number. Phone number should be at least 10 digits.')
+        return
+    }
+    for (let i = 0; i < phone.length; i++) {
+        if (isNaN(parseInt(phone.charAt(i), 10))) {
+            displayMsg('Phone number should be in digits only')
+            return
+        }
+    }
+    if (password.length < 5) {
+        displayMsg('Invalid password. Password should be longer than 5 characters.')
+        return
+    }
+
+    if(description ==''){
+        displayMsg('please leave description.')
+        return
+    }
+
+    const data={
+        email:email,
+        phone:phone,
+        password:password,
+        description:description,
+    }
+
+    $.ajax({
+        type: 'PATCH',
+        data: data,
+        url:'/profile/Edit',
+        success: function(data){
+            $('#email').val($('#emailEdit').text())
+            $('#phone').val($('#phoneEdit').text())
+            $('#userDescription').val($('#descriptionEdit').text())
+        },
+    });
+
     // console.log(description)
     // console.log(currentUser.description)
     $('#editFormContainer').html('')

@@ -20,6 +20,7 @@ function register() {
     //     displayMsg('Username should be at least 5 characters.')
     //     return
     // }
+
     if (newUser.email.length < 5) {
         displayMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
         return
