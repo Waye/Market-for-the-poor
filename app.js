@@ -387,6 +387,7 @@ app.get('/detail/seller', (req, res) => {
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send()
 	}
+	var Post = db.model('Post',PostSchema);
 	Post.findById(id).then((post) => {
 		if(!post) {
 			res.status(404).send();
@@ -444,7 +445,7 @@ app.get('/detail/buyer', (req, res) => {
 });
 
 app.get('/profile', authenticate, (req, res) => {
-    const user = req.user;
+    const user = req.user
     // const Posts=User.posts
 
     Post.find({userId: user._id, category: "food"}).exec().then((r1) => {
@@ -508,6 +509,32 @@ app.post('/post_data', (req, res) => {
         res.status(400).send("Unable to save to database!");
     });
 });
+
+
+
+
+// Edit profile
+app.patch('/profile/Edit', (req, res) => {
+    // Add code here
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const password = req.body.password;
+    const description = req.body.description;
+
+    User.findOne({email:req.session.user.email}).exec()
+        .then((user) => {
+          user.email= email;
+            user.phone=phone;
+            user.password=password;
+            user.description=description;
+
+            user.save().then((result) => {
+            res.send(result)
+        }, (error) => {
+            res.status(400).send(error)
+        })
+    })
+})
 
 
 app.get('/get_feeds_header', (req, res) => {
@@ -610,6 +637,8 @@ app.get('/logout', (req, res) => {
         }
     })
 });
+
+
 
 app.listen(port, (err) => {
     if (err) {

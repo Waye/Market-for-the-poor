@@ -109,14 +109,14 @@ h1{
 }
 
 #popUpMsg {
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid grey;
-    position: fixed;
-    top: 225px;
-    left: 400px;
-    background-color: lightgrey;
-    display: none;
+    /*border-radius: 10px;*/
+    /*padding: 10px;*/
+    /*border: 1px solid grey;*/
+    /*position: fixed;*/
+    /*top: 225px;*/
+    /*left: 400px;*/
+    /*background-color: lightgrey;*/
+    /*display: none;*/
 }
 
 a {
