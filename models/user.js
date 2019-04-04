@@ -39,7 +39,8 @@ const UserSchema = new mongoose.Schema({
 		activeNum: Number,
 		finishedNum: Number,
 		postedNum: Number
-	}
+	},
+	icon: String
 });
 
 // Our own student finding function 

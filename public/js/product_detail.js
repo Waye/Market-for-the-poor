@@ -1,48 +1,37 @@
-const User = function (name, description, icon, isBuyer, phone) {
-    this.name = name;
-    this.description = description;
-    this.icon = icon;
-    this.isBuyer = isBuyer;
-    this.phone = phone;
-}
-
-const Post = function(id, date, title, userName, description, price, quantity, image, dueDate, type, category) {
-    this.id = id;
-    this.date = date;
-    this.title = title;
-    this.userName = userName;
-    this.description = description;
-    this.price = price;
-    this.quantity = quantity;
-    this.image = image;
-    this.dueDate = dueDate;
-    this.type = type;
-    this.category = category
-}
-
-//logged in as seller and request is from another buyer
-
-//server call: send get request to get all info depending on type of the user logged in
-const seller = new User('User2', 'Somewhere Over The Rainbow', '/img/avatar_placeholder.png', false, '(123) 111-1111')
-const buyer = new User('User1', 'Twitter, Inc. 795 Folsom Ave, Suite 600 San Francisco, CA 94107', '/img/avatar_placeholder.png', true, '(123) 456-7890')
-const post = new Post('0001', new Date(2018, 11, 31), 'Frozen Vegetables', 'User1',
- 'Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.',
-  100, '10 kg', '/img/frozen_veg.png', new Date(2019, 1, 6), 'request', 'Food');
-
 // const currentUser = getUser();
-const postOwner = (currentUser.isBuyer ? seller : buyer);
+// const postOwner = (currentUser.isBuyer ? seller : buyer);
+
+let postOwner;
+let post;
+let id;
+let isBuyer;
 
 $(document).ready(function() {
-    renderPostTitle()
-    renderSlidePic()
-    renderPostDate()
-    renderUserTypeAndOfferType()
-    renderPostOwnerImage()
-    renderPostOwnerDescription()
-    renderPostDescription()
-})
+    getPostInfo();
+});
 
-function renderPostTitle() {    
+function getPostInfo() {
+    $.get("/detail/" + detailId + "/post").then((result) => {
+        console.log(result)
+        post = result;
+        id = result._id;
+        return $.get("/profile_info")
+    }).then((profileResult) => {
+        isBuyer = profileResult.isBuyer;
+        return $.get("/detail/" + id + "/user")
+    }).then((result) => {
+        postOwner = data;
+        renderPostTitle();
+        renderSlidePic();
+        renderPostDate();
+        renderUserTypeAndOfferType();
+        renderPostOwnerImage();
+        renderPostOwnerDescription();
+        renderPostDescription();
+    })
+}
+
+function renderPostTitle() {
     const html = `<h3>${post.title}</h3><h3 class="ml-auto">$${post.price}</h3>
             <p class="ml-3">for <span>${post.quantity}</span></p>`
     $('#postTitle')[0].innerHTML = html;
@@ -73,7 +62,7 @@ function renderUserTypeAndOfferType() {
     let userType = null;
     let offerType = null;
     // if logged in as buyer, this post detail is a post from seller so user must make request. vice versa
-    if (currentUser.isBuyer) {
+    if (isBuyer) {
         userType = 'seller'
         offerType = 'request'
     } else {
@@ -89,9 +78,9 @@ function renderUserTypeAndOfferType() {
 function renderPostOwnerImage() {
     const html = `<a href="#" class="text-center">
     <div class="mr-auto ml-auto"><img alt="..." src="${postOwner.icon}" class="rounded-circle avatar"></div>
-    <h6 class="h-0 mt-2 mb-1">${postOwner.name}</h6></a>`
-    $('#userImageContainer')[0].innerHTML = html
-    console.log($('#userImageContainer')[0])
+    <h6 class="h-0 mt-2 mb-1">${postOwner.name}</h6></a>`;
+    $('#userImageContainer')[0].innerHTML = html;
+    console.log(postOwner.name);
 }
 
 function renderPostOwnerDescription() {
@@ -110,7 +99,7 @@ $('body').on('click', '#makeOfferRequest', makeOffer)
 function makeOffer() {
     const popUpMsg = $('#popUpMsg')
     let msg = ''
-    if (currentUser.isBuyer) {
+    if (isBuyer) {
         msg = 'request'
     } else {
         msg = 'offer'
