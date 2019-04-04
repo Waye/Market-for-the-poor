@@ -7,7 +7,6 @@ let filterResult = []
 $('#editBtn').click(displayEditForm);
 
 
-
 function displayEditForm() {
     const html = `
     <form class="editForm">
@@ -34,22 +33,34 @@ function displayEditForm() {
 
 $('body').on('click', '#edit', editUserInfo)
 
+let isBuyer;
+
+function getProfileInfo(){
+    $.ajax({
+        type: "GET",
+        url: "/profile_info",
+        success: function (data) {
+            isBuyer = data.isBuyer;
+        }
+    })
+}
+
+
 function editUserInfo() {
     const email = $('#emailEdit').val()
     const password = $('#passwordEdit').val()
     const phone = $('#phoneEdit').val()
     const description = $('#descriptionEdit').val()
-    currentUser.email = email;
-    currentUser.password = password
-    currentUser.phone = phone
-    currentUser.description = description
     // console.log(description)
     // console.log(currentUser.description)
     $('#editFormContainer').html('')
 }
 
 function createPost(post) {
-    const detail = '/detail/' + post._id;
+    const detail = '/detail/seller/' + post._id;
+    if (isBuyer) {
+        const detail = '/detail/buyer/' + post._id;
+    }
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
         <div class="card shadow postCard" >
@@ -153,6 +164,7 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function main() {
+    getProfileInfo();
     $.get("/get_posts").then(
     (result) => {
         console.log(result);
@@ -163,4 +175,5 @@ function main() {
         createPagination(filterResult);    
     });
 }
+
 $(document).ready(main);

@@ -1,21 +1,21 @@
-const express = require('express')
-const port = process.env.PORT || 3000
-const bodyParser = require('body-parser') // middleware for parsing HTTP body from client
-const session = require('express-session')
-const ejs = require('ejs')
-const fs = require('fs')
+const express = require('express');
+const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser'); // middleware for parsing HTTP body from client
+const session = require('express-session');
+const ejs = require('ejs');
+const fs = require('fs');
 
-const cookieParser = require('cookie-parser')
-const {ObjectID} = require('mongodb')
+const cookieParser = require('cookie-parser');
+const {ObjectID} = require('mongodb');
 
 // Import mongoose connection
-const {mongoose} = require('./db/mongoose')
+const {mongoose} = require('./db/mongoose');
 
 // Import the models
-require('./models/user')
-require('./models/admin')
-require('./models/post')
-require('./models/order')
+require('./models/user');
+require('./models/admin');
+require('./models/post');
+require('./models/order');
 const User = mongoose.model('User');
 const Admin = mongoose.model('Admin');
 const Post = mongoose.model('Post');
@@ -27,13 +27,13 @@ const app = express();
 // body-parser middleware setup.  Will parse the JSON and convert to object
 app.use(bodyParser.json());
 // parse incoming parameters to req.body
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
 // static directory for js/css/html
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 // set the view library
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 // Add express sesssion middleware
 app.use(session({
@@ -45,7 +45,7 @@ app.use(session({
     // 	maxAge: 3600000,
     // 	httpOnly: true
     // }
-}))
+}));
 
 // Add middleware to check for logged-in users
 const sessionChecker = (req, res, next) => {
@@ -54,7 +54,7 @@ const sessionChecker = (req, res, next) => {
     } else {
         next();
     }
-}
+};
 
 const loginChecker = (req, res, next) => {
     if (!req.session.user) {
@@ -64,7 +64,7 @@ const loginChecker = (req, res, next) => {
     } else {
         res.redirect('/feedpage');
     }
-}
+};
 
 // Middleware for authentication for resources
 const authenticate = (req, res, next) => {
@@ -73,7 +73,7 @@ const authenticate = (req, res, next) => {
             if (!user) {
                 return Promise.reject()
             } else {
-                req.user = user
+                req.user = user;
                 next()
             }
         }).catch((error) => {
@@ -82,13 +82,13 @@ const authenticate = (req, res, next) => {
     } else {
         res.redirect('/login')
     }
-}
+};
 
 
 app.route('/login')
 	.get(loginChecker, (req, res) => {
 		// console.log(req.session.user)
-		console.log('get for login')
+		console.log('get for login');
 		res.render('login');	
 	})
 	.post((req, res) => {
@@ -96,72 +96,72 @@ app.route('/login')
 	const password = req.body.psw;
 	Admin.findByEmailPassword(email, password).then(
 	(admin) => {
-		console.log('admin')
+		console.log('admin');
 		// console.log(admin)
-		req.session.user = admin
+		req.session.user = admin;
 		res.redirect('/adminpage')
 	}, 
 	(user) => {
-		console.log('user')
+		console.log('user');
 		User.findByEmailPassword(email, password).then(
 		(user) => {
-			req.session.user = user
+			req.session.user = user;
 			res.redirect('/feedpage')
 		}, 
 		(reject) => {
 			res.status(400).redirect('/login')
 		})
 	}).catch((error) => {
-		console.log(error)
+		console.log(error);
 		res.status(500)
 	})
-})
+});
 
 app.get('/', (req, res) => {
     res.render('index');
-})
+});
 
 app.post('/admin_init', (req, res) => {
     const newAdmin = new Admin({
         name: req.body.name,
         password: req.body.password,
         email: req.body.email,
-    })
+    });
     Admin.create(newAdmin).then((result) => {
         req.session.user = result
         // console.log(result)
     }, (error) => {
         res.status(500).send(error)
     })
-})
+});
 
 app.get('/adminpage', (req, res) => {
     //return admin and users and posts
-    console.log('adminpage rendering')
+    console.log('adminpage rendering');
     res.render('adminpage');
-})
+});
 
 app.get('/adminpage/info', (req, res) => {
     //return admin and users and posts
-    let info = []
+    let info = [];
     User.find({}).then((users) => {
         if (users) {
-            console.log(users)
-            info.push(users)
+            console.log(users);
+            info.push(users);
             return Post.find({})
         }
     }).then((posts) => {
         if (posts) {
-            console.log(posts)
-            info.push(posts)
-            res.send(info)
+            console.log(posts);
+            info.push(posts);
+            res.send(info);
         }
     }).catch((error) => {
-        console.log(error)
-        res.status(500)
+        console.log(error);
+        res.status(500);
     })
 
-})
+});
 
 app.patch('/adminpage/ban_user', (req, res) => {
     User.findOneAndUpdate({email: req.body.email}, {$set: {isBanned: req.body.isBanned}}, {new: true})
@@ -174,7 +174,7 @@ app.patch('/adminpage/ban_user', (req, res) => {
         }).catch((error) => {
         res.status(500).send(error)
     })
-})
+});
 
 app.delete('/adminpage/delete_user', (req, res) => {
     User.findOneAndDelete({email: req.body.email}).then((user) => {
@@ -194,7 +194,7 @@ app.delete('/adminpage/delete_user', (req, res) => {
     }).catch((error) => {
         res.status(500).send(error)
     })
-})
+});
 
 app.delete('/adminpage/delete_post', (req, res) => {
     User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}).then((user) => {
@@ -212,7 +212,7 @@ app.delete('/adminpage/delete_post', (req, res) => {
     }).catch((error) => {
         res.status(500).send(error)
     })
-})
+});
 
 // app.get('/profile', sessionChecker, (req, res) => {
 // 	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
@@ -220,12 +220,12 @@ app.delete('/adminpage/delete_post', (req, res) => {
 
 app.get('/messages/updated', authenticate, (req, res) => {
 	res.send(req.user)
-})
+});
 
 app.get('/messages', authenticate, (req, res) => {
-    let starredNum = 0
-    let inboxNum = 0
-    let sentNum = 0
+    let starredNum = 0;
+    let inboxNum = 0;
+    let sentNum = 0;
     for (let msg of req.user.messages) {
         if (msg.isStarred) {
             starredNum++
@@ -241,7 +241,7 @@ app.get('/messages', authenticate, (req, res) => {
     })
 }, (error) => {
     res.status(500).send(error)
-})
+});
 
 app.post('/messages/send_new', authenticate, (req, res) => {
 	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec()
@@ -261,7 +261,7 @@ app.post('/messages/send_new', authenticate, (req, res) => {
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
-})
+});
 
 app.patch('/messages/star_unstar', authenticate, (req, res) => {
 	for (let msg of req.user.messages) {
@@ -274,7 +274,7 @@ app.patch('/messages/star_unstar', authenticate, (req, res) => {
 	}).catch((error)  => {
 		res.status(500).send(error)
 	})
-})
+});
 
 app.delete('/messages/delete', authenticate, (req, res) => {
 	let index = 0
@@ -284,17 +284,13 @@ app.delete('/messages/delete', authenticate, (req, res) => {
 		}
 		index++
 	}
-	req.user.messages.splice(index, 1)
+	req.user.messages.splice(index, 1);
 	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true}).then((user) => {
 		res.send(user)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
-})
-
-
-
-
+});
 
 // app.get('/messages/inbox', authenticate, (req, res) => {
 // 	if (req.session.user) {
@@ -315,7 +311,7 @@ app.delete('/messages/delete', authenticate, (req, res) => {
 
 app.get('/feedpage', authenticate, (req, res) => {
     res.render('feedpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
-})
+});
 
 app.route('/signup')
     .get(loginChecker, (req, res) => {
@@ -368,19 +364,18 @@ app.route('/signup')
                 console.log(err);
                 res.send(err);
             })
-    })
+    });
 app.get('/messages', (req, res) => {
 	res.render('messages', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, inboxNum: 3, sentNum: 2, starredNum: 1});
-})
+});
 app.get('/orders', (req, res) => {
     res.render('orderpage');
-})
+});
 app.get('/detail/seller', (req, res) => {
 	const id = req.params.id;
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send()
 	}
-	var Post = db.model('Post',PostSchema);
 	Post.findById(id).then((post) => {
 		if(!post) {
 			res.status(404).send();
@@ -390,7 +385,7 @@ app.get('/detail/seller', (req, res) => {
 		}
 	}, (error) => {
 		res.status(400).send(error)
-	})
+	});
 	res.render('product_detail_seller', {
 		name: post.name,
 		type: post.type,
@@ -406,13 +401,39 @@ app.get('/detail/seller', (req, res) => {
 	});
   
     res.render('product_detail_seller');
-})
+});
 app.get('/detail/buyer', (req, res) => {
-    res.render('product_detail_buyer');
-})
+    const id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send()
+    }
+    Post.findById(id).then((post) => {
+        if(!post) {
+            res.status(404).send();
+        }
+        else {
+            res.send({ post });
+        }
+    }, (error) => {
+        res.status(400).send(error)
+    });
+    res.render('product_detail_buyer', {
+        name: post.name,
+        type: post.type,
+        date: post.date,
+        title: post.title,
+        description: post.description,
+        quantity: post.quantity,
+        price: post.price,
+        image: post.image,
+        completed: post.completed,
+        dueDate: post.dueDate,
+        category: post.category
+    });
+});
 
 app.get('/profile', authenticate, (req, res) => {
-    const user = req.user
+    const user = req.user;
     // const Posts=User.posts
 
     Post.find({userId: user._id, category: "food"}).exec().then((r1) => {
@@ -447,8 +468,35 @@ app.get('/profile', authenticate, (req, res) => {
             numberOther: rList[5].length
         })
     });
+});
 
-})
+app.get('/profile_info', (req, res) => {
+    const user = req.session.user;
+    res.send(user);
+});
+
+app.post('/post_data', (req, res) => {
+    let post = req.session.post;
+    post = new Post ({
+        name: post.name,
+        type: post.type,
+        date: post.date,
+        title: post.title,
+        description: post.description,
+        quantity: post.quantity,
+        price: post.price,
+        image: post.image,
+        completed: post.completed,
+        dueDate: post.dueDate,
+        category: post.category
+    });
+    post.save().then(item => {
+        res.send("Post saved to database!");
+    }).catch(err => {
+        res.status(400).send("Unable to save to database!");
+    });
+});
+
 
 app.get('/get_feeds_header', (req, res) => {
 	User.findOne({ email: req.session.user.email }).exec()
@@ -484,7 +532,7 @@ app.get('/get_feeds_header', (req, res) => {
 		console.log(err);
 		res.send(err);
 	})
-})
+});
 
 app.get('/get_feeds', (req, res) => {
 	if (req.session.user.isBuyer) {
@@ -498,22 +546,21 @@ app.get('/get_feeds', (req, res) => {
 			res.send(result);
 		})
 	}
-})
+});
 
 app.get('/get_posts', (req, res) => {
 	Post.find({ userId: req.session.user._id }).exec()
 	.then((result) => {
 		res.send(result);
 	})
-})
+});
 
 app.get('/search', (req, res) => {
     // Post.find({ email: req.session.user.email }).exec()
     // .then((result) => {
     // 	res.send(result);
     // })
-
-})
+});
 
 app.post('/posts', (req, res) => {
 	const newPost = new Post({
@@ -540,7 +587,7 @@ app.post('/posts', (req, res) => {
 	(reject) => {
 		res.status(500).send(reject);
 	})
-})
+});
 
 app.get('/logout', (req, res) => {
     req.session.destroy((error) => {
@@ -550,8 +597,7 @@ app.get('/logout', (req, res) => {
             res.redirect('/')
         }
     })
-})
-
+});
 
 app.listen(port, (err) => {
     if (err) {
@@ -559,4 +605,4 @@ app.listen(port, (err) => {
     } else {
         console.log('Listening on port 3000...')
     }
-})
+});
