@@ -156,13 +156,8 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
     });
 });
 
-function getLatestPosts() {
-    return $.get("/get?q=posts");
-}
-
-
 function main() {
-    getLatestPosts().then(
+    $.get("/get_posts").then(
     (result) => {
         posts = result;
         filter('Total');

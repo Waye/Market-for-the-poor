@@ -2,17 +2,17 @@
 console.log("feedpage.js") // log to the JavaScript console.
 
 let currUser = null;
-
+let currFeedData = [];
 // Refresh
 $("#refreshBtn").on('click', function() {
     clearAllFilter();
-    updateFeed(getFeed());
+    $.get("/get_feeds", (feedData) => { updateFeed(feedData) });
 });
 
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
     const sortMethod = $(this).attr('id');
-    let sortedFeed = getFeed();
+    let sortedFeed = currFeedData;
     if (sortMethod == "sortNew") {
         sortNew(sortedFeed);
     } else if (sortMethod == "sortOld") {
@@ -53,12 +53,12 @@ function sortLow(feed) {
 // Filter
 $("#collapseFilter").on('click', '#minPriceBtn', function() {
     const minPrice = $("#minPriceInput").val();
-    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, getFeed()));
+    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currFeedData));
     $("#maxPriceInput").val('');
 });
 $("#collapseFilter").on('click', '#maxPriceBtn', function() {
     const maxPrice = $("#maxPriceInput").val();
-    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, getFeed()));
+    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currFeedData));
     $("#minPriceInput").val('');
 });
 function filterMinPrice(minPrice, feedList) {
@@ -88,7 +88,7 @@ function filterFeed(filterList, feedList) {
     if (filterList.length <= 0) return feedList;
     const filterResult = [];
     feedList.forEach(f => {
-        if (filterList.includes(f.type)) filterResult.push(f);
+        if (filterList.includes(f.category)) filterResult.push(f);
     })
     return filterResult;
 }
@@ -99,19 +99,18 @@ function handleFilter() {
         activeFilters.push(foundActiveFilters[i].id);
     }
     console.log(activeFilters);
-    updateFeed(filterFeed(activeFilters, getFeed()));
+    updateFeed(filterFeed(activeFilters, currFeedData));
 }
 $('#collapseCard').on('click', '#clearFilter', clearAllFilter)
 
 function clearAllFilter() { // Click clear filter
     $('#collapseCard').find('.active').removeClass('active');
     $("#clearFilter").remove();
-    updateFeed(getFeed()); // force update all feed
+    updateFeed(currFeedData); // force update all feed
 }
 
-function addInfoHeaderContent(headerInfo, userIsBuyer) {
-    // console.log(userIsBuyer);
-    if (userIsBuyer) {
+function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
+    if (user.isBuyer) {
         $('#feedName').html("Offer feed");
         $("#dollarCol").remove();
         $("#feedNavCol").attr("class", "col-12");
@@ -119,32 +118,81 @@ function addInfoHeaderContent(headerInfo, userIsBuyer) {
     } else {
         const totalTextLg = document.createElement("h1");
         totalTextLg.className += "display-4 d-none d-lg-block";
-        totalTextLg.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        const twoMonthTotal = 48000;
+        totalTextLg.innerText = twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
         const totalTextMd = document.createElement("h1");
         totalTextMd.className += "d-lg-none d-md-block";
-        totalTextMd.innerText = headerInfo.twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        totalTextMd.innerText = twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
         $('#dollarCol').append(totalTextLg);
         $('#dollarCol').append(totalTextMd);
         $('#dollarCol').append('<p class="text-left ml-md-3 text-muted">2-month total</p>');
         $('#feedName').html("Request feed");
     }
-    $('.activeNum').html(headerInfo.activeNum);
-    $('.finishedNum').html(headerInfo.finishedNum);
-    $('.postedNum').html(headerInfo.postedNum);
+    $('.activeNum').html(activeNum);
+    $('.finishedNum').html(finishedNum);
+    $('.postedNum').html(postedNum);
 }
 
-function addFilter(filterDataList) {
-    filterDataList.forEach(filterData => {
-        $("#priceFilter").before(`<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2" id="${filterData.filter}">
-        ${filterData.filter}<span class="badge badge-light badge-pill" id="foodFilterNum">${filterData.filterNum}</span></a>`);
+function getFilterData(feedData) {
+    // const gotPosts = currUser.posts;
+    let foodFilterNum = 0;
+    let electronicsFilterNum = 0;
+    let clothingFilterNum = 0;
+    let furnitureFilterNum = 0;
+    let toolsFilterNum = 0;
+    let otherFilterNum = 0;
+    feedData.forEach(post => {
+        if (post.category == "food") {
+            foodFilterNum += 1;
+        } else if (post.category == "electronics") {
+            electronicsFilterNum += 1;
+        } else if (post.category == "clothing") {
+            clothingFilterNum += 1;
+        } else if (post.category == "furniture") {
+            furnitureFilterNum += 1;
+        } else if (post.category == "tools") {
+            toolsFilterNum += 1;
+        } else {
+            otherFilterNum += 1;
+        }
     })
+
+    const filterData = [
+        {
+            filter: "food",
+            filterNum: foodFilterNum
+        },
+        {
+            filter: "electronics",
+            filterNum: electronicsFilterNum
+        },
+        {
+            filter: "clothing",
+            filterNum : clothingFilterNum
+        },
+        {
+            filter: "furniture",
+            filterNum : furnitureFilterNum
+        },
+        {
+            filter: "tools",
+            filterNum : toolsFilterNum
+        },
+        {
+            filter: "other",
+            filterNum : otherFilterNum
+        }
+    ]
+    return filterData;
 }
 
-function getProductPageUrl(id) {
-    if (currUser.isBuyer) {
-        return "/detail/buyer"
-    }
-    return "/detail/seller"
+function addFilter(feedData) {
+    getFilterData(feedData).forEach(filterData => {
+        $("#priceFilter").before(`
+        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2" id="${filterData.filter}">
+        ${filterData.filter}<span class="badge badge-light badge-pill" id="${filterData.filter}Num">${filterData.filterNum}
+        </span></a>`);
+    })
 }
 
 class Post {
@@ -187,7 +235,7 @@ class Post {
         contentCol.className += "col-8 col-md-7";
         const contentHeader = document.createElement('h4');
         const contentHeaderLink = document.createElement('a');
-        contentHeaderLink.setAttribute("href", getProductPageUrl(this.id));
+        contentHeaderLink.setAttribute("href", "/detail/seller");
         contentHeaderLink.appendChild(document.createTextNode(this.title));
         const contentHeaderQty = document.createElement('small');
         contentHeaderQty.appendChild(document.createTextNode(this.quantity));
@@ -200,7 +248,7 @@ class Post {
         contentInfoLink.appendChild(document.createTextNode(this.userName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
-        contentInfoDate.appendChild(document.createTextNode(this.date.toLocaleDateString("en-US", dataFormat)));
+        contentInfoDate.appendChild(document.createTextNode(new Date(this.date).toLocaleDateString("en-US", dataFormat)));
         contentInfo.appendChild(contentInfoLink);
         contentInfo.appendChild(document.createTextNode(' posted on '));
         contentInfo.appendChild(contentInfoDate);
@@ -222,93 +270,44 @@ class Post {
     }
 }
 
-function getFeed() {
-    const gotPosts = currUser.posts;
+function getFeed(feedData) {
     const parsedPosts = [];
-    gotPosts.forEach(gotPost => {
-        const post1 = new Post(gotPost.id, gotPost.title, gotPost.category, 
-            gotPost.quantity, gotPost.price, gotPost.userName, gotPost.date);
+    feedData.forEach(gotPost => {
+        const post1 = new Post(gotPost._id, gotPost.title, gotPost.category, 
+            gotPost.quantity, gotPost.price, gotPost.email, gotPost.date);
         post1.setDescription(gotPost.description);
         post1.setPostImg(gotPost.image);
+        if (gotPost.image.length <= 0) {
+            post1.setPostImg('/img/post-initial-image.png');
+        }
         parsedPosts.push(post1);
     })
     return parsedPosts;
 }
 
-function getFilterData() {
-    const gotPosts = currUser.posts;
-    let foodFilterNum = 0;
-    let electronicsFilterNum = 0;
-    let clothingFilterNum = 0;
-    let furnitureFilterNum = 0;
-    let toolsFilterNum = 0;
-    let otherFilterNum = 0;
-    gotPosts.forEach(post => {
-        if (post.category == "food") {
-            foodFilterNum += 1;
-        } else if (post.category == "electronics") {
-            electronicsFilterNum += 1;
-        } else if (post.category == "clothing") {
-            clothingFilterNum += 1;
-        } else if (post.category == "furniture") {
-            furnitureFilterNum += 1;
-        } else if (post.category == "tools") {
-            toolsFilterNum += 1;
-        } else {
-            otherFilterNum += 1;
-        }
-    })
-
-    const mockFilterData = [
-        {
-            filter: "food",
-            filterNum: foodFilterNum
-        },
-        {
-            filter: "electronics",
-            filterNum: electronicsFilterNum
-        },
-        {
-            filter: "clothing",
-            filterNum : clothingFilterNum
-        },
-        {
-            filter: "furniture",
-            filterNum : furnitureFilterNum
-        },
-        {
-            filter: "tools",
-            filterNum : toolsFilterNum
-        },
-        {
-            filter: "other",
-            filterNum : otherFilterNum
-        }
-    ]
-    return mockFilterData;
-}
-
-function updateFeed(productData) {
+function updateFeed(feedData) {
     $('#productContainer').empty();
-    if (productData) {
-        productData.forEach(p => {
-            $('#productContainer').append(p.element);
-        });
-    }
+    getFeed(feedData).forEach(p => {
+        $('#productContainer').append(p.element);
+    });
 }
 
 function main() {
-    console.log('getting feedpage')
-    $.ajax({
-        type: "GET",
-        url: "/feedpage",
-        success: function (result) {
-            currUser = result.user
-            addInfoHeaderContent(currUser.orderInfo, currUser.isBuyer);
-            addFilter(getFilterData());
-            updateFeed(getFeed());
-        }   
+    $.get("/get_feeds_header")
+    .then((result, status) => {
+        currUser = result[0];
+        addInfoHeaderContent(result[1], result[2], result[3], result[0]);
+        return $.get("/get_feeds")
     })
-
+    .then((feedData) => {
+        currFeedData = feedData
+        console.log(feedData)
+        addFilter(feedData);
+        updateFeed(feedData);
+        feedData = feedData;
+    })
+    .catch((err) => {
+        console.log("Feedpage main:", err);
+    })
 }
-$(document).ready(main);
+$(main);

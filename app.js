@@ -6,18 +6,20 @@ const ejs = require('ejs')
 const fs = require('fs')
 
 const cookieParser = require('cookie-parser')
-const { ObjectID } = require('mongodb')
+const {ObjectID} = require('mongodb')
 
 // Import mongoose connection
-const { mongoose } = require('./db/mongoose')
+const {mongoose} = require('./db/mongoose')
 
 // Import the models
 require('./models/user')
 require('./models/admin')
 require('./models/post')
+require('./models/order')
 const User = mongoose.model('User');
 const Admin = mongoose.model('Admin');
 const Post = mongoose.model('Post');
+const Order = mongoose.model('Order');
 
 
 // express
@@ -25,7 +27,7 @@ const app = express();
 // body-parser middleware setup.  Will parse the JSON and convert to object
 app.use(bodyParser.json());
 // parse incoming parameters to req.body
-app.use(bodyParser.urlencoded({ extended:true }))
+app.use(bodyParser.urlencoded({extended: true}))
 // static directory for js/css/html
 app.use(express.static(__dirname + '/public'))
 // set the view library
@@ -35,51 +37,51 @@ app.use(cookieParser())
 
 // Add express sesssion middleware
 app.use(session({
-	name: 'test',
-	secret: 'oursecret',
-	resave: false,
-	saveUninitialized: false,
-	// cookie: {
-	// 	maxAge: 3600000,
-	// 	httpOnly: true
-	// }
+    name: 'test',
+    secret: 'oursecret',
+    resave: false,
+    saveUninitialized: false,
+    // cookie: {
+    // 	maxAge: 3600000,
+    // 	httpOnly: true
+    // }
 }))
 
 // Add middleware to check for logged-in users
 const sessionChecker = (req, res, next) => {
-	if (!req.session.user) {
-		res.redirect('/login')
-	} else {
-		next();
-	}
+    if (!req.session.user) {
+        res.redirect('/login')
+    } else {
+        next();
+    }
 }
 
 const loginChecker = (req, res, next) => {
-	if (!req.session.user) {
-		next();
-	} else if (req.session.user.email == "admin@gmail.com") {
-		res.redirect('/adminpage');
-	} else {
-		res.redirect('/feedpage');
-	}
+    if (!req.session.user) {
+        next();
+    } else if (req.session.user.email == "admin@gmail.com") {
+        res.redirect('/adminpage');
+    } else {
+        res.redirect('/feedpage');
+    }
 }
 
 // Middleware for authentication for resources
 const authenticate = (req, res, next) => {
-	if (req.session.user) {
-		User.findById(req.session.user).then((user) => {
-			if (!user) {
-				return Promise.reject()
-			} else {
-				req.user = user
-				next()
-			}
-		}).catch((error) => {
-			res.redirect('/login')
-		})
-	} else {
-		res.redirect('/login')
-	}
+    if (req.session.user) {
+        User.findById(req.session.user).then((user) => {
+            if (!user) {
+                return Promise.reject()
+            } else {
+                req.user = user
+                next()
+            }
+        }).catch((error) => {
+            res.redirect('/login')
+        })
+    } else {
+        res.redirect('/login')
+    }
 }
 
 
@@ -89,8 +91,7 @@ app.route('/login')
 		console.log('get for login')
 		res.render('login');	
 	})
-	
-app.post('/login', (req, res) => {
+	.post((req, res) => {
 	const email = req.body.uemail;
 	const password = req.body.psw;
 	Admin.findByEmailPassword(email, password).then(
@@ -117,100 +118,100 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-	res.render('index');
+    res.render('index');
 })
 
 app.post('/admin_init', (req, res) => {
-	const newAdmin = new Admin({
-		name: req.body.name,
-		password: req.body.password,
-		email: req.body.email,
-	})
-	Admin.create(newAdmin).then((result) => {
-		req.session.user = result
-		// console.log(result)
-	}, (error) => {
-		res.status(500).send(error)
-	})
+    const newAdmin = new Admin({
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+    })
+    Admin.create(newAdmin).then((result) => {
+        req.session.user = result
+        // console.log(result)
+    }, (error) => {
+        res.status(500).send(error)
+    })
 })
 
 
 app.get('/adminpage', (req, res) => {
-	//return admin and users and posts
-	console.log('adminpage rendering')
-	res.render('adminpage');
+    //return admin and users and posts
+    console.log('adminpage rendering')
+    res.render('adminpage');
 })
 
 app.get('/adminpage/info', (req, res) => {
-	//return admin and users and posts
-	let info = []
-	User.find({}).then((users) => {
-		if (users) {
-			console.log(users)
-			info.push(users)
-			return Post.find({})
-		} 
-	}).then((posts) => {
-		if (posts) {
-			console.log(posts)
-			info.push(posts)
-			res.send(info)
-		}
-	}).catch((error) => {
-		console.log(error)
-		res.status(500)
-	})
+    //return admin and users and posts
+    let info = []
+    User.find({}).then((users) => {
+        if (users) {
+            console.log(users)
+            info.push(users)
+            return Post.find({})
+        }
+    }).then((posts) => {
+        if (posts) {
+            console.log(posts)
+            info.push(posts)
+            res.send(info)
+        }
+    }).catch((error) => {
+        console.log(error)
+        res.status(500)
+    })
 })
 
 app.patch('/adminpage/ban_user', (req, res) => {
-	User.findOneAndUpdate({email: req.body.email}, {$set: {isBanned: req.body.isBanned}}, {new: true})
-	.then((user) => {
-		if (!user) {
-			res.status(404).send()
-		} else {
-			res.send(user)
-		}
-	}).catch((error) => {
-		res.status(500).send(error)
-	}) 
+    User.findOneAndUpdate({email: req.body.email}, {$set: {isBanned: req.body.isBanned}}, {new: true})
+        .then((user) => {
+            if (!user) {
+                res.status(404).send()
+            } else {
+                res.send(user)
+            }
+        }).catch((error) => {
+        res.status(500).send(error)
+    })
 })
 
 app.delete('/adminpage/delete_user', (req, res) => {
-	User.findOneAndDelete({email: req.body.email}).then((user) => {
-		if (!user) {
-			return Promise.reject()
-		} else {
-			return Post.deleteMany({email: req.body.emai}).exec()
-		}
-	}).then((posts) => {
-		if (posts) {
-			res.send(posts)
-		} else {
-			res.status(404).send()
-		}
-	}, (reject) => {
-		res.status(404).send()
-	}).catch((error) => {
-		res.status(500).send(error)
-	})
+    User.findOneAndDelete({email: req.body.email}).then((user) => {
+        if (!user) {
+            return Promise.reject()
+        } else {
+            return Post.deleteMany({email: req.body.emai}).exec()
+        }
+    }).then((posts) => {
+        if (posts) {
+            res.send(posts)
+        } else {
+            res.status(404).send()
+        }
+    }, (reject) => {
+        res.status(404).send()
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
 })
 
 app.delete('/adminpage/delete_post', (req, res) => {
-	User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}).then((user) => {
-		if (!user) {
-			return Promise.reject()
-		} else {
-			return Post.findOneAndDelete({_id: req.body.id}).exec()
-		}
-	}).then((post) => {
-		if (post) {
-			res.send(post)
-		} else {
-			res.status(404).send()
-		}
-	}).catch((error) => {
-		res.status(500).send(error)
-	})
+    User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}).then((user) => {
+        if (!user) {
+            return Promise.reject()
+        } else {
+            return Post.findOneAndDelete({_id: req.body.id}).exec()
+        }
+    }).then((post) => {
+        if (post) {
+            res.send(post)
+        } else {
+            res.status(404).send()
+        }
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
 })
 
 // app.get('/profile', sessionChecker, (req, res) => {
@@ -222,25 +223,26 @@ app.get('/messages/updated', authenticate, (req, res) => {
 })
 
 app.get('/messages', authenticate, (req, res) => {
-	let starredNum = 0
-	let inboxNum = 0
-	let sentNum = 0
-	
-	for (let msg of req.user.messages) {
-		if (msg.isStarred) {
-			starredNum++
-		} else if (msg.from == req.user.email) {
-			sentNum++
-		} else {
-			inboxNum++
-		}
-	}
-	res.render('messages', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer,
-	inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum})	
+    let starredNum = 0
+    let inboxNum = 0
+    let sentNum = 0
+    for (let msg of req.user.messages) {
+        if (msg.isStarred) {
+            starredNum++
+        } else if (msg.from == req.user.email) {
+            sentNum++
+        } else {
+            inboxNum++
+        }
+    }
+    res.render('messages', {
+        userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer,
+        inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum
+    })
 }, (error) => {
-	res.status(500).send(error)
+    res.status(500).send(error)
 })
-	
+
 app.post('/messages/send_new', authenticate, (req, res) => {
 	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec()
 	.then((targetUser) => {
@@ -318,96 +320,180 @@ app.delete('/messages/delete', authenticate, (req, res) => {
 // })
 
 
+app.get('/feedpage', authenticate, (req, res) => {
+    res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});
+})
 
 
 app.route('/signup')
-	.get(loginChecker, (req, res) => {
-		res.render('signup');
-	})
-	.post((req, res) => {
-		const name = req.body.name;
-		const email = req.body.email;
-		const phone = req.body.phone;
-		const password = req.body.password;
-		const isBuyer = req.body.isBuyer;	
-		// create new user to db
-		const queryCondition = { name: name, email: email }; // double check
-		User.findOne(queryCondition).exec()
-		.then((result) => {
-			if (!result) { // Not found then sign up
-				const newUser = new User({
-					name: name,
-    				password:  password,
-    				email: email,
-    				messages: [],
-    				isBuyer: isBuyer,
-    				isBanned: false,
-    				posts: [],
-    				phone: phone,
-    				description: ""
-				});
-				return User.create(newUser);
-			} else { // Found then reject
-				console.log('This email has already been signed up.');
-				return Promise.reject();
-			}
-		})
-		.then(
-			(resolve) => {
-				req.session.user = resolve;
-				res.send('/feedpage');
-			}, 
-			(reject) => {
-				req.session.destroy((error) => {
-					if (error) {
-						res.status(500).send(error)
-					} else {
-						res.redirect('/')
-					}
-				});
-				res.send('/login');
-			}
-		)
-		.catch((err)=>{
-			console.log(err);
-			res.send(err);
-		})
-	})
+    .get(loginChecker, (req, res) => {
+        res.render('signup');
+    })
+    .post((req, res) => {
+        const name = req.body.name;
+        const email = req.body.email;
+        const phone = req.body.phone;
+        const password = req.body.password;
+        const isBuyer = req.body.isBuyer;
+        // create new user to db
+        const queryCondition = {name: name, email: email}; // double check
+        User.findOne(queryCondition).exec()
+            .then((result) => {
+                if (!result) { // Not found then sign up
+                    const newUser = new User({
+                        name: name,
+                        password: password,
+                        email: email,
+                        messages: [],
+                        isBuyer: isBuyer,
+                        isBanned: false,
+                        posts: [],
+                        phone: phone,
+                        description: ""
+                    });
+                    return User.create(newUser);
+                } else { // Found then reject
+                    console.log('This email has already been signed up.');
+                    return Promise.reject();
+                }
+            })
+            .then(
+                (resolve) => {
+                    req.session.user = resolve;
+                    res.send('/feedpage');
+                },
+                (reject) => {
+                    req.session.destroy((error) => {
+                        if (error) {
+                            res.status(500).send(error)
+                        } else {
+                            res.send('/login');
+                        }
+                    });
+                }
+            )
+            .catch((err) => {
+                console.log(err);
+                res.send(err);
+            })
+    })
 app.get('/messages', (req, res) => {
-	res.render('messages', {userName: "UserX", msgCount: 30, isBuyer: false, inboxNum: 3, sentNum: 2, starredNum: 1});
+	res.render('messages', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, inboxNum: 3, sentNum: 2, starredNum: 1});
 })
 app.get('/orders/seller', (req, res) => {
-	res.render('orderpage_seller');
+    res.render('orderpage_seller');
 })
 app.get('/orders/buyer', (req, res) => {
-	res.render('orderpage_buyer');
+    res.render('orderpage_buyer');
 })
 app.get('/detail/seller', (req, res) => {
-	res.render('product_detail_seller');
+    res.render('product_detail_seller');
 })
 app.get('/detail/buyer', (req, res) => {
-	res.render('product_detail_buyer');
-})
-app.get('/profile', sessionChecker, (req, res) => {
-	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
+    res.render('product_detail_buyer');
 })
 
+app.get('/profile', authenticate, (req, res) => {
+    const user = req.user
+    // const Posts=User.posts
 
-app.get('/get', (req, res) => {
-	if (req.query.q == "posts") {
-		Post.find({ email: req.session.user.email }).exec()
+    Post.find({email: user.email, category: "food"}).exec().then((r1) => {
+        return Post.find({email: user.email, category: "electronics"}).exec().then((r2) => {
+            return Post.find({email: user.email, category: "clothing"}).exec().then((r3) => {
+                return Post.find({email: user.email, category: "furniture"}).exec().then((r4) => {
+                    return Post.find({email: user.email, category: "tool"}).exec().then((r5) => {
+                            return Post.find({email: user.email, category: "other"}).exec().then((r6) => {
+                                return [r1, r2, r3, r4, r5, r6];
+                            })
+                        }
+                    )
+                });
+            });
+        });
+    }).then((rList) => {
+        res.render('profile', {
+            userName: user.name,
+            msgCount: user.messages.length,
+            isBuyer: user.isBuyer,
+            userImg: "/img/profile-image.jpg",
+            userEmail: user.email,
+            userPhone: user.phone,
+            isBanned: user.isBanned,
+            userDescription: user.description,
+            total: rList[0].length + rList[1].length + rList[2].length + rList[3].length + rList[4].length + rList[5].length,
+            numberFood: rList[0].length,
+            numberElectronics: rList[1].length,
+            numberClothing: rList[2].length,
+            numberFurniture: rList[3].length,
+            numberTools: rList[4].length,
+            numberOther: rList[5].length
+        })
+    });
+
+})
+
+app.get('/get_feeds_header', (req, res) => {
+	User.findOne({ email: req.session.user.email }).exec()
+	.then(async (foundUser) => {
+		if (req.session.user.isBuyer) {
+			const foundActiveOrderCount = await Order.find({ buyerEmail: req.session.user.email, status: "active" }).exec();
+			return [foundUser, foundActiveOrderCount.length];
+		} else if (!req.session.user.isBuyer) {
+			const foundActiveOrderCount_1 = await Order.find({ sellerEmail: req.session.user.email, status: "active" }).exec();
+			return [foundUser, foundActiveOrderCount_1.length];
+		}
+	})
+	.then(async (result) => {
+		if (req.session.user.isBuyer) {
+			const foundFinishedOrderCount = await Order.find({ buyerEmail: req.session.user.email, status: "finished" }).exec();
+			result.push(foundFinishedOrderCount.length);
+			return result;
+		} else if (!req.session.user.isBuyer) {
+			const foundFinishedOrderCount_1 = await Order.find({ sellerEmail: req.session.user.email, status: "finished" }).exec();
+			result.push(foundFinishedOrderCount_1.length);
+			return result;
+		}
+	})
+	.then(async (result) => {
+		const foundPostedCount = await Post.find({ email: req.session.user.email }).exec();
+		result.push(foundPostedCount.length);
+		return result;
+	})
+	.then((result) => {
+		res.send(result);
+	})
+	.catch((err) => {
+		console.log(err);
+		res.send(err);
+	})
+})
+
+app.get('/get_feeds', (req, res) => {
+	if (req.session.user.isBuyer) {
+		Post.find({ type: "offer" }).exec()
 		.then((result) => {
 			res.send(result);
 		})
-		// res.json([{hi: "hi"}]);
+	} else if (!req.session.user.isBuyer) {
+		Post.find({ type: "request" }).exec()
+		.then((result) => {
+			res.send(result);
+		})
 	}
 })
 
+app.get('/get_posts', (req, res) => {
+	Post.find({ email: req.session.user.email }).exec()
+	.then((result) => {
+		res.send(result);
+	})
+})
+
 app.get('/search', (req, res) => {
-	// Post.find({ email: req.session.user.email }).exec()
-	// .then((result) => {
-	// 	res.send(result);
-	// })
+    // Post.find({ email: req.session.user.email }).exec()
+    // .then((result) => {
+    // 	res.send(result);
+    // })
 
 })
 
@@ -428,28 +514,30 @@ app.post('/posts', (req, res) => {
 	Post.create(newPost).then(
 	(result) => {
 		req.session.user = result;
-	}, 
+		User.findOneAndUpdate({ email: req.session.user.email }, { $push: { posts: result._id } }, (err, result) => {
+			if (err) console.log("Update posts in user:", err)
+		});
+	},
 	(reject) => {
 		res.status(500).send(reject);
-	});
-})
-
-app.get('/logout', (req, res) => {
-	req.session.destroy((error) => {
-		if (error) {
-			res.status(500).send(error)
-		} else {
-			res.redirect('/')
-		}
 	})
 })
 
+app.get('/logout', (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            res.status(500).send(error)
+        } else {
+            res.redirect('/')
+        }
+    })
+})
 
 
 app.listen(port, (err) => {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log('Listening on port 3000...')
-	}
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Listening on port 3000...')
+    }
 })
