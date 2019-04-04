@@ -79,7 +79,7 @@ const postPopupElement = `
                         <td><input class="form-control" id="quantity" type="text"></td>
                     </tr>
                     <tr>
-                        <td>Needed Before:</td>
+                        <td>Respond Before:</td>
                         <td><input class="form-control" id="dueDate" type="date" min="1900-01-01" max="9999-12-31"></td>
                     </tr>
                     <tr>

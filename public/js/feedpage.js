@@ -26,13 +26,13 @@ $("#sortOptionContainer").on('click', 'a', function() {
 })
 function sortOld(feed) {
     feed.sort(function(a, b) {
-        return a.date - b.date;
+        return new Date(a.date) - new Date(b.date);
     });
     return feed;
 }
 function sortNew(feed) {
     feed.sort(function(a, b) {
-        return b.date - a.date;
+        return new Date(b.date) - new Date(a.date);
     });
     return feed;
 }
@@ -196,7 +196,7 @@ function addFilter(feedData) {
 }
 
 class Post {
-    constructor(id, title, type, quantity, price, userName, date) {
+    constructor(id, title, type, quantity, price, userName, userId, date) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -204,6 +204,7 @@ class Post {
         this.quantity = quantity;
         this.price = price;
         this.userName = userName;
+        this.userId = userId
         this.date = date;
         this.description = "(No description)";
         this.image = null;
@@ -235,7 +236,7 @@ class Post {
         contentCol.className += "col-8 col-md-7";
         const contentHeader = document.createElement('h4');
         const contentHeaderLink = document.createElement('a');
-        contentHeaderLink.setAttribute("href", "/detail/seller");
+        contentHeaderLink.setAttribute("href", "/detail/" + this.id);
         contentHeaderLink.appendChild(document.createTextNode(this.title));
         const contentHeaderQty = document.createElement('small');
         contentHeaderQty.appendChild(document.createTextNode(this.quantity));
@@ -244,7 +245,7 @@ class Post {
         contentHeader.appendChild(contentHeaderQty);
         const contentInfo= document.createElement('p');
         const contentInfoLink = document.createElement('a');
-        contentInfoLink.setAttribute("href", '/profile');
+        contentInfoLink.setAttribute("href", '/profile/' + this.userId);
         contentInfoLink.appendChild(document.createTextNode(this.userName));
         const contentInfoDate = document.createElement('span');
         const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -274,7 +275,7 @@ function getFeed(feedData) {
     const parsedPosts = [];
     feedData.forEach(gotPost => {
         const post1 = new Post(gotPost._id, gotPost.title, gotPost.category, 
-            gotPost.quantity, gotPost.price, gotPost.email, gotPost.date);
+            gotPost.quantity, gotPost.price, gotPost.userName, gotPost.userId, gotPost.date);
         post1.setDescription(gotPost.description);
         post1.setPostImg(gotPost.image);
         if (gotPost.image.length <= 0) {

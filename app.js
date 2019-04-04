@@ -267,7 +267,7 @@ app.post('/messages/send_new', authenticate, (req, res) => {
 
 app.get('/messages/inbox', authenticate, (req, res) => {
     if (req.session.user) {
-        User.findOne({email: req.session.user.email}).then((user) => {
+        User.findOne({email: req.user.email}).then((user) => {
             if (user) {
                 res.send(user)
             } else {
@@ -283,7 +283,7 @@ app.get('/messages/inbox', authenticate, (req, res) => {
 
 
 app.get('/feedpage', authenticate, (req, res) => {
-    res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});
+    res.render('feedpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
 })
 
 
@@ -417,7 +417,7 @@ app.get('/get_feeds_header', (req, res) => {
 		}
 	})
 	.then(async (result) => {
-		const foundPostedCount = await Post.find({ email: req.session.user.email }).exec();
+		const foundPostedCount = await Post.find({ userId: req.session.user._id }).exec();
 		result.push(foundPostedCount.length);
 		return result;
 	})
@@ -461,7 +461,8 @@ app.get('/search', (req, res) => {
 
 app.post('/posts', (req, res) => {
 	const newPost = new Post({
-		email: req.session.user.email,
+		userId: req.session.user._id,
+		userName: req.session.user.name,
 		type: req.session.user.isBuyer ? "request" : "offer",
 		date: new Date(),
 		title: req.body.title,
@@ -475,7 +476,7 @@ app.post('/posts', (req, res) => {
 	})
 	Post.create(newPost).then(
 	(result) => {
-		req.session.user = result;
+		// req.session.user = result;
 		User.findOneAndUpdate({ email: req.session.user.email }, { $push: { posts: result._id } }, (err, result) => {
 			if (err) console.log("Update posts in user:", err)
 		});
