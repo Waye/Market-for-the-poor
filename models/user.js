@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 
 const MessageSchema = new mongoose.Schema({
-	time: Date,
 	to: String,
 	from: String,
 	content: String,
