@@ -42,9 +42,30 @@ $("body").on('click', function(){
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
 })
-$("#topNav").on('input', '#searchInput',function(){
-    console.log("pressed")
-    $('#searchrResultModal').modal('show');
+$("#topNav").on('keydown', '#searchInput', function(e){
+    if (e.keyCode == 13) {
+        if ($('#searchInput').val() == '') {
+            $('#searchrResultModal').modal('hide')
+        } else {
+            console.log('enter')
+            const data = {
+                keyword: $('#searchInput').val()
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/search',
+                data: data,
+                success: function(result) {
+                    console.log(result)
+                    $('#searchrResultModal').modal('show');
+                },
+                error: function(result) {
+                    alert('No search result')
+                    $('#searchInput').val('')
+                }
+            })
+        }
+    }
 });
 
 function main() {

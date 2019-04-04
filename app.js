@@ -123,6 +123,7 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+// POST for making one admin user. Cannot make from the website
 app.post('/admin_init', (req, res) => {
     const newAdmin = new Admin({
         name: req.body.name,
@@ -137,12 +138,13 @@ app.post('/admin_init', (req, res) => {
     })
 });
 
+// GET for rendering adminpage
 app.get('/adminpage', (req, res) => {
-    //return admin and users and posts
     console.log('adminpage rendering');
     res.render('adminpage');
 });
 
+// GET requests for getting dynamic compontents: all users and posts
 app.get('/adminpage/info', (req, res) => {
     //return admin and users and posts
     let info = [];
@@ -165,6 +167,7 @@ app.get('/adminpage/info', (req, res) => {
 
 });
 
+// BAN user by admin
 app.patch('/adminpage/ban_user', (req, res) => {
     User.findOneAndUpdate({email: req.body.email}, {$set: {isBanned: req.body.isBanned}}, {new: true})
         .then((user) => {
@@ -178,8 +181,9 @@ app.patch('/adminpage/ban_user', (req, res) => {
     })
 });
 
+//DELETE user by admin
 app.delete('/adminpage/delete_user', (req, res) => {
-    User.findOneAndDelete({email: req.body.email}).then((user) => {
+    User.findOneAndDelete({email: req.body.email}, {new: true}).then((user) => {
         if (!user) {
             return Promise.reject()
         } else {
@@ -198,8 +202,9 @@ app.delete('/adminpage/delete_user', (req, res) => {
     })
 });
 
+//DELETE posts in by admin
 app.delete('/adminpage/delete_post', (req, res) => {
-    User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}).then((user) => {
+    User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}, {new: true}).then((user) => {
         if (!user) {
             return Promise.reject()
         } else {
@@ -216,14 +221,12 @@ app.delete('/adminpage/delete_post', (req, res) => {
     })
 });
 
-// app.get('/profile', sessionChecker, (req, res) => {
-// 	res.render('profile', {userName: "UserX", msgCount: 30, isBuyer: false, userImg: "/img/profile-image.jpg", userEmail:"userX@gmail.com", userPhone:"4166666666", isBanned: false, userDescription:"Somewhere Over The Rainbow"});
-// })
-
+// GET for dynamic components of messages.ejs
 app.get('/messages/updated', authenticate, (req, res) => {
 	res.send(req.user)
 });
 
+// GET for rendering messages.ejs
 app.get('/messages', authenticate, (req, res) => {
     let starredNum = 0;
     let inboxNum = 0;
@@ -242,8 +245,6 @@ app.get('/messages', authenticate, (req, res) => {
 			unread++
 		}
     }
-    console.log('inside get messagees')
-    console.log(unread)
     res.render('messages', {
         userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer,
         inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum
@@ -252,27 +253,28 @@ app.get('/messages', authenticate, (req, res) => {
     res.status(500).send(error)
 });
 
+// POST for sending new message. send reply also handled here
 app.post('/messages/send_new', authenticate, (req, res) => {
-	console.log(req.body.to)
 	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}, {new: true}).exec()
 	.then((targetUser) => {
-		console.log('here1')
-		console.log(targetUser)
 		if (!targetUser) {
-			return Promise.reject()
+			return Promise.reject(new Error('404'))
 		}
 		return User.findOneAndUpdate({email:req.user.email}, {$push: {messages: req.body}}, {new: true}).exec()
 	})
 	.then((user) => {
-		console.log('here2')
 		if (!user) {
-			res.status(404).send()
+			res.status(404).send('404')
 		}
 		else {
 			res.send(user.messages)
 		}
 	}).catch((error) => {
-		res.status(500).send(error)
+        if (error.message == '404') {
+            res.status(404).send('404')
+        } else {
+            res.status(500).send('505')
+        }
 	})
 });
 
@@ -315,16 +317,18 @@ app.patch('/messages/read', authenticate, (req, res) => {
 	}
 	User.findOneAndUpdate({_id: req.user._id, email: req.body.to}, {$set: {messages: req.user.messages}}, {new: true})
 	.then((user) => {
-		// req.user = user
 		res.send(user.messages)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
 })
 
+app.get('/search', (req, res) => {
+    User.findOne({})
+})
+
 app.get('/feedpage', authenticate, (req, res) => {
 	let unread = countUnread(req.user)
-	console.log(unread)
     res.render('feedpage', {userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer});
 });
 
@@ -339,8 +343,8 @@ app.route('/signup')
         const password = req.body.password;
         const isBuyer = req.body.isBuyer;
         // create new user to db
-        const queryCondition = {name: name, email: email}; // double check
-        User.findOne(queryCondition).exec()
+        const queryCondition = {$or: [{name: name}, {email: email}]}; // double check
+        User.find(queryCondition).exec()
             .then((result) => {
                 if (!result) { // Not found then sign up
                     const newUser = new User({
@@ -507,24 +511,33 @@ app.get('/profile_info', (req, res) => {
 // Edit profile
 app.patch('/profile/Edit', (req, res) => {
     // Add code here
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const password = req.body.password;
-    const description = req.body.description;
+    let email = req.body.email;
+    let phone = req.body.phone;
+    //let password = req.body.password;
+    let description = req.body.description;
 
-    User.findOne({email:req.session.user.email}).exec()
-        .then((user) => {
-          user.email= email;
-            user.phone=phone;
-            user.password=password;
-            user.description=description;
 
-            user.save().then((result) => {
+
+    User.findOneAndUpdate({_id: req.session.user._id}, {$set: {email: email, phone: phone, description: description}}, {new: true})
+        .then((result) => {
             res.send(result)
-        }, (error) => {
-            res.status(400).send(error)
-        })
+        }).catch((error)  => {
+        res.status(500).send(error)
     })
+
+    // User.findOne({_id: req.session.user._id}).exec()
+    //     .then((user) => {
+    //         user.email= email;
+    //         user.phone=phone;
+    //         user.password=password;
+    //         user.description=description;
+    //
+    //         user.save().then((result) => {
+    //         res.send(result)
+    //     }, (error) => {
+    //         res.status(400).send(error)
+    //     })
+    // })
 })
 
 
@@ -586,11 +599,18 @@ app.get('/get_posts', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    // Post.find({ email: req.session.user.email }).exec()
-    // .then((result) => {
-    // 	res.send(result);
-    // })
-});
+    let searchKey = new RegExp(req.body.keyword, 'i')
+    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
+        console.log(result)
+        if (result) {
+            res.send(result)
+        } else {
+            res.status(404).send()
+        }
+    }).catch((error) => {
+        res.status(500).send()
+    })
+})
 
 app.post('/posts', (req, res) => {
 	const newPost = new Post({
