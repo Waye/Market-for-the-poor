@@ -19,15 +19,7 @@ const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 let messages = []
 let currentUser = null
 
-//on load render whole page
-$(document).ready(function() {
-    //get request to set user 
-    getUpdatedMessage().then(result => {
-        currentUser = result.email
-        renderInboxOrSent(inboxFirstMsgFinder, true)
-    }).catch((error) => {
-        console.log("Error occurred")
-    })
+
     // $.ajax({
     //     type: 'GET',
     //     url: '/messages/updated',
@@ -40,6 +32,15 @@ $(document).ready(function() {
     // renderMenuSection()
     // renderInboxOrSent(inboxFirstMsgFinder, true)
     // modifyNavMsgNum()
+//on load render whole page
+$(document).ready(function() {
+    //get request to set user 
+    getUpdatedMessage().then(result => {
+        currentUser = result.email
+        renderInboxOrSent(inboxFirstMsgFinder, true)
+    }).catch((error) => {
+        console.log("Error occurred")
+    })
 })
 
 function fillSelectedIcon(iconSelector) {
@@ -55,21 +56,25 @@ function getUpdatedMessage() {
         type: 'GET',
         url: '/messages/updated',
         success: function(result) {
-            for (let msg of result.messages) {
-                msg.date = new Date(msg.date)
-            } 
-            messages = result.messages
+            console.log(result)
+            messageDatefy(result)
         },
         error: function (error) {
             return error
         }
     })
 }
+
+function messageDatefy(obj) {
+    for (let msg of obj.messages) {
+        msg.date = new Date(msg.date)
+    }
+    messages = obj.messages
+}
+
 $('#sent').click(function() {
     getUpdatedMessage().then((result) => {
         messages = result.messages
-        console.log(messages[0].date)
-        console.log(typeof(messages[0].date))
         resetActive()
         removeMainContainer()
         renderInboxOrSent(sentFirstMsgFinder, false)
@@ -97,6 +102,13 @@ $('#inbox').click(function() {
 
 // Starred selected in the left menu bar, display starred messages in the middle
 $('#starred').click(function() {
+    getUpdatedMessage().then((result) => {
+        resetActive()
+        removeMainContainer()
+        renderStarred()
+        $('#starred').addClass('active')
+        fillSelectedIcon('#starred path')
+    })
     resetActive()
     removeMainContainer()
     renderStarred()
@@ -142,15 +154,117 @@ $('body').on('click', 'a.msgToDelete', deleteMessage)
 // Same as send message but more convenient UI for user. Send Post request to server inside the function
 $('body').on('click', '#reply', sendReply)
 
-function renderMenuSection() {
+
+function sendMessage() {
+    const to = $('#msgTo').val()
+    const from = currentUser
+    const title = $('#msgTitle').val()
+    const content = $('#msgContent').val()
+    const data = {
+        to: to,
+        from: from,
+        title: title,
+        content: content,
+        isStarred: false,
+        date: new Date()
+    }
+
+    $.ajax({
+        type: 'POST',
+        data: data,
+        url: '/messages/send_new',
+        success: function(result) {
+            if (result) {
+                messages = result
+                removeMainContainer()
+                renderMenuSection()
+                modifyNavMsgNum()
+                const html = `<div class='row'><div class='col-md-2'></div>
+                <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
+                $('#mainContainer').html(html)
+            }
+        }
+    })
+}
+
+
+function starOrUnstarMessage() {
+    const content = $(this).parent().parent().parent().find('p.msgDetailContent')[0].innerHTML
+    const targetUser = $('#replyContainer').find('input')[0].id
+    const data = {
+        content: content,
+        target: targetUser
+    }
+    console.log(content)
+    console.log($(this).hasClass('active'))
+    $.ajax({
+        type: 'PATCH',
+        data: data,
+        url: '/messages/star_unstar',
+        success: function(result) {
+            messageDatefy(result)
+            renderMenuSection()
+            renderMsgDetail(targetUser)
+        }
+    })
+}
+
+
+function deleteMessage() {
+    const content = $(this).parent().parent().parent().find('.msgDetailContent')[0].innerHTML
+    const targetUser = $('#replyContainer').find('input')[0].id
+    const data = {
+        content: content,
+        target: targetUser
+    }
+
+    $.ajax({
+        type: 'DELETE',
+        data: data,
+        url: '/messages/delete',
+        success: function(result) {
+            console.log(result)
+            messageDatefy(result)
+            renderMenuSection()
+            modifyNavMsgNum()
+            renderMsgDetail(targetUser)
+        }
+        
+    })
+}
+
+
+function sendReply() {
+    // the reply input field id is set to be the target user.
+    const to = $(this).parent().prev()[0].id
+    const from = currentUser
+    const title = `Reply from ${currentUser}`
+    const content = $(`#${to}`).val()
+    const data = {
+        message: {
+            to: to,
+            from: from,
+            title: title,
+            content: content,
+            date: new Date(),
+            isStarred: false,
+            is
+        }
+    }
+    messages.push(new Message(from, to, title, content, new Date(), false, false))
     console.log(messages)
+    renderMenuSection()
+    modifyNavMsgNum()
+    removeMainContainer()
+    renderMsgDetail(to)
+}
+
+
+function renderMenuSection() {
     let numSent = 0
     let numInbox = 0
     let numStarred = 0
     for (let m of messages) {
-        console.log(m.from)
-        console.log(currentUser)
-        console.log(m.from == currentUser)
         if (m.from != currentUser) {
             numInbox = numInbox + 1
         } else {
@@ -213,7 +327,6 @@ function renderInboxOrSent(firstMsgFinder, isRenderingInbox) {
 
 
 function renderMsgDetail(targetUser) {
-    //get messages from server
     const conversation = messages.filter(msg => msg.from == targetUser || msg.to == targetUser)
     const len = conversation.length
     // Assign targetUser as input id so that when reply is made, we can construct new message using this id.
@@ -223,8 +336,9 @@ function renderMsgDetail(targetUser) {
 
     for (let i = len - 1; i >= 0; i--) {
         let m = conversation[i]
-        let date = m.date.toLocaleDateString("en-US", dataFormat)
+        // let date = m.date.toLocaleDateString("en-US", dataFormat)
         let svg = null
+        // console.log(m.isStarred)
         if (m.isStarred) {
             svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#007bff"/>
@@ -239,7 +353,7 @@ function renderMsgDetail(targetUser) {
             <div2 class="card-body">
                 <ul class="list-inline m-0 d-flex">
                     <li class="list-inline-item"><img class="rounded-circle list-inline-item mb-3 avatar" src="/img/avatar_placeholder.png"></li>
-                    <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${date}</p></li>
+                    <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${m.date}</p></li>
                     <li class="ml-auto">
                         <a class="msgToStar active ml-3">
                             ${svg}</a>
@@ -253,54 +367,6 @@ function renderMsgDetail(targetUser) {
         </div>`
     }
     $('#mainContainer').html(html)
-}
-
-
-function starOrUnstarMessage() {
-    const content = $(this).parent().parent().parent().find('p.msgDetailContent')[0].innerHTML
-    for (let msg of messages) {
-        if (msg.content == content) {
-            if (msg.isStarred) {
-                msg.isStarred = false
-            } else {
-                msg.isStarred = true
-            }
-        }
-    }
-    const targetUser = $('#replyContainer').find('input')[0].id
-    renderMenuSection()
-    renderMsgDetail(targetUser)
-}
-
-
-function deleteMessage() {
-    const content = $(this).parent().parent().parent().find('.msgDetailContent')[0].innerHTML
-
-    // replace this part with DELETE request to server and get messages of this user back.
-    for (let i = 0; i < messages.length; i++) {
-        if (messages[i].content == content) {
-            messages.splice(i, 1)
-        }
-    }
-    const targetUser = $('#replyContainer').find('input')[0].id
-    renderMenuSection()
-    modifyNavMsgNum()
-    renderMsgDetail(targetUser)
-}
-
-
-function sendReply() {
-    // the reply input field id is set to be the target user.
-    const to = $(this).parent().prev()[0].id
-    const from = currentUser
-    const title = `Reply from ${currentUser}`
-    const content = $(`#${to}`).val()
-    messages.push(new Message(from, to, title, content, new Date(), false, false))
-    console.log(messages)
-    renderMenuSection()
-    modifyNavMsgNum()
-    removeMainContainer()
-    renderMsgDetail(to)
 }
 
 
@@ -387,48 +453,6 @@ function resetActive() {
     $('a').removeClass('active');
 }
 
-
-function sendMessage() {
-    const to = $('#msgTo').val()
-    const from = currentUser
-    const title = $('#msgTitle').val()
-    const content = $('#msgContent').val()
-    const data = {
-        to: to,
-        from: from,
-        title: title,
-        content: content,
-        isStarred: false,
-        date: new Date()
-    }
-
-    $.ajax({
-        type: 'POST',
-        data: data,
-        url: '/messages/send_new',
-        success: function(result) {
-            if (result) {
-                messages = result
-                removeMainContainer()
-                renderMenuSection()
-                modifyNavMsgNum()
-                const html = `<div class='row'><div class='col-md-2'></div>
-                <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
-                $('#mainContainer').html(html)
-            }
-        }
-
-    })
-
-    // const date = (new Date()).toLocaleDateString(dataFormat)
-    // messages.push(new Message(from, to, title, content, new Date(), false, false))
-    // removeMainContainer()
-    // renderMenuSection()
-    // modifyNavMsgNum()
-    // const html = `<div class='row'><div class='col-md-2'></div>
-    // <div class='col-md-8'><br><br><h1>Message Sent Successfully !</h1<div class='col-md-2'></div></div>`
-    // $('#mainContainer').html(html)
-}
 
 function modifyNavMsgNum() {
     let unreadNum = 0;

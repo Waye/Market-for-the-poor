@@ -218,12 +218,7 @@ app.delete('/adminpage/delete_post', (req, res) => {
 // })
 
 app.get('/messages/updated', authenticate, (req, res) => {
-	User.findOne({email: req.user.email}).then((user) => {
-		req.user = user
-		res.send(user)
-	})
-}, (error) => {
-	res.status(500).send(error)
+	res.send(req.user)
 })
 
 app.get('/messages', authenticate, (req, res) => {
@@ -247,12 +242,14 @@ app.get('/messages', authenticate, (req, res) => {
 })
 	
 app.post('/messages/send_new', authenticate, (req, res) => {
-	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec().then((targetUser) => {
+	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec()
+	.then((targetUser) => {
 		if (!targetUser) {
 			return Promise.reject()
 		}
-		return User.findOneAndUpdate({email:req.user.email}, {$push: {messages: req.body}}).exec()
-	}).then((user) => {
+		return User.findOneAndUpdate({email:req.user.email}, {$push: {messages: req.body}}, {new: true}).exec()
+	})
+	.then((user) => {
 		if (!user) {
 			res.status(404).send()
 		}
@@ -263,6 +260,39 @@ app.post('/messages/send_new', authenticate, (req, res) => {
 		res.status(500).send(error)
 	})
 })
+
+app.patch('/messages/star_unstar', authenticate, (req, res) => {
+	for (let msg of req.user.messages) {
+		if (msg.content == req.body.content && (msg.from == req.body.target || msg.to == req.body.target)) {
+			msg.isStarred = !msg.isStarred
+		}
+	}
+	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true}).then((user) => {
+		res.send(user)
+	}).catch((error)  => {
+		res.status(500).send(error)
+	})
+})
+
+app.delete('/messages/delete', authenticate, (req, res) => {
+	let index = 0
+	for (let msg of req.user.messages) {
+		if (msg.content == req.body.content && (msg.from == req.body.target || msg.to == req.body.target)) {
+			break
+		}
+		index++
+	}
+	req.user.messages.splice(index, 1)
+	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true}).then((user) => {
+		res.send(user)
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+
+
+
 
 // app.get('/messages/inbox', authenticate, (req, res) => {
 // 	if (req.session.user) {
