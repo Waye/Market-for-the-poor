@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/post");
 
 const PostSchema = new mongoose.Schema({
-    email: String,
+	userId: String,
+	userName: String,
     type: String,
 	date: Date,
 	title: String,

@@ -6,11 +6,13 @@ let filterResult = []
 
 $('#editBtn').click(displayEditForm);
 
+
 function displayEditForm() {
     const html = `
     <form class="editForm">
+    
         <div class="container">
-            <h1>Register</h1>
+            <h1>Edit</h1>
             <table>
             <tr><td>Email: 
             <td><input id="emailEdit" type="text" placeholder="Email"></td></tr>
@@ -18,7 +20,6 @@ function displayEditForm() {
             <td><input id="phoneEdit" type="text" placeholder="Phone"></td></tr>
             <tr><td>Password:</td>
             <td><input id="passwordEdit" type="text" placeholder="Enter Password"></td></tr>
-            
             <tr><td>Description:</td>
             <td><textarea id="descriptionEdit" type="text" placeholder="Description" rows="4" cols="30"></textarea></td></tr>
             </table>
@@ -32,27 +33,33 @@ function displayEditForm() {
 
 $('body').on('click', '#edit', editUserInfo)
 
+let isBuyer;
+
+function getProfileInfo(){
+    $.ajax({
+        type: "GET",
+        url: "/profile_info",
+        success: function (data) {
+            isBuyer = data.isBuyer;
+        }
+    })
+}
+
+
 function editUserInfo() {
     const email = $('#emailEdit').val()
     const password = $('#passwordEdit').val()
     const phone = $('#phoneEdit').val()
     const description = $('#descriptionEdit').val()
-    currentUser.email = email;
-    currentUser.password = password
-    currentUser.phone = phone
-    currentUser.description = description
     // console.log(description)
     // console.log(currentUser.description)
     $('#editFormContainer').html('')
 }
 
 function createPost(post) {
-    let detail
-
-    if (post.type === "request") {
-        detail = '/detail/buyer'
-    } else if (post.type === "offer") {
-        detail = '/detail/seller'
+    const detail = '/detail/seller/' + post._id;
+    if (isBuyer) {
+        const detail = '/detail/buyer/' + post._id;
     }
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
@@ -157,8 +164,10 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function main() {
+    getProfileInfo();
     $.get("/get_posts").then(
     (result) => {
+        console.log(result);
         posts = result;
         filter('Total');
         console.log(posts);
@@ -166,4 +175,5 @@ function main() {
         createPagination(filterResult);    
     });
 }
+
 $(document).ready(main);
