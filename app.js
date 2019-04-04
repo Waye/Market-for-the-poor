@@ -323,6 +323,10 @@ app.patch('/messages/read', authenticate, (req, res) => {
 	})
 })
 
+app.get('/search', (req, res) => {
+    User.findOne({})
+})
+
 app.get('/feedpage', authenticate, (req, res) => {
 	let unread = countUnread(req.user)
     res.render('feedpage', {userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer});
@@ -339,8 +343,8 @@ app.route('/signup')
         const password = req.body.password;
         const isBuyer = req.body.isBuyer;
         // create new user to db
-        const queryCondition = {name: name, email: email}; // double check
-        User.findOne(queryCondition).exec()
+        const queryCondition = {$or: [{name: name}, {email: email}]}; // double check
+        User.find(queryCondition).exec()
             .then((result) => {
                 if (!result) { // Not found then sign up
                     const newUser = new User({
@@ -597,11 +601,18 @@ app.get('/get_posts', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    // Post.find({ email: req.session.user.email }).exec()
-    // .then((result) => {
-    // 	res.send(result);
-    // })
-});
+    let searchKey = new RegExp(req.body.keyword, 'i')
+    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
+        console.log(result)
+        if (result) {
+            res.send(result)
+        } else {
+            res.status(404).send()
+        }
+    }).catch((error) => {
+        res.status(500).send()
+    })
+})
 
 app.post('/posts', (req, res) => {
 	const newPost = new Post({

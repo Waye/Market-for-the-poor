@@ -17,7 +17,7 @@ $(document).ready(function() {
         renderInboxOrSent(inboxFirstMsgFinder, true)
         // modifyNavMsgNum()
     }).catch((error) => {
-        alert("Server error Please try again later"")
+        alert("Server error Please try again later")
     })
 })
 
@@ -48,7 +48,7 @@ function displaySentSection() {
         $('#sent').addClass('active')
         fillSelectedIcon('#sent path')
     }).catch((error) => {
-        alert("Server Error Please try again later"")
+        alert("Server Error Please try again later")
     })
 }
 
