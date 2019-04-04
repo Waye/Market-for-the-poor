@@ -25,6 +25,7 @@ function displayEditForm() {
             </table>
             <div id="editButtonContainer">
             <button id="edit" type="button" class="btn btn-success ml-auto">Edit</button>
+            <button id="close" type="button" class="btn btn-primary mr-auto">close</button>
             </div>
         </div>
     </form>`
