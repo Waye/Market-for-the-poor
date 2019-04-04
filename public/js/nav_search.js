@@ -48,7 +48,8 @@ $("#topNav").on('keydown', '#searchInput', function(e){
                     $('#searchrResultModal').modal('show');
                 },
                 error: function(result) {
-                    $("#topNav").after(`
+                    if (result.status == '404') {
+                        $("#topNav").after(`
                         <div class="modal" id="searchrResultModal" tabindex="-1" role="dialog" data-focus=false>
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -58,7 +59,11 @@ $("#topNav").on('keydown', '#searchInput', function(e){
                                 </div>
                             </div>
                         </div>`)
-                    $('#searchInput').val('')
+                        $('#searchInput').val('')
+                    } else {
+                        alert('There is problem with server. Please try again later.')
+                    }
+                    
                 }
             })
         }
