@@ -4,7 +4,7 @@ console.log("messages.js") // log to the JavaScript console.
 
 // get request to server to get current user's messages
 // const messages = currentUser.messages;
-const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
+const dataFormat = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'};
 let messages = []
 let currentUser = null
 
@@ -15,7 +15,7 @@ $(document).ready(function() {
     getUpdatedMessage().then(result => {
         currentUser = result.email
         renderInboxOrSent(inboxFirstMsgFinder, true)
-        modifyNavMsgNum()
+        // modifyNavMsgNum()
     }).catch((error) => {
         console.log("Error occurred")
     })
@@ -324,7 +324,8 @@ function renderMsgDetail(targetUser) {
 
     for (let i = len - 1; i >= 0; i--) {
         let m = conversation[i]
-        // let date = m.date.toLocaleDateString("en-US", dataFormat)
+        m.date = new Date(m.date)
+        let date = m.date.toLocaleDateString("en-US", dataFormat)
         let svg = null
         // console.log(m.isStarred)
         if (m.isStarred) {
@@ -341,7 +342,7 @@ function renderMsgDetail(targetUser) {
             <div2 class="card-body">
                 <ul class="list-inline m-0 d-flex">
                     <li class="list-inline-item"><img class="rounded-circle list-inline-item mb-3 avatar" src="/img/avatar_placeholder.png"></li>
-                    <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${m.date}</p></li>
+                    <li class="list-inline-item"><p class="m-0"><strong>${m.from}</strong></p><p class="m-0">${date}</p></li>
                     <li class="ml-auto">
                         <a class="msgToStar active ml-3">
                             ${svg}</a>

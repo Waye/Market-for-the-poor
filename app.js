@@ -105,10 +105,12 @@ app.route('/login')
 		console.log('user');
 		User.findByEmailPassword(email, password).then(
 		(user) => {
+			console.log(user)
 			req.session.user = user;
 			res.redirect('/feedpage')
 		}, 
 		(reject) => {
+			console.log(reject)
 			res.status(400).redirect('/login')
 		})
 	}).catch((error) => {
@@ -225,7 +227,8 @@ app.get('/messages/updated', authenticate, (req, res) => {
 app.get('/messages', authenticate, (req, res) => {
     let starredNum = 0;
     let inboxNum = 0;
-    let sentNum = 0;
+	let sentNum = 0;
+	let unread = 0;
     for (let msg of req.user.messages) {
         if (msg.from == req.user.email) {
             sentNum++
@@ -234,10 +237,13 @@ app.get('/messages', authenticate, (req, res) => {
 		}
 		if (msg.isStarred) {
             starredNum++
-        } 
+		} 
+		if (!msg.isRead && msg.to == req.user) {
+			unread++
+		}
     }
     res.render('messages', {
-        userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer,
+        userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer,
         inboxNum: inboxNum, sentNum: sentNum, starredNum: starredNum
     })
 }, (error) => {
@@ -305,11 +311,9 @@ app.patch('/messages/read', authenticate, (req, res) => {
 			msg.isRead = true
 		}
 	}
-	console.log(req.user._id)
-	console.log(req.user.email)
-	console.log(req.to)
 	User.findOneAndUpdate({_id: req.user._id, email: req.body.to}, {$set: {messages: req.user.messages}}, {new: true})
 	.then((user) => {
+		// req.user = user
 		res.send(user.messages)
 	}).catch((error) => {
 		res.status(500).send(error)
@@ -317,7 +321,9 @@ app.patch('/messages/read', authenticate, (req, res) => {
 })
 
 app.get('/feedpage', authenticate, (req, res) => {
-    res.render('feedpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
+	let unread = countUnread(req.user)
+	console.log(unread)
+    res.render('feedpage', {userName: req.user.name, msgCount: unread, isBuyer: req.user.isBuyer});
 });
 
 app.route('/signup')
@@ -372,9 +378,7 @@ app.route('/signup')
                 res.send(err);
             })
     });
-app.get('/messages', (req, res) => {
-	res.render('messages', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, inboxNum: 3, sentNum: 2, starredNum: 1});
-});
+
 app.get('/orders', (req, res) => {
     res.render('orderpage');
 });
@@ -457,9 +461,10 @@ app.get('/profile', authenticate, (req, res) => {
             });
         });
     }).then((rList) => {
+		let unread = countUnread(user)
         res.render('profile', {
             userName: user.name,
-            msgCount: user.messages.length,
+            msgCount: unread,
             isBuyer: user.isBuyer,
             userImg: "/img/profile-image.jpg",
             userEmail: user.email,
@@ -613,3 +618,13 @@ app.listen(port, (err) => {
         console.log('Listening on port 3000...')
     }
 });
+
+function countUnread(user) {
+	let unread = 0
+	for (let msg of user.messages) {
+		if (!msg.isRead && msg.to == user.email) {
+			unread++
+		}
+	}
+	return unread
+}

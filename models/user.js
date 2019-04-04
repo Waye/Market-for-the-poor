@@ -50,6 +50,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
 		email: email
 	}).then((user) => {
 		if (!user) {
+			console.log('not user')
 			return Promise.reject()
 		}
 
@@ -58,6 +59,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
 				if (result) {
 					resolve(user);
 				} else {
+					console.log('fail password')
 					reject();
 				}
 			})
