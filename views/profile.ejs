@@ -3,36 +3,41 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Profile | Market for the poor</title>
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/profile.css">
+    <%- include('./partials/head') %>
 
 </head>
 
 <body>
-    <!--navigation bar-->
-    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <%- include('./partials/topnavbar', {userName: userName, msgCount: msgCount, isBuyer: isBuyer}) %>    
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
-
-
 
     <div class="container-fluid" id="profile-all">
         <div class="row">
             <!--profile part-->
             <div class="col-md-3">
                 <div class="card shadow">
-                    <img class="card-img-top" id="profileImage">
+                    <img class="card-img-top" id="profileImage" src="<%= userImg %>">
                     <div class="card-body" id="profile-card-body">
-                        <h5 class="card-title" id="userName"></h5>
+                        <h5 class="card-title" id="userName"><%= userName %></h5>
                         <ul class="list-group ">
-                            <li class="list-group-item" id="email"></li>
-                            <li class="list-group-item" id="phone"></li>
-                            <li class="list-group-item" id="status"></li>
-                            <li class="list-group-item" id="buyerOrSeller"></li>
-                            <li class="list-group-item" id="userDescription"></li>
+                            <li class="list-group-item" id="email"><%= userEmail %></li>
+                            <li class="list-group-item" id="phone"><%= userPhone %></li>
+                            <% if (isBanned) { %>
+                                <li class="list-group-item text-danger" id="status">Banned</li>
+                            <% } else { %>
+                                <li class="list-group-item text-success" id="status">Active</li>                                
+                            <% } %>
+                            </li>
+                            <% if (isBuyer) { %>
+                                <li class="list-group-item text-primary" id="buyerOrSeller">Buyer</li>
+                            <% } else { %>
+                                <li class="list-group-item text-primary" id="buyerOrSeller">Seller</li>                                
+                            <% } %>
+                            </li>
+                            <li class="list-group-item" id="userDescription"><%= userDescription %></li>
                         </ul>
                         <!-- <p class="card-text" id="userDescription"></p> -->
                         <button type="button" class="btn btn-primary mt-3" id="editBtn">Edit/Change Password</button>
@@ -49,7 +54,6 @@
                     <h3>My posts</h3>
                 </div>
                 <div class="container-fluid">
-
                     <!--Nav bar-->
                     <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
 
@@ -60,32 +64,33 @@
                             <!-- Links -->
                             <ul class="navbar-nav mr-auto" id="filter-apply-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link text-info" id="Total">Total</a>
+                                    <a class="nav-link text-info" id="Total">Total <%=total%></a>
 
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="food">food</a>
+                                    <a class="nav-link" id="food">food <%=numberFood%></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="electronics">electronics</a>
+                                    <a class="nav-link" id="electronics">electronics <%=numberElectronics%></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="clothing">clothing</a>
+                                    <a class="nav-link" id="clothing">clothing <%=numberClothing%></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="furniture">furniture</a>
+                                    <a class="nav-link" id="furniture">furniture <%=numberFurniture%></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="tools">tools</a>
+                                    <a class="nav-link" id="tools">tools <%=numberTools%></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-waring" id="other">other</a>
+                                    <a class="nav-link text-waring" id="other">other <%=numberOther%></a>
                                 </li>
 
                             </ul>
 
                         </div>
                     </nav>
+
 
                     <!--Section: Product display-->
                     <section class="text-center mb-4 " id="post-TwoRow">
@@ -103,48 +108,18 @@
 
                 </div>
 
-
             </div>
 
 
 
         </div>
-        <!--Footer-->
-        <footer class="page-footer text-center font-small mt-4  fadeIn bg-light shadow">
-
-            <!--Call to action-->
-            <div class="pt-4">
-                <a class="btn btn-outline-white" href="" target="_blank" role="button">OurGithub
-                    <i class="fas fa-download ml-2"></i>
-                </a>
-                <a class="btn btn-outline-white" href="" target="_blank" role="button">About this people
-                    <i class="fas fa-graduation-cap ml-2"></i>
-                </a>
-            </div>
-            <!--/.Call to action-->
-
-            <hr class="my-4">
-
-            <!-- Social icons -->
-            <div class="pb-4">
-
-
-            </div>
-            <!-- Social icons -->
-
-
-
-
-        </footer>
         <div id="editFormContainer">
         </div>
     </div>
-
-
-    <% include ./partials/importScript %>
-    <script type="text/javascript" src="/js/nav_buyer.js"></script>
-    <script type="text/javascript" src="/js/profile.js"></script>
+    <%- include('./partials/importScript') %>
+    <script type="text/javascript" src="/js/nav_search.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
+    <script type="text/javascript" src="/js/profile.js"></script>
 </body>
 
 </html>

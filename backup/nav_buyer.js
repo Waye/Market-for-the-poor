@@ -1,5 +1,5 @@
 "use strict";
-console.log("nav_seller.js")  // log to the JavaScript console.
+console.log("nav_buyer.js")  // log to the JavaScript console.
 
 const currentUser = getUser();
 
@@ -13,17 +13,16 @@ function getPost() {
 
 function getUser() {
     let mockUser = {
-        name: "User2",
-        password: "seller",
-        email: "seller@gmail.com",
-        phone: "4168888888",
+        name: "User1",
+        password: "buyer",
+        email: "buyer@gmail.com",
+        phone: "4166666666",
         orderInfo: {
-            twoMonthTotal : 48300,
-            activeNum : 2,
-            finishedNum : 21,
+            activeNum : 0,
+            finishedNum : 3,
             postedNum : 4
         },
-        // unreadNum: 3,
+        // unreadNum: 5,
         messages: [
             {
                 from: 'User2',
@@ -31,7 +30,7 @@ function getUser() {
                 title: 'Offer Question',
                 content: 'Hey, Could you give me some explanation on what is included in the frozen vegetables in your offer? Thank you!',
                 date: new Date(2019, 1, 11),
-                isRead: false,
+                isRead: true,
                 isStarred: true
             }, 
             {
@@ -40,20 +39,20 @@ function getUser() {
                 title: 'Answer To Question',
                 content: 'Hey, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
                 date: new Date(2019, 1, 12),
-                isRead: false,
+                isRead: true,
                 isStarred: false
             }, 
             {
                 from: 'User3',
-                to: 'User2',
+                to: 'User1',
                 title: 'Regarding the Offer',
                 content: 'Hello, I was wondering if you could give me some explanation on what is included in the frozen vegetables in your offer. Thank you!',
                 date: new Date(2019, 2, 11),
-                isRead: true,
+                isRead: false,
                 isStarred: false
             },
             {
-                from: 'User2',
+                from: 'User1',
                 to: 'User3',
                 title: 'Response',
                 content: 'Hello, it includes broccoli, lettuce, sliced tomato, sliced potato, and green beans. Let me know if you are interested.',
@@ -64,303 +63,434 @@ function getUser() {
         ],
         posts: [
             {
-                id: 31,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
+                id: 1,
+                title: "Canned soup",
+                type: "request",
                 category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "/img/clif.jpg",
+                quantity: "20 unit",
+                price: 89,
+                userName: "User1",
+                date: new Date(2018, 11, 10),
+                dueDate: new Date(2018, 12, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "/img/canned_soup.jpg",
+                isCompleted:true
 
+            }, 
+            {
+                id: 2,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 32,
-                title: "Nestea Lemon, Pack of 12 cans",
-                type: "offer",
+                id: 3,
+                title: "Frozen vegetables",
+                type: "request",
                 category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg",
-
+                quantity: "10 kg",
+                price: 100,
+                userName: "User1",
+                date: new Date(2019, 0, 9),
+                dueDate: new Date(2019, 1, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "/img/frozen_veg.png",
+                isCompleted:true
             },
             {
-                id: 33,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "/img/crocs.jpg",
-
+                id: 4,
+                title: "Android tablet (used or new)",
+                type: "request",
+                category: "electronics",
+                quantity: "2 unit",
+                price: 199,
+                userName: "User1",
+                date: new Date(2019, 1, 10),
+                dueDate: new Date(2019, 3, 1),
+                description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
+                image: "/img/tablet.jpg",
+                isCompleted:true
             },
             {
-                id: 34,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "/img/shirt.jpeg",
-
+                id: 5,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 35,
-                title: "Nestea Lemon, Pack of 12 cans",
-                type: "offer",
+                id: 6,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 7,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 8,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 9,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: true
+            },
+            {
+                id: 10,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 11,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 12,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: true
+            },
+            {
+                id: 13,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 14,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: true
+            },
+            {
+                id: 15,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 16,
+                title: "Canned soup",
+                type: "request",
                 category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg",
+                quantity: "20 unit",
+                price: 89,
+                userName: "User1",
+                date: new Date(2018, 11, 10),
+                dueDate: new Date(2018, 12, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "/img/canned_soup.jpg",
+                isCompleted:true
 
             },
             {
-                id: 36,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
+                id: 17,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },
+            {
+                id: 18,
+                title: "Frozen vegetables",
+                type: "request",
                 category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "/img/clif.jpg",
-
+                quantity: "10 kg",
+                price: 100,
+                userName: "User1",
+                date: new Date(2019, 0, 9),
+                dueDate: new Date(2019, 1, 30),
+                description: "Mix of 10 kinds of vegetables. Frozen and packaged safely. Easy to Cook while good in taste. Initial request of 10kg is made. After first purchase, we are willing to make ongoing, continuous orders if the quality of the product is approved.",
+                image: "/img/frozen_veg.png",
+                isCompleted:true
             },
             {
-                id: 37,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "/img/shirt.jpeg",
-
+                id: 19,
+                title: "Android tablet (used or new)",
+                type: "request",
+                category: "electronics",
+                quantity: "2 unit",
+                price: 199,
+                userName: "User1",
+                date: new Date(2019, 1, 10),
+                dueDate: new Date(2019, 3, 1),
+                description: "We plan to upgrade to paperless workflow. Our reception desk need 2 basic Android tablet to access our database and deal with visitors.",
+                image: "/img/tablet.jpg",
+                isCompleted:true
             },
             {
-                id: 38,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "/img/crocs.jpg",
-
+                id: 20,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 39,
-                title: "Nestea Lemon, Pack of 12 cans",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg",
-
+                id: 21,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 40,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
-                category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "/img/clif.jpg",
-
+                id: 22,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 41,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "/img/crocs.jpg",
-
+                id: 23,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 42,
-                title: "Nestea Lemon, Pack of 12 cnas",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg"
+                id: 24,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 43,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "/img/shirt.jpeg",
-
+                id: 25,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 44,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
-                category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "/img/clif.jpg",
-
+                id: 26,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 45,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "/img/crocs.jpg",
-
+                id: 27,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 28,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            },{
+                id: 29,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
             },
             {
-                id: 46,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "/img/shirt.jpeg",
+                id: 30,
+                title: "Basic desk lamp",
+                type: "request",
+                category: "tools",
+                quantity: "8 unit",
+                price: 80,
+                userName: "User1",
+                date: new Date(2018, 11, 23),
+                dueDate: new Date(2019, 0, 10),
+                description: "Our office is in need of desk lamp. ",
+                image: "/img/lamp.jpg",
+                isCompleted: false
+            }
 
-            },
-            {
-                id: 47,
-                title: "Nestea Lemon, Pack of 12 cnas",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg",
 
-            },
-            {
-                id: 48,
-                title: "CLIF Energy Bar, Chocolate Brownie flavour",
-                type: "offer",
-                category: "food",
-                quantity: "12 count",
-                price: 5.99,
-                userName: "User2",
-                date: new Date(2018, 11, 24),
-                dueDate: null,
-                description: "Good Source of Protein and Fibre (contains 5g total fat), Non-GMO, 70% Organic Ingredients, Each Clif Bar is purposefully crafted for Feed Your Adventure. With 23 Vitamins and Minerals. No artificial sweeteners, colours, or preservatives.",
-                image: "/img/clif.jpg",
 
-            },
-            {
-                id: 49,
-                title: "Crocs Clog",
-                type: "offer",
-                category: "clothing",
-                quantity: "20 count",
-                price: 200,
-                userName: "User2",
-                date: new Date(2019, 0, 3),
-                dueDate: null,
-                description: "Incredibly light and fun to wear, Pivoting heel straps for a more secure fit, Iconic Crocs Comfort: lightweight, flexible, 360-degree comfort, Ventilation ports add breathability and help shed water and debris, Water-friendly and buoyant; weighs only ounces, Odor-resistant, easy to clean, quick to dry",
-                image: "/img/crocs.jpg",
 
-            },
-            {
-                id: 50,
-                title: "Affordable Mens Sweatshirt",
-                type: "offer",
-                category: "clothing",
-                quantity: "30 count",
-                price: 270,
-                userName: "User2",
-                date: new Date(2019, 1, 12),
-                dueDate: null,
-                description: "Good quality mens sweatshirt.",
-                image: "/img/shirt.jpeg",
-
-            },
-            {
-                id: 51,
-                title: "Nestea Lemon, Pack of 12 cnas",
-                type: "offer",
-                category: "food",
-                quantity: "5 packs",
-                price: 30,
-                userName: "User2",
-                date: new Date(2018, 11, 9),
-                dueDate: null,
-                description: "A refreshing, preservative-free blend made with real tea and natural lemon flavour.",
-                image: "/img/nestea.jpg",
-
-            },
         ],
         isBanned: false,
-        isBuyer: false,
-        avatar: "/img/avatar_placeholder.png",
-        description: "End hunger in our city."
+        isBuyer: true,
+        avatar: "/img/profile-image.jpg",
+        description: "Somewhere Over The Rainbow"
     };
     return mockUser;
 }
@@ -371,21 +501,21 @@ function getSearchResult() {
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
 
         <div class="row mt-2 mb-2 border-bottom result">
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>
         
         <div class="row mt-2 mb-2 border-bottom result">
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="/img/nestea.jpg"></div>
         <div class="col-9">
             <h5><a href="/detail/buyer">Nestea Lemon, Pack of 12 cans</a> <small>5 packs</small></h5>
-            <p><a href="/profile/buyer">User2</a> posted on <span>Dec 9, 2018</span></p>
+            <p><a href="/profile">User2</a> posted on <span>Dec 9, 2018</span></p>
         </div></div>`;
 }
 
@@ -393,7 +523,7 @@ function addNavContent(user) {
     // Logo and home page redirect
     const logoLink = document.createElement("a");
     logoLink.className += "navbar-brand";
-    logoLink.setAttribute("href", "/feedpage/seller");
+    logoLink.setAttribute("href", "/feedpage/buyer");
     const svgFillColor = "#17a2b8";
     logoLink.innerHTML = `<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns:dc="http://purl.org/dc/elements/1.1/"
        xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -428,7 +558,7 @@ function addNavContent(user) {
     searchTextbox.className += "form-control mr-sm-2";
     searchTextbox.setAttribute("type", "text");
     searchTextbox.setAttribute("placeholder", "Search");
-    
+
     searchTextbox.setAttribute("id", "searchInput");
     $("#topNav").after(`<div class="modal" id="searchrResultModal" tabindex="-1" role="dialog" data-focus=false>
         <div class="modal-dialog" role="document">
@@ -443,18 +573,16 @@ function addNavContent(user) {
     })
     $("#topNav").on('keypress', '#searchInput',function(){
         console.log("pressed")
-        const inputPos = $("input").position();
-        console.log("Top: " + inputPos.top + " Left: " + inputPos.left);
-        // $('#searchrResultModal').attr("top", `"calc(${x.top}px + 20px)"`);
-        // $('#searchrResultModal').attr("left", `"calc(${x.left}px)"`);
-        $("#searchrResultModal").css({top: inputPos.top + 20, left: 20});
         $('#searchrResultModal').modal('show');
     });
 
     // const searchBtn = document.createElement("button");
     // searchBtn.className += "btn btn-light d-md-none";
     // searchBtn.setAttribute("type", "submit");
-    // searchBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"fill="#6c757d"/></svg>`;
+    // searchBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        // <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            // fill="#6c757d"/>
+    // </svg>`;
     searchInput.appendChild(searchTextbox);
     // searchInput.appendChild(searchBtn);
     $("#topNav").append(searchInput);
@@ -491,7 +619,7 @@ function addNavContent(user) {
     profileBtn.className += "nav-item ml-2";
     const profileBtnLink = document.createElement("a");
     profileBtnLink.className += "btn nav-link btn-info";
-    profileBtnLink.setAttribute("href", "/profile/seller");
+    profileBtnLink.setAttribute("href", "/profile");
     profileBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const profileBtnSpan = document.createElement("span")
     profileBtnSpan.className += "d-none d-md-block";
@@ -507,7 +635,7 @@ function addNavContent(user) {
     msgBtn.className += "nav-item ml-2";
     const msgBtnLink = document.createElement("a");
     msgBtnLink.className += "btn nav-link btn-info";
-    msgBtnLink.setAttribute("href", "/messages/seller");
+    msgBtnLink.setAttribute("href", "/messages");
     msgBtnLink.innerHTML = `<svg class="d-md-none d-sm-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>`;
     const msgBtnSpan = document.createElement("span")
     msgBtnSpan.className += "d-none d-md-block";

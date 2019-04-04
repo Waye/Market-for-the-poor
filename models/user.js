@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const validator = require('validator')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 const MessageSchema = new mongoose.Schema({
-	time: Date,
 	to: String,
 	from: String,
-	content: String
+	content: String,
+	isStarred: Boolean,
+	date: Date,
+	title: String
 });
 
 const UserSchema = new mongoose.Schema({

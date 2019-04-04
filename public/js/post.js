@@ -35,7 +35,7 @@ function displayUploadPreview() {
 }
 
 const postPopupElement = `
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-lg shadow" role="document">
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Post Detail</h5>
@@ -72,23 +72,23 @@ const postPopupElement = `
                     </tr>
                     <tr>
                         <td>Title:</td>
-                        <td><input id="title" type="text"></td>
+                        <td><input class="form-control" id="title" type="text"></td>
                     </tr>
                     <tr>
                         <td>Quantity:</td>
-                        <td><input id="quantity" type="text"></td>
+                        <td><input class="form-control" id="quantity" type="text"></td>
                     </tr>
                     <tr>
                         <td>Needed Before:</td>
-                        <td><input id="dueDate" type="date" min="1900-01-01" max="9999-12-31"></td>
+                        <td><input class="form-control" id="dueDate" type="date" min="1900-01-01" max="9999-12-31"></td>
                     </tr>
                     <tr>
                         <td>Price: </td>
-                        <td><input id="price" type="text" placeholder="0 if donate"></td>
+                        <td><input class="form-control" id="price" type="text" placeholder="0 if donate"></td>
                     </tr>
                     <tr>
                         <td>Description:</td>
-                        <td><textarea id="description" rows="5" cols="30"></textarea></td>
+                        <td><textarea class="form-control" id="description" rows="5" cols="30"></textarea></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -122,14 +122,8 @@ const Post_post = function (id, date, title, userName, description, price, quant
     this.type = type;
 }
 
-
-$(document).ready(function () {
-    renderCategory()
-
-})
-
 function renderCategory() {
-    let html = ''
+    let html = '';
     for (let c of category) {
         html = html + `<li><a class="dropdown-item" role="presentation">${c}</a></li>`
     }
@@ -147,33 +141,49 @@ function removeAll() {
 }
 
 $('#close').click(removeAll);
-$('#submit').click(getInputData);
+$('#submit').click(submitData);
 
-function getInputData(e) {
+function submitData(e) {
     // get request to server to get currentUser
-    let id = currentUser.posts.length.toString(10);
-    const prependZeroNum = 4 - id.length;
-    for (let i = 0; i < prependZeroNum; i++) {
-        id = "0" + id;
-    }
-    const date = new Date()
+    // let id = currentUser.posts.length.toString(10);
+    // const prependZeroNum = 4 - id.length;
+    // for (let i = 0; i < prependZeroNum; i++) {
+    //     id = "0" + id;
+    // }
+    // const date = new Date()
     const title = $('#title').val()
-    const userName = currentUser.name
+    // const userName = currentUser.name
     const description = $('#description').val()
     const price = $('#price').val()
     const quantity = $('#quantity').val()
     const image = ''
     const dueDate = $('#dueDate').val()
-    const type = (currentUser.isBuyer ? "request" : "offer")
-    const category = $('#categoryCurrentSelection')[0].innerHTML
-    const newPost = new Post_post(id, date, title, userName, description, price, quantity, image, dueDate, type, category)
-    
-    // send new post data to backend and save to database
-    currentUser.posts.push(currentUser.posts)
-    console.log(newPost)
+    // const type = (currentUser.isBuyer ? "request" : "offer")
+    const category = $('#categoryCurrentSelection')[0].innerHTML;
+    // const newPost = new Post_post(id, date, title, userName, description, price, quantity, image, dueDate, type, category)
 
+    // send new post data to backend and save to database
+    // currentUser.posts.push(currentUser.posts)
+
+    console.log(title, description, price, quantity, image, dueDate, category);
+    // const newPost = new Post_post(id, date, title, userName, description, price, quantity, image, dueDate, type, category)
+    $.post("/posts", {
+        title: title,
+        description: description,
+        price: price,
+        quantity: quantity,
+        image: image,
+        dueDate: dueDate,
+        category: category
+    },
+    (data, status) => {
+        console.log("Receive: " + data + "\nStatus: " + status);
+    });
     $('#modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-
 }
+
+$(document).ready(function () {
+    renderCategory();
+})

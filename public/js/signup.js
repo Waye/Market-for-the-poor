@@ -1,6 +1,3 @@
-// let newUser = null;
-
-
 $('.dropdown-item').click(function() {
     const type = $(this).text()
     $('#dropdownSelection').html(type)
@@ -51,29 +48,24 @@ function register() {
         displayMsg('Please select "Register as".')
         return
     }
-    console.log('User created!')
+    console.log('User created:', newUser);
 
     $.ajax({
         type: "POST",
         url: "/signup",
         data: newUser,
         success: function (result) {
-            if (result) {
-                window.location.href = '/feedpage/seller';
+            if (result == "/login") {
+                alert('The user information alreay exists')
+                window.location.href = result;
+            } else if (result) {
+                window.location.href = result;
             } else {
-                console.log("Failed!")
+                alert('Problem with server. Please try again later')
             }
         }
-    })
+    });
 }
-//     const html = `Registration successful.<br>
-//     User Name: ${newUser.userName}<br>
-//     Email: ${newUser.email}<br>
-//     Password: ${newUser.password}<br>
-//     Registerd as: ${newUser.userType}`
-
-//     displayMsg(html)
-// }
 
 // error message for registration 
 function displayMsg(msg) {
@@ -88,54 +80,54 @@ function displayMsg(msg) {
 }
 
 
-function renderNewRegistration() {
-    const html = `
-    <form>
-        <div class="container">
-            <h1>Register</h1>
+// function renderNewRegistration() {
+//     const html = `
+//     <form>
+//         <div class="container">
+//             <h1>Register</h1>
 
-            <div>
-                <label for="userName"><b>Username</b></label>
-                <input id="userName" type="text" placeholder="Enter Username">
-            </div>
+//             <div>
+//                 <label for="userName"><b>Username</b></label>
+//                 <input id="userName" type="text" placeholder="Enter Username">
+//             </div>
 
-            <div>
-                <label for="email"><b>Email</b></label>
-                <input id="email" type="text" placeholder="Email">
-            </div>
+//             <div>
+//                 <label for="email"><b>Email</b></label>
+//                 <input id="email" type="text" placeholder="Email">
+//             </div>
 
-            <div>
-                <label for="phone"><b>Phone</b></label>
-                <input id="phone" type="text" placeholder="phone">
-            </div>
+//             <div>
+//                 <label for="phone"><b>Phone</b></label>
+//                 <input id="phone" type="text" placeholder="phone">
+//             </div>
 
-            <div>
-                <label for="password"><b>Password</b></label>
-                <input id="password" type="text" placeholder="Enter Password" >
-            </div>
+//             <div>
+//                 <label for="password"><b>Password</b></label>
+//                 <input id="password" type="text" placeholder="Enter Password" >
+//             </div>
 
-            <div>
-                <label for="rpassword"><b>Repeat Password</b></label>
-                <input id="rpassword" type="text" placeholder="Repeat Password">
-            </div>
+//             <div>
+//                 <label for="rpassword"><b>Repeat Password</b></label>
+//                 <input id="rpassword" type="text" placeholder="Repeat Password">
+//             </div>
 
-            <div class="dropdown">
-                <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle"
-                    data-toggle="dropdown">Register as</button>
-                <span class="dropdown-menu" >
-                    <a class="dropdown-item">Buyer</a>
-                    <a class="dropdown-item">Seller</a>
-                    <a class="dropdown-item">Admin</a>
-                </span>
-            </div>
+//             <div class="dropdown">
+//                 <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle"
+//                     data-toggle="dropdown">Register as</button>
+//                 <span class="dropdown-menu" >
+//                     <a class="dropdown-item">Buyer</a>
+//                     <a class="dropdown-item">Seller</a>
+//                     <a class="dropdown-item">Admin</a>
+//                 </span>
+//             </div>
 
-            <div>
-                <button id="register" type="button" class="btn btn-success">Register</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-            </div>
-        </div>
-    </form>`
-    $('#mainContainer').html(html)
-}
+//             <div>
+//                 <button id="register" type="button" class="btn btn-success">Register</button>
+//                 <label>
+//                     <input type="checkbox" checked="checked" name="remember"> Remember me
+//                 </label>
+//             </div>
+//         </div>
+//     </form>`
+//     $('#mainContainer').html(html)
+// }
