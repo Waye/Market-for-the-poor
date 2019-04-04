@@ -93,9 +93,27 @@ app.get('/', (req, res) => {
 app.get('/admin', (req, res) => {
 	res.render('admin');
 })
-app.get('/feedpage/seller', (req, res) => {
+app.get('/feedpage/seller/:id', (req, res) => {
 	res.render('feedpage_seller');
 })
+
+app.get('/restaurants/:id', (req, res) => {
+	const id = req.params.id;
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+	Restaurant.findById(id).then((restaurant) => {
+		if(!restaurant) {
+			res.status(404).send();
+		}
+		else {
+			res.send({ restaurant });
+		}
+	}, (error) => {
+		res.status(400).send(error)
+	})
+})
+
 app.get('/feedpage/buyer', (req, res) => {
 	res.render('feedpage_buyer');	
 })
@@ -156,7 +174,35 @@ app.get('/orders/buyer', (req, res) => {
 	res.render('orderpage_buyer');
 })
 app.get('/detail/seller', (req, res) => {
-	res.render('product_detail_seller');
+	const id = req.params.id;
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+	var Post = db.model('Post',PostSchema);
+	Post.findById(id).then((post) => {
+		if(!post) {
+			res.status(404).send();
+		}
+		else {
+			res.send({ post });
+		}
+	}, (error) => {
+		res.status(400).send(error)
+	})
+	res.render('product_detail_seller', {
+		name: post.name,
+		type: post.type,
+		date: post.date,
+		title: post.title,
+		description: post.description,
+		quantity: post.quantity,
+		price: post.price,
+		image: post.image,
+		completed: post.completed,
+		dueDate: post.dueDate,
+		category: post.category
+	});
+
 })
 app.get('/detail/buyer', (req, res) => {
 	res.render('product_detail_buyer');
