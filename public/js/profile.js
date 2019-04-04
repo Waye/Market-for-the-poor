@@ -50,12 +50,6 @@ function editUserInfo() {
 
 function createPost(post) {
     const detail = '/detail/' + post._id;
-
-    // if (post.type === "request") {
-    //     detail = '/detail/buyer'
-    // } else if (post.type === "offer") {
-    //     detail = '/detail/seller'
-    // }
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
         <div class="card shadow postCard" >
@@ -161,6 +155,7 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 function main() {
     $.get("/get_posts").then(
     (result) => {
+        console.log(result);
         posts = result;
         filter('Total');
         console.log(posts);

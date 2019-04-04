@@ -501,7 +501,7 @@ app.get('/get_feeds', (req, res) => {
 })
 
 app.get('/get_posts', (req, res) => {
-	Post.find({ email: req.session.user.email }).exec()
+	Post.find({ userId: req.session.user._id }).exec()
 	.then((result) => {
 		res.send(result);
 	})
