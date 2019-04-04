@@ -135,6 +135,12 @@ app.post('/admin_init', (req, res) => {
     })
 })
 
+app.get('/feedpage/seller', (req, res) => {
+	res.render('feedpage_seller');
+})
+
+app.get('/feedpage/buyer', (req, res) => {
+	res.render('feedpage_buyer');	
 
 app.get('/adminpage', (req, res) => {
     //return admin and users and posts
@@ -161,6 +167,7 @@ app.get('/adminpage/info', (req, res) => {
         console.log(error)
         res.status(500)
     })
+
 })
 
 app.patch('/adminpage/ban_user', (req, res) => {
@@ -387,6 +394,35 @@ app.get('/orders/buyer', (req, res) => {
     res.render('orderpage_buyer');
 })
 app.get('/detail/seller', (req, res) => {
+	const id = req.params.id;
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+	var Post = db.model('Post',PostSchema);
+	Post.findById(id).then((post) => {
+		if(!post) {
+			res.status(404).send();
+		}
+		else {
+			res.send({ post });
+		}
+	}, (error) => {
+		res.status(400).send(error)
+	})
+	res.render('product_detail_seller', {
+		name: post.name,
+		type: post.type,
+		date: post.date,
+		title: post.title,
+		description: post.description,
+		quantity: post.quantity,
+		price: post.price,
+		image: post.image,
+		completed: post.completed,
+		dueDate: post.dueDate,
+		category: post.category
+	});
+  
     res.render('product_detail_seller');
 })
 app.get('/detail/buyer', (req, res) => {
