@@ -135,14 +135,6 @@ app.post('/admin_init', (req, res) => {
     })
 })
 
-app.get('/feedpage/seller', (req, res) => {
-	res.render('feedpage_seller');
-})
-
-app.get('/feedpage/buyer', (req, res) => {
-    res.render('feedpage_buyer');
-})
-
 app.get('/adminpage', (req, res) => {
     //return admin and users and posts
     console.log('adminpage rendering')
@@ -321,17 +313,9 @@ app.delete('/messages/delete', authenticate, (req, res) => {
 // })
 
 
-
-
-// app.get('/feedpage', (req, res) => {
-// 	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
-// })
-
-
 app.get('/feedpage', authenticate, (req, res) => {
     res.render('feedpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
 })
-
 
 app.route('/signup')
     .get(loginChecker, (req, res) => {
@@ -388,11 +372,8 @@ app.route('/signup')
 app.get('/messages', (req, res) => {
 	res.render('messages', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer, inboxNum: 3, sentNum: 2, starredNum: 1});
 })
-app.get('/orders/seller', (req, res) => {
-    res.render('orderpage_seller');
-})
-app.get('/orders/buyer', (req, res) => {
-    res.render('orderpage_buyer');
+app.get('/orders', (req, res) => {
+    res.render('orderpage');
 })
 app.get('/detail/seller', (req, res) => {
 	const id = req.params.id;
@@ -434,12 +415,12 @@ app.get('/profile', authenticate, (req, res) => {
     const user = req.user
     // const Posts=User.posts
 
-    Post.find({email: user.email, category: "food"}).exec().then((r1) => {
-        return Post.find({email: user.email, category: "electronics"}).exec().then((r2) => {
-            return Post.find({email: user.email, category: "clothing"}).exec().then((r3) => {
-                return Post.find({email: user.email, category: "furniture"}).exec().then((r4) => {
-                    return Post.find({email: user.email, category: "tool"}).exec().then((r5) => {
-                            return Post.find({email: user.email, category: "other"}).exec().then((r6) => {
+    Post.find({userId: user._id, category: "food"}).exec().then((r1) => {
+        return Post.find({userId: user._id, category: "electronics"}).exec().then((r2) => {
+            return Post.find({userId: user._id, category: "clothing"}).exec().then((r3) => {
+                return Post.find({userId: user._id, category: "furniture"}).exec().then((r4) => {
+                    return Post.find({userId: user._id, category: "tool"}).exec().then((r5) => {
+                            return Post.find({userId: user._id, category: "other"}).exec().then((r6) => {
                                 return [r1, r2, r3, r4, r5, r6];
                             })
                         }
