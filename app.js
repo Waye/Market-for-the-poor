@@ -227,13 +227,14 @@ app.get('/messages', authenticate, (req, res) => {
     let inboxNum = 0
     let sentNum = 0
     for (let msg of req.user.messages) {
-        if (msg.isStarred) {
-            starredNum++
-        } else if (msg.from == req.user.email) {
+        if (msg.from == req.user.email) {
             sentNum++
         } else {
             inboxNum++
-        }
+		}
+		if (msg.isStarred) {
+            starredNum++
+        } 
     }
     res.render('messages', {
         userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer,
@@ -244,14 +245,18 @@ app.get('/messages', authenticate, (req, res) => {
 })
 
 app.post('/messages/send_new', authenticate, (req, res) => {
-	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}).exec()
+	console.log(req.body.to)
+	User.findOneAndUpdate({email: req.body.to}, {$push: {messages: req.body}}, {new: true}).exec()
 	.then((targetUser) => {
+		console.log('here1')
+		console.log(targetUser)
 		if (!targetUser) {
 			return Promise.reject()
 		}
 		return User.findOneAndUpdate({email:req.user.email}, {$push: {messages: req.body}}, {new: true}).exec()
 	})
 	.then((user) => {
+		console.log('here2')
 		if (!user) {
 			res.status(404).send()
 		}
@@ -269,7 +274,8 @@ app.patch('/messages/star_unstar', authenticate, (req, res) => {
 			msg.isStarred = !msg.isStarred
 		}
 	}
-	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true}).then((user) => {
+	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true})
+	.then((user) => {
 		res.send(user)
 	}).catch((error)  => {
 		res.status(500).send(error)
@@ -285,40 +291,30 @@ app.delete('/messages/delete', authenticate, (req, res) => {
 		index++
 	}
 	req.user.messages.splice(index, 1)
-	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true}).then((user) => {
+	User.findOneAndUpdate({_id: req.user._id}, {$set: {messages: req.user.messages}}, {new: true})
+	.then((user) => {
 		res.send(user)
 	}).catch((error) => {
 		res.status(500).send(error)
 	})
 })
 
-
-
-
-
-// app.get('/messages/inbox', authenticate, (req, res) => {
-// 	if (req.session.user) {
-// 		User.findOne({email: req.session.user.email}).then((user) => {
-// 			if (user) {
-// 				res.send(user)	
-// 			} else {
-// 				res.status(404).send()
-// 			}
-// 		}).catch((error) => {
-// 			res.status(500).send(error)
-// 		})
-// 	} else {
-// 		res.redirect('/login')
-// 	}
-// })
-
-
-
-
-// app.get('/feedpage', (req, res) => {
-// 	res.render('feedpage', {userName: "UserX", msgCount: 30, isBuyer: false});
-// })
-
+app.patch('/messages/read', authenticate, (req, res) => {
+	for (let msg of req.user.messages) {
+		if (msg.from == req.body.from && !msg.isRead) {
+			msg.isRead = true
+		}
+	}
+	console.log(req.user._id)
+	console.log(req.user.email)
+	console.log(req.to)
+	User.findOneAndUpdate({_id: req.user._id, email: req.body.to}, {$set: {messages: req.user.messages}}, {new: true})
+	.then((user) => {
+		res.send(user.messages)
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
 
 app.get('/feedpage', authenticate, (req, res) => {
     res.render('feedpage', {userName: req.session.user.name, msgCount: req.session.user.messages.length, isBuyer: req.session.user.isBuyer});

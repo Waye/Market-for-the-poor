@@ -2,17 +2,6 @@
 console.log("messages.js") // log to the JavaScript console.
 
 
-const Message = function (from, to, title, content, date, isRead, isStarred) {
-    this.from = from;
-    this.to = to;
-    this.title = title;
-    this.content = content;
-    this.date = date;
-    this.isRead = isRead;
-    this.isStarred = isStarred;    
-}
-
-
 // get request to server to get current user's messages
 // const messages = currentUser.messages;
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -20,36 +9,18 @@ let messages = []
 let currentUser = null
 
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: '/messages/updated',
-    //     success: function(result) {
-    //         messages = result.messages
-    //         currentUser = result
-    //         renderInboxOrSent(inboxFirstMsgFinder, true)            
-    //     }     
-    // })
-    // renderMenuSection()
-    // renderInboxOrSent(inboxFirstMsgFinder, true)
-    // modifyNavMsgNum()
 //on load render whole page
 $(document).ready(function() {
     //get request to set user 
     getUpdatedMessage().then(result => {
         currentUser = result.email
         renderInboxOrSent(inboxFirstMsgFinder, true)
+        modifyNavMsgNum()
     }).catch((error) => {
         console.log("Error occurred")
     })
 })
 
-function fillSelectedIcon(iconSelector) {
-    $('#sent path').attr('fill', 'black')
-    $('#inbox path').attr('fill', 'black')
-    $('#starred path').attr('fill', 'black')
-    $('#newMsg path').attr('fill', 'black')
-    $(iconSelector).attr('fill', 'white')
-}
 
 function getUpdatedMessage() {
     return $.ajax({
@@ -65,12 +36,6 @@ function getUpdatedMessage() {
     })
 }
 
-function messageDatefy(obj) {
-    for (let msg of obj.messages) {
-        msg.date = new Date(msg.date)
-    }
-    messages = obj.messages
-}
 
 $('#sent').click(function() {
     getUpdatedMessage().then((result) => {
@@ -103,17 +68,13 @@ $('#inbox').click(function() {
 // Starred selected in the left menu bar, display starred messages in the middle
 $('#starred').click(function() {
     getUpdatedMessage().then((result) => {
+        messages = result.messages
         resetActive()
         removeMainContainer()
         renderStarred()
         $('#starred').addClass('active')
         fillSelectedIcon('#starred path')
     })
-    resetActive()
-    removeMainContainer()
-    renderStarred()
-    $('#starred').addClass('active')
-    fillSelectedIcon('#starred path')
 })
 
 // New Message selected in the left menu bar, display new message form in the middle
@@ -129,7 +90,7 @@ $('#newMsg').click(function() {
 $('body').on('click', '#cancel', removeMainContainer)
 
 // On new message form, send is clicked. Send the message.
-// Post request to server for the new message is sent.
+// Done
 $('body').on('click', '#send', sendMessage)
 
 // On starred section, after clicking the message, show the full content.
@@ -137,18 +98,39 @@ $('body').on('click', 'a.starred', function() {
     $(this).find('p').removeClass('text-truncate').addClass('text-left')
 })
 
-// Clicking on message will show full history)
+// Clicking on message will show full history
+// Need to update all inbox with this target user to read
 $('body').on('click', 'a.conversation', function() {
     const targetUser = $(this).find('small.targetUser')[0].innerHTML
     console.log(targetUser)
-    removeMainContainer()
-    renderMsgDetail(targetUser)
+    if ($('#inbox').hasClass("active")) {
+        const data = {
+            from: targetUser,
+            to: currentUser
+        }
+        $.ajax({
+            type: 'PATCH',
+            url: '/messages/read',
+            data: data,
+            success: function(result) {
+                messages = result
+                removeMainContainer()
+                modifyNavMsgNum()
+                renderMsgDetail(targetUser)
+            }
+        })
+    } else {
+        removeMainContainer()
+        renderMsgDetail(targetUser)
+    }
 })
 
 // Star or Unstar the message. Send update request to server inside the function to change the status of message
+// Done
 $('body').on('click', 'a.msgToStar', starOrUnstarMessage)
 
 // Delete the message. Send delete Request to server inside the function.
+// Done
 $('body').on('click', 'a.msgToDelete', deleteMessage)
 
 // Same as send message but more convenient UI for user. Send Post request to server inside the function
@@ -166,6 +148,7 @@ function sendMessage() {
         title: title,
         content: content,
         isStarred: false,
+        isRead: false,
         date: new Date()
     }
 
@@ -239,24 +222,29 @@ function sendReply() {
     const to = $(this).parent().prev()[0].id
     const from = currentUser
     const title = `Reply from ${currentUser}`
-    const content = $(`#${to}`).val()
+    const content = $(this).parent().prev().val()
+    console.log(to)
+    console.log(content)
     const data = {
-        message: {
-            to: to,
-            from: from,
-            title: title,
-            content: content,
-            date: new Date(),
-            isStarred: false,
-            is
-        }
+        to: to,
+        from: from,
+        title: title,
+        content: content,
+        date: new Date(),
+        isStarred: false,
+        isRead: false
     }
-    messages.push(new Message(from, to, title, content, new Date(), false, false))
-    console.log(messages)
-    renderMenuSection()
-    modifyNavMsgNum()
-    removeMainContainer()
-    renderMsgDetail(to)
+    $.ajax({
+        type: 'POST',
+        url: '/messages/send_new',
+        data: data,
+        success: function(result) {
+            messages = result
+            renderMenuSection()
+            removeMainContainer()
+            renderMsgDetail(to)
+        }
+    })
 }
 
 
@@ -460,3 +448,19 @@ function modifyNavMsgNum() {
     $('span.msgButtonNav').html(unreadNum)
 }
 
+
+function messageDatefy(obj) {
+    for (let msg of obj.messages) {
+        msg.date = new Date(msg.date)
+    }
+    messages = obj.messages
+}
+
+
+function fillSelectedIcon(iconSelector) {
+    $('#sent path').attr('fill', 'black')
+    $('#inbox path').attr('fill', 'black')
+    $('#starred path').attr('fill', 'black')
+    $('#newMsg path').attr('fill', 'black')
+    $(iconSelector).attr('fill', 'white')
+}
