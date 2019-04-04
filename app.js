@@ -346,7 +346,8 @@ app.route('/signup')
         const queryCondition = {$or: [{name: name}, {email: email}]}; // double check
         User.find(queryCondition).exec()
             .then((result) => {
-                if (!result) { // Not found then sign up
+                console.log(result)
+                if (result != []) { // Not found then sign up
                     const newUser = new User({
                         name: name,
                         password: password,
@@ -609,7 +610,7 @@ app.get('/get_posts', (req, res) => {
 	})
 });
 
-app.get('/search', (req, res) => {
+app.post('/search', (req, res) => {
     let searchKey = new RegExp(req.body.keyword, 'i')
     Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
         console.log(result)
