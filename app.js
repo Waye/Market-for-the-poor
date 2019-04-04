@@ -384,39 +384,8 @@ app.route('/signup')
 app.get('/orders', (req, res) => {
     res.render('orderpage');
 });
-app.get('/detail/seller', (req, res) => {
-	const id = req.params.id;
-	if (!ObjectID.isValid(id)) {
-		return res.status(404).send()
-	}
-	var Post = db.model('Post',PostSchema);
-	Post.findById(id).then((post) => {
-		if(!post) {
-			res.status(404).send();
-		}
-		else {
-			res.send({ post });
-		}
-	}, (error) => {
-		res.status(400).send(error)
-	});
-	res.render('product_detail_seller', {
-		name: post.name,
-		type: post.type,
-		date: post.date,
-		title: post.title,
-		description: post.description,
-		quantity: post.quantity,
-		price: post.price,
-		image: post.image,
-		completed: post.completed,
-		dueDate: post.dueDate,
-		category: post.category
-	});
-  
-    res.render('product_detail_seller');
-});
-app.get('/detail/buyer', (req, res) => {
+
+app.get('/detail/:id/post', (req, res) => {
     const id = req.params.id;
     if (!ObjectID.isValid(id)) {
         return res.status(404).send()
@@ -426,23 +395,68 @@ app.get('/detail/buyer', (req, res) => {
             res.status(404).send();
         }
         else {
-            res.send({ post });
+            console.log(post);
+            res.send(post);
+        }
+    }, (error) => {
+        res.status(400).send(error);
+    });
+});
+
+app.get('/detail/:id/user',  (req, res) => {
+    const id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send()
+    }
+    Post.findById(id).then((post) => {
+        if(!post) {
+            res.status(404).send();
+        }
+        else {
+            User.findByid(post.userId).then((user) => {
+                if(!user) {
+                    res.status(404).send();
+                }
+                else {
+                    res.send(user);
+                }
+            }, (error) => {
+               res.status(400).send(error);
+            });
+        }
+    }, (error) => {
+        res.status(400).send(error);
+    });
+});
+
+app.get('/detail/:id', (req, res) => {
+    const id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send()
+    }
+    Post.findById(id).then((post) => {
+        if(!post) {
+            res.status(404).send();
+        }
+        else {
+            res.render('product_detail', {
+                detailId: post._id,
+                userId: post.userId,
+                userName: post.name,
+                type: post.type,
+                date: post.date,
+                title: post.title,
+                description: post.description,
+                quantity: post.quantity,
+                price: post.price,
+                image: post.image,
+                completed: post.completed,
+                dueDate: post.dueDate,
+                category: post.category
+            });
         }
     }, (error) => {
         res.status(400).send(error)
-    });
-    res.render('product_detail_buyer', {
-        name: post.name,
-        type: post.type,
-        date: post.date,
-        title: post.title,
-        description: post.description,
-        quantity: post.quantity,
-        price: post.price,
-        image: post.image,
-        completed: post.completed,
-        dueDate: post.dueDate,
-        category: post.category
     });
 });
 
@@ -489,31 +503,6 @@ app.get('/profile_info', (req, res) => {
     const user = req.session.user;
     res.send(user);
 });
-
-app.post('/post_data', (req, res) => {
-    let post = req.session.post;
-    post = new Post ({
-        name: post.name,
-        type: post.type,
-        date: post.date,
-        title: post.title,
-        description: post.description,
-        quantity: post.quantity,
-        price: post.price,
-        image: post.image,
-        completed: post.completed,
-        dueDate: post.dueDate,
-        category: post.category
-    });
-    post.save().then(item => {
-        res.send("Post saved to database!");
-    }).catch(err => {
-        res.status(400).send("Unable to save to database!");
-    });
-});
-
-
-
 
 // Edit profile
 app.patch('/profile/Edit', (req, res) => {

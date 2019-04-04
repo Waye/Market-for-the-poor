@@ -119,10 +119,7 @@ function editUserInfo() {
 }
 
 function createPost(post) {
-    const detail = '/detail/seller/' + post._id;
-    if (isBuyer) {
-        const detail = '/detail/buyer/' + post._id;
-    }
+    const detail = '/detail/' + post._id;
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
         <div class="card shadow postCard" >
