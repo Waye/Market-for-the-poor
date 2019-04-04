@@ -6,11 +6,14 @@ let filterResult = []
 
 $('#editBtn').click(displayEditForm);
 
+
+
 function displayEditForm() {
     const html = `
     <form class="editForm">
+    
         <div class="container">
-            <h1>Register</h1>
+            <h1>Edit</h1>
             <table>
             <tr><td>Email: 
             <td><input id="emailEdit" type="text" placeholder="Email"></td></tr>
@@ -18,7 +21,6 @@ function displayEditForm() {
             <td><input id="phoneEdit" type="text" placeholder="Phone"></td></tr>
             <tr><td>Password:</td>
             <td><input id="passwordEdit" type="text" placeholder="Enter Password"></td></tr>
-            
             <tr><td>Description:</td>
             <td><textarea id="descriptionEdit" type="text" placeholder="Description" rows="4" cols="30"></textarea></td></tr>
             </table>
@@ -47,13 +49,13 @@ function editUserInfo() {
 }
 
 function createPost(post) {
-    let detail
+    const detail = '/detail/' + post._id;
 
-    if (post.type === "request") {
-        detail = '/detail/buyer'
-    } else if (post.type === "offer") {
-        detail = '/detail/seller'
-    }
+    // if (post.type === "request") {
+    //     detail = '/detail/buyer'
+    // } else if (post.type === "offer") {
+    //     detail = '/detail/seller'
+    // }
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
         <div class="card shadow postCard" >
