@@ -417,19 +417,15 @@ app.get('/detail/:id/user',  (req, res) => {
             res.status(404).send();
         }
         else {
-            User.findByid(post.userId).then((user) => {
+            User.findById(post.userId).then((user) => {
                 if(!user) {
                     res.status(404).send();
                 }
                 else {
                     res.send(user);
                 }
-            }, (error) => {
-               res.status(400).send(error);
             });
         }
-    }, (error) => {
-        res.status(400).send(error);
     });
 });
 

@@ -12,23 +12,26 @@ $(document).ready(function() {
 
 function getPostInfo() {
     $.get("/detail/" + detailId + "/post").then((result) => {
-        console.log(result)
+        console.log("DetailId completed");
         post = result;
         id = result._id;
         return $.get("/profile_info")
     }).then((profileResult) => {
+        console.log("Profile result completed");
         isBuyer = profileResult.isBuyer;
         return $.get("/detail/" + id + "/user")
-    }).then((result) => {
-        postOwner = data;
+    }).then((userResult) => {
+        console.log("Render started");
+        postOwner = userResult;
         renderPostTitle();
         renderSlidePic();
-        renderPostDate();
+        // renderPostDate();
         renderUserTypeAndOfferType();
         renderPostOwnerImage();
         renderPostOwnerDescription();
         renderPostDescription();
-    })
+        console.log("Render completed");
+    });
 }
 
 function renderPostTitle() {
@@ -47,16 +50,17 @@ function renderSlidePic() {
 const dateFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
-function renderPostDate() {
-    const timeDiff = (post.dueDate.getTime() - post.date.getTime())/1000;
-    const dayDiff = Math.ceil(timeDiff/(3600 * 24))
-    const postDate = post.date.toLocaleDateString("en-US", dateFormat)
-    const dueDate = post.dueDate.toLocaleDateString("en-US", dateFormat)
-    const html = `<p>Posted on:  <span id="postDate">${postDate}</span></p>
-    <p>Needed before: <span id="dueDate">${dueDate}</span></p>
-    <p>Days remaining: <span id="remainingDays">${dayDiff}</span></p>`
-    $(dateInfo)[0].innerHTML = html;
-}
+// function renderPostDate() {
+//     console.log(typeof post.dueDate);
+//     const timeDiff = (post.dueDate.getTime() - post.date.getTime())/1000;
+//     const dayDiff = Math.ceil(timeDiff/(3600 * 24))
+//     const postDate = post.date.toLocaleDateString("en-US", dateFormat)
+//     const dueDate = post.dueDate.toLocaleDateString("en-US", dateFormat)
+//     const html = `<p>Posted on:  <span id="postDate">${postDate}</span></p>
+//     <p>Needed before: <span id="dueDate">${dueDate}</span></p>
+//     <p>Days remaining: <span id="remainingDays">${dayDiff}</span></p>`
+//     $(dateInfo)[0].innerHTML = html;
+// }
 
 function renderUserTypeAndOfferType() {
     let userType = null;
