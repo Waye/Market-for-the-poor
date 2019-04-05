@@ -44,11 +44,11 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Our own student finding function 
-UserSchema.statics.findByEmailPassword = function (email, password) {
+UserSchema.statics.findByNamePassword = function (name, password) {
 	const User = this
 
 	return User.findOne({
-		email: email
+		name: name
 	}).then((user) => {
 		if (!user) {
 			console.log('not user')

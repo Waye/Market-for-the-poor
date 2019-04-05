@@ -110,9 +110,10 @@ app.route('/login')
 		res.render('login');	
 	})
 	.post((req, res) => {
-	const email = req.body.uemail;
+    const name = req.body.uname;
+    console.log(name)
 	const password = req.body.psw;
-	Admin.findByEmailPassword(email, password).then(
+	Admin.findByNamePassword(name, password).then(
 	(admin) => {
 		console.log('admin');
 		// console.log(admin)
@@ -121,7 +122,7 @@ app.route('/login')
 	}, 
 	(user) => {
 		console.log('user');
-		User.findByEmailPassword(email, password).then(
+		User.findByNamePassword(name, password).then(
 		(user) => {
 			console.log(user)
 			req.session.user = user;

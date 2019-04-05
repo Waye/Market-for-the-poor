@@ -8,11 +8,11 @@ const AdminSchema = new mongoose.Schema({
 });
 
 
-AdminSchema.statics.findByEmailPassword = function (email, password) {
+AdminSchema.statics.findByNamePassword = function (name, password) {
     const Admin = this
 
     return Admin.findOne({
-        email: email
+        name: name
     }).then((admin) => {
         if (!admin) {
             return Promise.reject()
