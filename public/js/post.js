@@ -50,7 +50,6 @@ const postPopupElement = `
 
         <form method="POST" action="/postsImg">
             <input id="hiddenUpload" type="file" name="file" accept=".jpg, .jpeg, .png" multiple/>
-            <input type="submit" />
         </form>
 
         <div class="row mt-3 mb-3">

@@ -110,6 +110,7 @@ app.route('/login')
 		res.render('login');	
 	})
 	.post((req, res) => {
+    req.session.user = null;
     const name = req.body.uname;
     console.log(name)
     const password = req.body.psw;
