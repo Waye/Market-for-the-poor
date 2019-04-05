@@ -224,6 +224,7 @@ app.delete('/adminpage/delete_user', (req, res) => {
 app.delete('/adminpage/delete_post', (req, res) => {
     User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}, {new: true}).then((user) => {
         if (!user) {
+            console.log('not foud')
             return Promise.reject()
         } else {
             return Post.findOneAndDelete({_id: req.body.id}).exec()
@@ -584,7 +585,6 @@ app.get('/get_feeds_header', (req, res) => {
 		res.send(result);
 	})
 	.catch((err) => {
-		console.log(err);
 		res.send(err);
 	})
 });
@@ -647,18 +647,13 @@ app.get('/get_orders_users', (req, res) => {
 
 app.post('/search', (req, res) => {
     let searchKey = new RegExp(req.body.keyword, 'i')
-    console.log(searchKey);
-    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).exec()
-    .then((result) => {
-        console.log("search: ",result)
-        if (result) {
+    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
+        if (result.length > 0) {
             res.send(result)
         } else {
-            console.log('404')
             res.status(404).send('404')
         }
     }).catch((error) => {
-        console.log('500')
         res.status(500).send()
     })
 })
