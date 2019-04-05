@@ -590,12 +590,14 @@ app.post('/search', (req, res) => {
     let searchKey = new RegExp(req.body.keyword, 'i')
     Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
         console.log(result)
-        if (result) {
+        if (result.length > 0) {
             res.send(result)
         } else {
-            res.status(404).send()
+            console.log('404')
+            res.status(404).send('404')
         }
     }).catch((error) => {
+        console.log('500')
         res.status(500).send()
     })
 })
