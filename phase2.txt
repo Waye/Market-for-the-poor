@@ -1,0 +1,225 @@
+=============================
+Basic features of our website
+=============================
+
+Our website will allow the seller of essential goods such as food, drink and clothings to sell their cancelled or refunded orders at a cheaper cost to non-profit organizations. Seller users will be able to post what they want to sell and see the request from the buyers. Buyer users will be able to make purchase on products that they are interested in and make requests to sellers. An message system is also implemented in our website for communication. 
+
+Additionally, since our target buyer users are poor(might not have a laptop), we specifically work on responsive features on which will make them access our website easier on thier phone. Such as having anchors on the feedpage.
+
+====================================
+Overall routes of our express server
+====================================
+
+We have the following routes which renders our page:
+- app.get('/', (req, res) => {...});
+Renders '/'
+
+- app.get('/adminpage', (req, res) => {...})
+Renders '/adminpage'
+
+- app.get('/messages', authenticate, (req, res) => {...})
+Renders '/messages'
+
+- app.get('/feedpage', authenticate, (req, res) => {...})
+Renders '/feedpage'
+
+- app.get('/orders', authenticate,(req, res) => {...})
+Renders '/orders'
+
+- app.get('/detail/:id', authenticate, (req, res) => {...})
+Renders the detail of the product that has id 'id', which is displayed on '/detail/:id'
+
+- app.get('/profile', authenticate, (req, res) => {...})
+Renders '/profile'
+
+We have the following routes which sends useful data to the front end:
+- app.get('/adminpage/info', (req, res) => {...})
+Sends '/adminpage' info of all posts and users
+
+- app.get('/messages/updated', authenticate, (req, res) => {...})
+Sends '/messages' info of 'this' user who logs in to access this page
+
+- app.get('/profile/:id', authenticate, (req, res) => {...})
+Sends '/profile' info of the user that has id ":id"
+
+- app.get('/get_posts/:id', (req, res) => {...})
+Sends all posts of the user that has id ":id"
+
+- app.get('/get_posts', (req, res) => {...})
+Sends all posts of 'this' user
+
+- app.get('/get_feeds', (req, res) => {...})
+Sends all feeds that 'this' user should see
+
+- app.get('/get_orders_users', (req, res) => {...} 
+Sends orders of 'this' user
+
+We have the following routes which updates the information received from front end to our database:
+
+- app.post('/posts', (req, res) => {...})
+Updates new post to the database
+
+- app.post('/postsImg', (req, res) => {...})
+Updates new post image of 'this' post to the database
+
+- app.patch('/messages/star_unstar', authenticate, (req, res) => {...})
+Unstars the list of messages provided and updates to the database
+
+- app.patch('/messages/read', authenticate, (req, res) => {...})
+Updates the list of messages that have been read and updates to the database
+
+- app.delete('/messages/delete', authenticate, (req, res) => {...})
+Updates the list of messages that need to be deleted and updates to the database
+
+- app.delete('/adminpage/delete_user', (req, res) => {...})
+Deletes users done by admin and updates to the database
+
+- app.delete('/adminpage/delete_post', (req, res) => {...})
+Deletes posts done by admin and updates to the database
+
+We have the followings middlewares:
+- authenticate
+Checks if the user has already sucessfully registered to our page so it can log in to our page
+- loginchecker
+Checks if the user has already logged in to our page so there is no need for him/her to log in again when clicking log in
+
+
+==========
+Index page
+==========
+
+There are 3 buttons available in our index page, "Log in", "Sign up" and "Join Us".
+By clicking "Sign up" and "Join us", you will be transferred to "/signup" page and be prompted to create an account of your own, further details which will be explained below.
+By clicking "Log in", users will be moved to "/login" page.
+
+====================
+/login
+====================
+
+By clicking "Log in", you will be transferred to /login page and can log in to 3 different pages by the credentials we provide:
+- By entering "user" as username and password, user will be logged in as a buyer.
+- By entering "user2" as username and password, user will be logged in as a seller.
+- By entering "admin" as username and password, user will be logged in as an admin.
+When a regular user is successfully logged in, they will first moved to "\feedpage" page, which will be explained later.
+
+===================
+/signup
+===================
+
+User will be able to register in this page. There are several restriction on registration.
+1. username: length >= 5 chars
+2. email: length >= 5 chars
+3. phone: length >= 10 chars. must be all digits
+4. password: length >= 5chars and repeat password should match
+5. register as: must be selected from the dropdown.
+If above condition is not met, error message will be shown for 4 seconds, indicating the first violating condition. 
+Upon successful registration, registered information is also shown for 4 seconds by popup.
+
+===================
+/feedpage
+===================
+
+If user is logged in as a buyer, all the posts displayed on the feedapge will be offers from all sellers.
+If user is logged in as a seller, all the posts displayed on the feedpage will be lists of its own products.
+
+On the left side of the page you can notice there is a filter which helps you to filter all products that have been posted on our website.
+By clicking any categories under the filter, the page will then show all the products of those categories clicked. Note, user can click multiple categories at the same time. For example, user can click both "food" and "electronics", which the page will then show all the food
+ and electronics products.
+
+You can also click "clear filters" once you have clicked some fiters which will then refresh the page. This can also be achieved by clicking
+ the refresh icon besides "Filter".
+
+Under the filter, there is "Min. price" and "Max. price" function which are promting users to enter the minimum and maximum price of products that they wish to look for. If users enter non-numeric input, then nothing will be updated.
+
+On the right side of the "feed" bar where it contains the refresh bottom, it also contains a bottom called "Sort". By clicking it you will see
+ a dropdown menu which shows multiple options of sorting the products. Such as, "Newest first", "Oldest first", "Highest price first", "Lowest
+ price first".
+
+By clicking "Active orders", "Finished" or "Posted", you will navigate to "/orders" page, which will be explained below. 
+
+
+==================
+/orders
+==================
+
+On the "/orders" page, the active orders, posted orders, and finished orders will be shown under the navigation bar.
+Under active orders, a buyer would see any progressing orders that are delivering to them, if there's any. A seller, on the other hand, would see any orders that they are delivering to their clients.
+Under posted orders, all posts of the user will be shown.
+Under finished orders, all orders that have already been delivered to/received from the clients will be shown, if the user is a seller/buyer, respectively. 
+On the right hand side of the active orders and finished orders, the user that the order is delivering to, or the user that the order was bought from will be displayed.
+Addtionally, we added anchors for all three buttons so
+when users click them the page will navigate to the location of "Active orders", "Posted orders" and "Finished orders". The effect can be shown 
+when users are using smartphones or device that has narrower width. 
+
+==================
+Navigation Bar 
+==================
+Navigation Bar is displayed on every page.
+On the very left of the header, you can see there is a search bar which allows user to search for posts.
+By entering the title of the product, for example, when entering "hoodie", the search bar will display a list of all posts from all users(both buyers and sellers).
+By entering the name of a user, for example, when entering "userA", the search bar will display a list of all posts that "userA" have posted.
+By clicking any posts displayed, the user will be transfered to the detail page of that post.
+By clicking the hand shaking icon on the left of search section, user will be able to return to the feedpage.
+
+On the right side of the header there are four other buttons available, "Post a new request/offer", "Profile", "Messages", and "Log Out". 
+Users can "post a new request" if they are buyers, or they can "post a new offer" if they are sellers. The text of that button will adjust accordingly based on the type that users are register as.
+
+By clicking "Post a new request", if the user is a buyer. A pop up form will be shown and allow users to upload images, enter price, category, descriptions, etc to make a buyer request. Once a request is successfully submitted, it will be displayed in other sellers' feedpage.
+If the user is a seller, the same pop up form will be shown for sellers to make an offer. Once an offer is successfully submitted, it will be displayed in other buyers' feedpage.
+
+By clicking "Profile" and "Message", page will be redirected to "/profile" and "/messages", respectively. 
+
+By clicking "Log out as 'username'", user will be logged out back to our index page.
+
+
+==================
+/profile
+==================
+
+User will be able to edit their profile information in this page such as, email, phone number, active status and other. Under the header, all 
+of user's post requests/offers will be shown, if user is buyer/seller, respectively.
+
+By clicking each product shown on the page, users will navigate to "details/:id", which will be explained later.
+
+On the left hand side, the user's profile information will be displayed. Users can click the "Edit/Change Password" button to change its profile information. A pop up window will be shown. In the window, users can change its email, phone number and description.
+
+==================
+/details/:id
+==================
+
+When a user clicks the "details" button of a product, whether from their feedpage, profile page or through messages page by viewing other users' profile. They will be moved to the specifc product post that they clicked.
+On this page, if the user is a buyer, and the post is posted by some other sellers. Or, if the user is a seller, and the post is posted by some buyers. The users will be able to make requests or offers, respectively, by clicking "Make requests/offers". 
+Users can also click "Send messages" to transfer to "/messages" page to send massage to the owner of this post.
+
+===================
+/messages
+===================
+
+User will be able to see who has sent them messages in the inbox page. By clicking message shown in the inbox page, the page will show the chat
+conversation (all the messages sent and received from the target user). In addition to that, once user has entered the chat page, every message
+ in the conversation has 2 buttons on the right, the star and delete.  The numbers beside the message is the length of conversation between the
+ two users.
+
+When clicking star, the message clicked will be marked as "Starred" and will be shown in there when users click "Starred" on the right side of 
+the page. Also, the message is truncated if the length is longer than the width. When the starred message is clicked, it will reveal the full
+ message. By clicking "delete", the message will be removed from the chat history.
+
+These functionalities are shown by small number in the menu bar. (# beside inbox displays all messages received so far, # beside sent displays
+ all messages sent, # starred displays all messages starred) When deleting a message, it will be shown by the number change in the menu bar in 
+the left. By clicking "Sent messages", users will see all messages that they priviously sent to other users. By clicking the message, user will
+ also be able to see complete conversation with the target user.
+
+Users can also create "New Message" by clicking the button under the header, for phase 1, this is still a mock function. After filling in the 
+new message and clicking send button, the number of sent in the menu bar will increase. If the message is sent to a user that has never 
+communicated, the new message is displayed in the sent box. If the message is sent to a user who has communicated before, the number in the
+ message with this user will be increased by 1 to indicate the length of conversation. User will have to click on this message to see the full
+ conversation and see the new message sent. Reply function sends
+new message directly from conversation.
+
+==========
+admin.html
+==========
+
+Once successfully logged in as an admin. The user will be able to manage users and posts for this page. For users, admin will be able to ban or delete them from the server. For posts, admin will be able to delete them, by clicking the corresponding buttons shown on the page.
+
+
