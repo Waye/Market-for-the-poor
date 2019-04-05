@@ -30,8 +30,8 @@ const UserSchema = new mongoose.Schema({
 	messages: [MessageSchema],
 	isBuyer: Boolean,
 	isBanned: Boolean,
-	//array of post id
-	posts: [String],
+	// //array of post id
+	// posts: [String],
 	phone: String,
 	description: String,
 	orderInfo: {

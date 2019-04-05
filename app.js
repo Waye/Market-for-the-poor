@@ -201,17 +201,17 @@ app.patch('/adminpage/ban_user', (req, res) => {
 
 //DELETE user by admin
 app.delete('/adminpage/delete_user', (req, res) => {
-    User.findOneAndDelete({email: req.body.email}, {new: true}).then((user) => {
+    User.findOneAndDelete({_id: req.body.id}).then((user) => {
         if (!user) {
             return Promise.reject()
         } else {
-            return Post.deleteMany({email: req.body.emai}).exec()
+            return Post.deleteMany({userId: req.body.id}).exec()
         }
     }).then((posts) => {
-        if (posts) {
-            res.send(posts)
+        if (posts.deletedCount > 0) {
+            res.send([1])
         } else {
-            res.status(404).send()
+            res.send([])
         }
     }, (reject) => {
         res.status(404).send()
@@ -222,14 +222,7 @@ app.delete('/adminpage/delete_user', (req, res) => {
 
 //DELETE posts in by admin
 app.delete('/adminpage/delete_post', (req, res) => {
-    User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}, {new: true}).then((user) => {
-        if (!user) {
-            console.log('not foud')
-            return Promise.reject()
-        } else {
-            return Post.findOneAndDelete({_id: req.body.id}).exec()
-        }
-    }).then((post) => {
+    Post.findOneAndDelete({_id: req.body.id}).then((post) => {
         if (post) {
             res.send(post)
         } else {
