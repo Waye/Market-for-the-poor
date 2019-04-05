@@ -209,6 +209,7 @@ function submitData(e) {
     $('#modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
+    location.reload();
 }
 
 $(document).ready(function () {

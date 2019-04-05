@@ -45,8 +45,8 @@
                                 <div id="postImgSlide" class="carousel slide border" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#postImgSlide" data-slide-to="0" class="active"></li>
-                                        <li data-target="#postImgSlide" data-slide-to="1"></li>
-                                        <li data-target="#postImgSlide" data-slide-to="2"></li>
+                                        <%#<li data-target="#postImgSlide" data-slide-to="1"></li>%>
+                                        <%#<li data-target="#postImgSlide" data-slide-to="2"></li>%>
                                     </ol>
                                     <div class="carousel-inner" id="imgSlideContainer">
                                     </div>
@@ -63,8 +63,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6" id="dateInfo">
-                                <%= postDate %>
-                                <%= postDueDate%>
                             </div>
                             <div class="col-md-3">
                                 <a class="btn btn-primary nav-link" href="#" id="makeOfferRequest"></a>
@@ -74,13 +72,13 @@
                 </div>
                 <div class="row pl-3 pt-3 pb-3" id="userType">
                 </div>
-                <div class="row">
+                <div class="row" id="userInfoRow">
                     <div class="col-md-2" id="userImageContainer">
                     </div>
                     <div class="col-md-7" id="userDescription">
                     </div>
                     <div class="col-md-3">
-                        <a class="btn btn-outline-primary nav-link" href="/messages">Send message</a>
+                        <a class="btn btn-outline-primary nav-link" id="sendMsgBtn" href="/messages">Send message</a>
                     </div>
                 </div>
                 <div class="row pl-3 pt-3">
@@ -103,6 +101,8 @@
     <script type="text/javascript" src="/js/nav_search.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
     <script>
+        const userName = "<%=userName%>"
+        const postId = "<%=postId%>"
         const postTitle = "<%=postTitle%>"
         const postPrice = "<%=postPrice%>"
         const postQuantity = "<%=postQuantity%>"
@@ -110,8 +110,10 @@
         const postDueDate = "<%=postDueDate%>"
         const postDate = "<%=postDate%>"
         const isBuyer = "<%=isBuyer%>"
+        const postOwnerIsBuyer = "<%=postOwnerIsBuyer%>"
         const postOwnerIcon = "<%=postOwnerIcon%>"
         const postOwnerName = "<%=postOwnerName%>"
+        const postOwnerId = "<%=postOwnerId%>"
         const postOwnerDescription = "<%=postOwnerDescription%>"
         const postOwnerPhone = "<%=postOwnerPhone%>"
         const postDescription = "<%=postDescription%>"
