@@ -430,6 +430,7 @@ app.get('/detail/:id', authenticate, (req, res) => {
     .then((foundPost) => {
         if (!foundPost) return res.status(500).send();
         const renderData = {
+            postId: foundPost._id,
             postDate: foundPost.date,
             postDueDate: foundPost.dueDate,
             postTitle: foundPost.title,

@@ -146,13 +146,10 @@ function createPost(post) {
 }
 
 function renderPage(pagenum, postgroup) {
-
     $('#post-TwoRow').html('')
-
     let end = pagenum * 8
     let start = end - 8
     let html = ``
-
 
     if (postgroup.length < end) {
         end = postgroup.length

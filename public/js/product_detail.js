@@ -18,7 +18,6 @@ function renderSlidePic() {
 
 const dateFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
-
 function renderPostDate() {
     const timeDiff = (new Date(postDueDate).getTime() - new Date(postDate).getTime())/1000;
     const dayDiff = Math.ceil(timeDiff/(3600 * 24))
@@ -34,17 +33,25 @@ function renderUserTypeAndOfferType() {
     let userType = "";
     let offerType = "";
     // if logged in as buyer, this post detail is a post from seller so user must make request. vice versa
-    console.log("RenderBuyer: ", postOwnerIsBuyer)
-    if (postOwnerIsBuyer) {
+    console.log("PostOwner: ", postOwnerIsBuyer, "LoggedInUser: ", isBuyer)
+    if (!postOwnerIsBuyer) {
         userType = "seller"
         offerType = "request"
     } else {
         userType = "buyer"
         offerType = "offer"
     }
-    const html = `<h4>About this ${userType}</h4>`
-    $('#userType')[0].innerHTML = html;
-    $('#makeOfferRequest')[0].innerHTML = `Make ${offerType}`
+    if (postOwnerIsBuyer != isBuyer) {
+        const html = `<h4>About this ${userType}</h4>`
+        console.log("RenderHtml: ", html)
+        $('#userType')[0].innerHTML = html;
+        $('#makeOfferRequest')[0].innerHTML = `Make ${offerType}`
+    } else {
+        const html = `<h4>About this ${userType}</h4>`
+        $('#userType')[0].innerHTML = html;
+        $("#makeOfferRequest").remove();
+        if (postOwnerName == userName) $("#sendMsgBtn").addClass("disabled")
+    }
 }
 
 
