@@ -113,7 +113,8 @@ app.route('/login')
     req.session.user = null;
     const name = req.body.uname;
     console.log(name)
-	const password = req.body.psw;
+    const password = req.body.psw;
+    console.log(password)
 	Admin.findByNamePassword(name, password).then(
 	(admin) => {
 		console.log('admin');
@@ -153,6 +154,7 @@ app.post('/admin_init', (req, res) => {
     Admin.create(newAdmin).then((result) => {
         req.session.user = result
         // console.log(result)
+        res.send()
     }, (error) => {
         res.status(500).send(error)
     })
