@@ -18,33 +18,38 @@ AdminSchema.statics.findByNamePassword = function (name, password) {
             return Promise.reject()
         }
         return new Promise((resolve, reject) => {
-            bcrypt.compare(password, admin.password, (error, result) => {
-                if (result) {
-                    resolve(admin)
-                } else {
-                    reject()
-                }
-            })
+            // bcrypt.compare(password, admin.password, (error, result) => {
+            //     if (result) {
+            //         resolve(admin)
+            //     } else {
+            //         reject()
+            //     }
+            // })
+            if (password == admin.password) {
+                resolve(admin)
+            } else {
+                reject()
+            }
         })
     })
 }
 
-// This function runs before saving/modifying user to database
-AdminSchema.pre('save', function (next) {
-	const admin = this
+// // This function runs before saving/modifying user to database
+// AdminSchema.pre('save', function (next) {
+// 	const admin = this
 
-	if (admin.isModified('password')) {
-		bcrypt.genSalt(10, (error, salt) => {
-			bcrypt.hash(admin.password, salt, (error, hash) => {
-				admin.password = hash
-				next()
-			})
-		})
-	} else {
-		next()
-	}
+// 	if (admin.isModified('password')) {
+// 		bcrypt.genSalt(10, (error, salt) => {
+// 			bcrypt.hash(admin.password, salt, (error, hash) => {
+// 				admin.password = hash
+// 				next()
+// 			})
+// 		})
+// 	} else {
+// 		next()
+// 	}
 
-})
+// })
 
 
 module.exports = mongoose.model("Admin", AdminSchema);
