@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <%- include('./partials/topnavbar', {userName: userName, msgCount: msgCount, isBuyer: isBuyer}) %>
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
     <div class="container-fluid">
         <div class="row d-flex mt-3 mb-3">
@@ -63,6 +63,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6" id="dateInfo">
+                                <%= postDate %>
+                                <%= postDueDate%>
                             </div>
                             <div class="col-md-3">
                                 <a class="btn btn-primary nav-link" href="#" id="makeOfferRequest"></a>
@@ -101,7 +103,18 @@
     <script type="text/javascript" src="/js/nav_search.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
     <script>
-        const detailId = "<%=detailId%>";
+        const postTitle = "<%=postTitle%>"
+        const postPrice = "<%=postPrice%>"
+        const postQuantity = "<%=postQuantity%>"
+        const postImages = "<%=postImages%>"
+        const postDueDate = "<%=postDueDate%>"
+        const postDate = "<%=postDate%>"
+        const isBuyer = "<%=isBuyer%>"
+        const postOwnerIcon = "<%=postOwnerIcon%>"
+        const postOwnerName = "<%=postOwnerName%>"
+        const postOwnerDescription = "<%=postOwnerDescription%>"
+        const postOwnerPhone = "<%=postOwnerPhone%>"
+        const postDescription = "<%=postDescription%>"
     </script>
     <script type="text/javascript" src="/js/product_detail.js"></script>
 </body>

@@ -12,7 +12,7 @@ $("#refreshBtn").on('click', function() {
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
     const sortMethod = $(this).attr('id');
-    let sortedFeed = currFeedData;
+    let sortedFeed = currOrderData;
     if (sortMethod == "sortNew") {
         sortNew(sortedFeed);
     } else if (sortMethod == "sortOld") {
@@ -53,12 +53,12 @@ function sortLow(feed) {
 // Filter
 $("#collapseFilter").on('click', '#minPriceBtn', function() {
     const minPrice = $("#minPriceInput").val();
-    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currFeedData));
+    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currOrderData));
     $("#maxPriceInput").val('');
 });
 $("#collapseFilter").on('click', '#maxPriceBtn', function() {
     const maxPrice = $("#maxPriceInput").val();
-    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currFeedData));
+    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currOrderData));
     $("#minPriceInput").val('');
 });
 function filterMinPrice(minPrice, feedList) {
@@ -99,14 +99,14 @@ function handleFilter() {
         activeFilters.push(foundActiveFilters[i].id);
     }
     console.log(activeFilters);
-    updateFeed(filterFeed(activeFilters, currFeedData));
+    updateFeed(filterFeed(activeFilters, currOrderData));
 }
 $('#collapseCard').on('click', '#clearFilter', clearAllFilter)
 
 function clearAllFilter() { // Click clear filter
     $('#collapseCard').find('.active').removeClass('active');
     $("#clearFilter").remove();
-    updateFeed(currFeedData); // force update all feed
+    updateFeed(currOrderData); // force update all feed
 }
 
 function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
@@ -118,7 +118,7 @@ function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
     } else {
         const totalTextLg = document.createElement("h1");
         totalTextLg.className += "display-4 d-none d-lg-block";
-        const twoMonthTotal = 48000;
+        const twoMonthTotal = 49000;
         totalTextLg.innerText = twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
         const totalTextMd = document.createElement("h1");
         totalTextMd.className += "d-lg-none d-md-block";
@@ -156,7 +156,6 @@ function getFilterData(feedData) {
             otherFilterNum += 1;
         }
     })
-
     const filterData = [
         {
             filter: "food",

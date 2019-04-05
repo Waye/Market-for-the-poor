@@ -1,6 +1,8 @@
 "use strict";
 console.log("orderpage.js") // log to the JavaScript console.
 
+let currUser = null;
+let currOrderData = [];
 const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
 
 function displayOrders(orderList, gotBuyerList) {
@@ -65,10 +67,10 @@ function displayOrders(orderList, gotBuyerList) {
     });
 }
 
-function updateStickyTitleInfo(headerInfo) {
-    $("#stickyActiveNum").html(headerInfo.activeNum);
-    $("#stickyFinishNum").html(headerInfo.finishedNum);
-    $("#stickyPostNum").html(headerInfo.postedNum);
+function updateStickyTitleInfo(activeNum, finishedNum, postedNum) {
+    $("#stickyActiveNum").html(activeNum);
+    $("#stickyFinishNum").html(finishedNum);
+    $("#stickyPostNum").html(postedNum);
 }
 
 function getOrders() {
@@ -118,9 +120,54 @@ function getBuyerList() {
     return gotBuyerList;
 }
 
+function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
+    if (user.isBuyer) {
+        $('#feedName').html("Offer feed");
+        $("#dollarCol").remove();
+        $("#feedNavCol").attr("class", "col-12");
+        $("#feedNavCol").find('h1').removeClass("display-4");
+    } else {
+        const totalTextLg = document.createElement("h1");
+        totalTextLg.className += "display-4 d-none d-lg-block";
+        const twoMonthTotal = 49000;
+        totalTextLg.innerText = twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        const totalTextMd = document.createElement("h1");
+        totalTextMd.className += "d-lg-none d-md-block";
+        totalTextMd.innerText = twoMonthTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
+        $('#dollarCol').append(totalTextLg);
+        $('#dollarCol').append(totalTextMd);
+        $('#dollarCol').append('<p class="text-left ml-md-3 text-muted">2-month total</p>');
+        $('#feedName').html("Request feed");
+    }
+    $('.activeNum').html(activeNum);
+    $('.finishedNum').html(finishedNum);
+    $('.postedNum').html(postedNum);
+}
+
 function main() {
     displayOrders(getOrders(), getBuyerList());
-    updateStickyTitleInfo(getUser().orderInfo);
+
+    $.get("/get_feeds_header")
+    .then((result, status) => {
+        currUser = result[0];
+        addInfoHeaderContent(result[1], result[2], result[3], result[0]);
+        updateStickyTitleInfo(result[1], result[2], result[3]);
+        return $.get("/get_orders")
+    })
+    .then((orderData) => {
+        currOrderData = orderData
+        console.log("orderData: ", orderData)
+        return $.get("/get_orders_users").then((ordersUsers) => {
+            return [orderData, ordersUsers];
+        })
+    })
+    .then((displayData) => {
+        console.log("displayData: ", displayData)
+        displayOrders(displayData[0], displayData[1]);
+    })
+    .catch((err) => {
+        console.log("Orderpage main:", err);
+    })
 }
 $(document).ready(main);
 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile | Market for the poor</title>
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <%- include('./partials/head') %>
+
+</head>
+
+<body>
+    <%- include('./partials/topnavbar', {userName: userName, msgCount: msgCount, isBuyer: isBuyer}) %>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true"></div>
+
+    <div class="container-fluid" id="profile-all">
+        <div class="row">
+            <!--profile part-->
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <img class="card-img-top" id="profileImage" src="<%= target_userImg %>">
+                    <div class="card-body" id="profile-card-body">
+                        <h5 class="card-title" id="userName"><%= target_userName %></h5>
+                        <ul class="list-group ">
+                            <li class="list-group-item" id="email"><%= target_userEmail %></li>
+                            <li class="list-group-item" id="phone"><%= target_userPhone %></li>
+                            <% if (target_isBanned) { %>
+                            <li class="list-group-item text-danger" id="status">Banned</li>
+                            <% } else { %>
+                            <li class="list-group-item text-success" id="status">Active</li>
+                            <% } %>
+                            </li>
+                            <% if (target_isBuyer) { %>
+                            <li class="list-group-item text-primary" id="buyerOrSeller">Buyer</li>
+                            <% } else { %>
+                            <li class="list-group-item text-primary" id="buyerOrSeller">Seller</li>
+                            <% } %>
+                            </li>
+                            <li class="list-group-item" id="userDescription"><%= target_userDescription %></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--post part-->
+            <div class="col-md-9" id="post-part">
+                <div class="row p-3 d-none d-md-block">
+                    <h3><%= target_userName %>'s posts</h3>
+                </div>
+                <div class="row p-3 pt-5 d-none d-sm-block d-md-none text-center">
+                    <h3><%= target_userName %>'s posts</h3>
+                </div>
+                <div class="container-fluid">
+                    <!--Nav bar-->
+                    <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
+                        <!-- Collapsible content -->
+                        <div class="collapse navbar-collapse " id="productsNav">
+                            <!-- Links -->
+                            <ul class="navbar-nav mr-autoB" id="filter-apply-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" id="Total">Total <%=total%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="food">food <%=numberFood%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="electronics">electronics <%=numberElectronics%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="clothing">clothing <%=numberClothing%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="furniture">furniture <%=numberFurniture%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tools">tools <%=numberTools%></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-waring" id="other">other <%=numberOther%></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!--Section: Product display-->
+                    <section class="text-center mb-4 " id="post-TwoRow"></section>
+                    <!--Pagination-->
+                    <nav class="d-flex justify-content-center wow fadeIn">
+                        <ul class="pagination pg-blue page-item" id="pagenav"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./partials/importScript') %>
+    <script type="text/javascript" src="/js/nav_search.js"></script>
+    <script type="text/javascript" src="/js/post.js"></script>
+    <script>
+        const targetUserId = "<%= targetUserId %>";
+    </script>
+    <script type="text/javascript" src="/js/profileOther.js"></script>
+</body>
+
+</html>

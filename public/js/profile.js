@@ -7,9 +7,6 @@ let filterResult = []
 
 $('#editBtn').click(displayEditForm);
 
-
-
-
 function displayEditForm() {
     const html = `
     <form class="editForm">
@@ -227,13 +224,13 @@ $('#filter-apply-nav').on('click', '.nav-item', function () {
 });
 
 function main() {
-    getProfileInfo();
+    // if ()
     $.get("/get_posts").then(
     (result) => {
-        console.log(result);
+        // console.log(result);
         posts = result;
         filter('Total');
-        console.log(posts);
+        // console.log(posts);
         renderPage(1, filterResult);
         createPagination(filterResult);    
     });
