@@ -82,9 +82,10 @@ function deleteUser() {
 
 function deletePost() {
     const index = $(this).parent().siblings()[0].innerHTML
+    console.log(posts[index]._id)
     const data = {
-        id: post[i]._id,
-        email: post[i].email
+        id: posts[index]._id,
+        email: posts[index].email
     }
     // send delete(post)/update(user.post) request to server
     $.ajax({
@@ -155,11 +156,12 @@ function renderManagePost() {
     const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
     let i = 0
     for (let p of posts) {
-        const date = p.date.toLocaleDateString("en-US", dataFormat)
+        p.date = new Date(p.date).toLocaleDateString("en-US", dataFormat)
+        // const date = p.date.toLocaleDateString("en-US", dataFormat)
         const tr = document.createElement('tr')
         const html = `<td>${i}</td>
         <td>${p.title}</td>
-        <td>${date}</td>
+        <td>${p.date}</td>
         <td>${p.userName}</td>
         <td><button class="delRow btn btn-primary">Delete</button></td>`
         tr.innerHTML = html;
