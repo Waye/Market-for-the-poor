@@ -52,7 +52,7 @@ $("#topNav").on('keydown', '#searchInput', function(e){
                 keyword: $('#searchInput').val()
             }
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: '/search',
                 data: data,
                 success: function(result) {

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser'); // middleware for parsing HTTP body f
 const session = require('express-session');
 const ejs = require('ejs');
 const fs = require('fs');
+const formidable = require("formidable");
 
 const cookieParser = require('cookie-parser');
 const {ObjectID} = require('mongodb');
@@ -71,16 +72,33 @@ const authenticate = (req, res, next) => {
     if (req.session.user) {
         User.findById(req.session.user).then((user) => {
             if (!user) {
+                req.session.destroy((error) => {
+                    if (error) {
+                        console.log(error)
+                    }
+                })
                 return Promise.reject()
             } else {
                 req.user = user;
                 next()
             }
         }).catch((error) => {
-            res.redirect('/login')
+            req.session.destroy((error) => {
+                if (error) {
+                    res.status(500).send(error)
+                } else {
+                    res.redirect('/login')
+                }
+            })
         })
     } else {
-        res.redirect('/login')
+        req.session.destroy((error) => {
+            if (error) {
+                res.status(500).send(error)
+            } else {
+                res.redirect('/login')
+            }
+        })
     }
 };
 
@@ -385,89 +403,64 @@ app.route('/signup')
             })
     });
 
-app.get('/orders', (req, res) => {
-    res.render('orderpage');
-});
 
-app.get('/detail/:id/post', (req, res) => {
-    const id = req.params.id;
-    if (!ObjectID.isValid(id)) {
+app.get('/orders', authenticate,(req, res) => {
+    res.render('orderpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
+})
+
+// A pure backend method that simulates a delivered
+// message, sent from the delivery company.
+app.patch('/delivered/:id', (req, res) => {
+    const orderId = req.params.id;
+})
+
+app.patch('/detail/:id', (req, res) => {
+    const postId = req.params.id;
+    const arriveDate = req.body.arriveDate;
+    const shipAddr = req.body.shipAddr;
+    const respondUser = req.session.user;
+})
+
+app.get('/detail/:id', authenticate, (req, res) => {
+    const postId = req.params.id;
+    if (!ObjectID.isValid(postId)) {
         return res.status(404).send()
     }
-    Post.findById(id).then((post) => {
-        if(!post) {
-            res.status(404).send();
+    Post.findById(new ObjectID(postId)).exec()
+    .then((foundPost) => {
+        if (!foundPost) return res.status(500).send();
+        const renderData = {
+            postDate: foundPost.date,
+            postDueDate: foundPost.dueDate,
+            postTitle: foundPost.title,
+            postPrice: foundPost.price,
+            postQuantity: foundPost.quantity,
+            postImages: foundPost.image,
+            postDescription: foundPost.description,
+            userName: req.user.name,
+            msgCount: req.user.messages.length,
+            isBuyer: req.user.isBuyer
         }
-        else {
-            console.log(post);
-            res.send(post);
-        }
-    }, (error) => {
-        res.status(400).send(error);
-    });
-});
-
-app.get('/detail/:id/user',  (req, res) => {
-    const id = req.params.id;
-    if (!ObjectID.isValid(id)) {
-        return res.status(404).send()
-    }
-    Post.findById(id).then((post) => {
-        if(!post) {
-            res.status(404).send();
-        }
-        else {
-            User.findByid(post.userId).then((user) => {
-                if(!user) {
-                    res.status(404).send();
-                }
-                else {
-                    res.send(user);
-                }
-            }, (error) => {
-               res.status(400).send(error);
-            });
-        }
-    }, (error) => {
-        res.status(400).send(error);
-    });
-});
-
-app.get('/detail/:id', (req, res) => {
-    const id = req.params.id;
-    if (!ObjectID.isValid(id)) {
-        return res.status(404).send()
-    }
-    Post.findById(id).then((post) => {
-        if(!post) {
-            res.status(404).send();
-        }
-        else {
-            res.render('product_detail', {
-                detailId: post._id,
-                userId: post.userId,
-                userName: post.name,
-                type: post.type,
-                date: post.date,
-                title: post.title,
-                description: post.description,
-                quantity: post.quantity,
-                price: post.price,
-                image: post.image,
-                completed: post.completed,
-                dueDate: post.dueDate,
-                category: post.category
-            });
-        }
-    }, (error) => {
-        res.status(400).send(error)
-    });
-});
+        // res.render('product_detail', renderData);
+        return User.findById(new ObjectID(foundPost.userId)).exec().then((founduser) => {
+            if (!founduser) return res.status(500).send()
+            const renderDataNext = {
+                isBuyer: founduser.isBuyer,
+                postOwnerIcon: founduser.icon,
+                postOwnerName: founduser.name,
+                postOwnerDescription: founduser.description,
+                postOwnerPhone: founduser.phone,
+            }
+            return Object.assign(renderData, renderDataNext)
+        })
+    }).then((joinedData) => {
+        console.log(joinedData);
+        res.render('product_detail', joinedData)
+    })
+})
 
 app.get('/profile', authenticate, (req, res) => {
     const user = req.user
-    // const Posts=User.posts
-
     Post.find({userId: user._id, category: "food"}).exec().then((r1) => {
         return Post.find({userId: user._id, category: "electronics"}).exec().then((r2) => {
             return Post.find({userId: user._id, category: "clothing"}).exec().then((r3) => {
@@ -501,28 +494,60 @@ app.get('/profile', authenticate, (req, res) => {
             numberOther: rList[5].length
         })
     });
-});
+})
 
-app.get('/profile_info', (req, res) => {
-    const user = req.session.user;
-    res.send(user);
-});
+app.get('/profile/:id', authenticate, (req, res) => {
+    User.findOne({'_id': req.params.id}).exec().then(
+    (user) => {
+        Post.find({userId: user._id, category: "food"}).exec().then((r1) => {
+            return Post.find({userId: user._id, category: "electronics"}).exec().then((r2) => {
+                return Post.find({userId: user._id, category: "clothing"}).exec().then((r3) => {
+                    return Post.find({userId: user._id, category: "furniture"}).exec().then((r4) => {
+                        return Post.find({userId: user._id, category: "tool"}).exec().then((r5) => {
+                                return Post.find({userId: user._id, category: "other"}).exec().then((r6) => {
+                                    return [r1, r2, r3, r4, r5, r6, user];
+                                })
+                            }
+                        )
+                    });
+                });
+            });
+        }).then((rList) => {
+            const targetUser = rList[6];
+            const loggedInUser = req.user;
+            res.render('profileOther', {
+                targetUserId: targetUser._id,
+                target_userName: targetUser.name,
+                target_isBuyer: targetUser.isBuyer,
+                target_userImg: "/img/profile-image.jpg",
+                target_userEmail: targetUser.email,
+                target_userPhone: targetUser.phone,
+                target_isBanned: targetUser.isBanned,
+                target_userDescription: targetUser.description,
 
-// Edit profile
-app.patch('/profile/Edit', (req, res) => {
-    // Add code here
-    let email = req.body.email;
-    let phone = req.body.phone;
-    //let password = req.body.password;
-    let description = req.body.description;
-
-
-
-    User.findOneAndUpdate({_id: req.session.user._id}, {$set: {email: email, phone: phone, description: description}}, {new: true})
-        .then((result) => {
-            res.send(result)
-        }).catch((error)  => {
-        res.status(500).send(error)
+                userName: loggedInUser.name,
+                msgCount: loggedInUser.messages.length,
+                isBuyer: loggedInUser.isBuyer,
+                userImg: "/img/profile-image.jpg",
+                userEmail: loggedInUser.email,
+                userPhone: loggedInUser.phone,
+                isBanned: loggedInUser.isBanned,
+                userDescription: loggedInUser.description,
+                total: rList[0].length + rList[1].length + rList[2].length + rList[3].length + rList[4].length + rList[5].length,
+                numberFood: rList[0].length,
+                numberElectronics: rList[1].length,
+                numberClothing: rList[2].length,
+                numberFurniture: rList[3].length,
+                numberTools: rList[4].length,
+                numberOther: rList[5].length
+            })
+        });
+    },
+    (reject) => {
+        console.log(reject)
+    })
+    .catch((err) => {
+        console.log("profileOther for id:", err)
     })
 
 
@@ -586,10 +611,47 @@ app.get('/get_posts', (req, res) => {
 	})
 });
 
-app.get('/search', (req, res) => {
+app.get('/get_posts/:id', (req, res) => {
+	Post.find({ userId: req.params.id }).exec()
+	.then((result) => {
+		res.send(result);
+	})
+})
+
+app.get('/get_orders', (req, res) => {
+	if (req.session.user.isBuyer) {
+		Order.find({ buyerEmail: req.session.user.email }).exec()
+		.then((result) => {
+			res.send(result);
+		})
+	} else if (!req.session.user.isBuyer) {
+		Order.find({  sellerEmail: req.session.user.email }).exec()
+		.then((result) => {
+			res.send(result);
+		})
+	}
+});
+
+app.get('/get_orders_users', (req, res) => {
+	if (req.session.user.isBuyer) {
+		Order.find({ buyerId: req.session.user._id }).exec()
+		.then((result) => {
+			res.send(result);
+		})
+	} else if (!req.session.user.isBuyer) {
+		Order.find({ sellerId: req.session.user._id }).exec()
+		.then((result) => {
+			res.send(result);
+		})
+	}
+});
+
+app.post('/search', (req, res) => {
     let searchKey = new RegExp(req.body.keyword, 'i')
-    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
-        console.log(result)
+    console.log(searchKey);
+    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).exec()
+    .then((result) => {
+        console.log("search: ",result)
         if (result) {
             res.send(result)
         } else {
@@ -597,6 +659,32 @@ app.get('/search', (req, res) => {
         }
     }).catch((error) => {
         res.status(500).send()
+    })
+})
+
+app.post('/postsImg', (req, res) => {
+    // console.log("postImg body: ", req.body.file)
+    new formidable.IncomingForm().parse(req)
+    .on('field', (name, field) => {
+        console.log('Field', name, field)
+    })
+    .on('fileBegin', (name, file) => {
+        form.on('fileBegin', (name, file) => {
+            file.path = __dirname + '/uploads/' + file.name
+        })
+    })
+    .on('file', (name, file) => {
+      console.log('Uploaded file', name, file)
+    })
+    .on('aborted', () => {
+      console.error('Request aborted by the user')
+    })
+    .on('error', (err) => {
+      console.error('Error', err)
+      throw err
+    })
+    .on('end', () => {
+      res.end()
     })
 })
 
@@ -636,8 +724,6 @@ app.get('/logout', (req, res) => {
         }
     })
 });
-
-
 
 app.listen(port, (err) => {
     if (err) {

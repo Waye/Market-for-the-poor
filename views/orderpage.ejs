@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand bg-light" id="topNav"></nav>
+    <%- include('./partials/topnavbar', {userName: userName, msgCount: msgCount, isBuyer: isBuyer}) %>    
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
     <div class="container-fluid">
@@ -113,9 +113,8 @@
     </div>
     
     <% include ./partials/importScript %>
-    <script type="text/javascript" src="/js/nav_seller.js"></script>
+    <script type="text/javascript" src="/js/nav_search.js"></script>
     <script type="text/javascript" src="/js/post.js"></script>
-    <script type="text/javascript" src="/js/feedpage.js"></script>
     <script type="text/javascript" src="/js/orderpage.js"></script>
 </body>
 

@@ -47,7 +47,12 @@ const postPopupElement = `
         <h6>Cover Image:</h6>
         <div role="group" class="btn-group" style="position: absolute;margin-left: auto;margin-right: auto;left: 0;right: 0;"></div>
         <div id="uploadPreview"></div>
-        <input id="hiddenUpload" type="file" accept=".jpg, .jpeg, .png" multiple/>
+
+        <form method="POST" action="/postsImg">
+            <input id="hiddenUpload" type="file" name="file" accept=".jpg, .jpeg, .png" multiple/>
+            <input type="submit" />
+        </form>
+
         <div class="row mt-3 mb-3">
         <div class="col-12">
         <button class="btn btn-primary" type="button" id="clearUpload">Clear</button>
@@ -55,7 +60,6 @@ const postPopupElement = `
         </div>
         </div>
         <div class="table-responsive">
-                
             <table class="table">
                 <tbody>
                     <tr>
@@ -96,9 +100,8 @@ const postPopupElement = `
         </div>
     </div>
      <div class="modal-footer">
-
         <button id="submit" type="button" class="btn btn-primary">Submit</button>
-    </div>   
+    </div>
     </div>
 </div>
 </div>`;
@@ -166,7 +169,31 @@ function submitData(e) {
     // currentUser.posts.push(currentUser.posts)
 
     console.log(title, description, price, quantity, image, dueDate, category);
-    // const newPost = new Post_post(id, date, title, userName, description, price, quantity, image, dueDate, type, category)
+   
+    // const formData = new FormData();
+    // $.each($('#hiddenUpload')[0].files, function(i, file) {
+    //     formData.append('file-'+i, file);
+    // });
+    // console.log(formData);
+
+    // $.ajax({
+    //     type:'POST',
+    //     method: 'POST',
+    //     url: "/postsImg",
+    //     data: formData,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     success: function(data){
+    //         console.log("success");
+    //         console.log(data);
+    //     },
+    //     error: function(data){
+    //         console.log("error");
+    //         console.log(data);
+    //     }
+    // });
+
     $.post("/posts", {
         title: title,
         description: description,
