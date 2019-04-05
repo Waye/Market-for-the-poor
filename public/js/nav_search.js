@@ -30,8 +30,12 @@ $("#topNav").on('keydown', '#searchInput', function(e){
                                 </div>
                             </div>
                         </div>`)
-                    
                     $('#searchrResultModal').modal('show');
+                    // const offset = $("#searchInput").offset();
+                    $("#searchrResultModal").css({
+                        'top': $("#searchInput").top() + $("#searchInput").height() + 20,
+                        'left': $("#searchInput").left() + 20
+                    })
                 },
                 error: function(result) {
                     if (result.status == '500') {
@@ -49,11 +53,15 @@ $("#topNav").on('keydown', '#searchInput', function(e){
 
 function getSearchResult(result) {
     let html = ''
+    let postImage = post.image;
+    if (post.image == "") {
+        postImage = "/img/post-initial-image.png";
+    }
     for (let post of result) {
         post.date = new Date(post.date).toLocaleDateString("en-US", dataFormatNav)
         
         html += `<div class="row mt-2 mb-2 border-bottom result">
-        <div class="col-3 mb-2"><img class="rounded" alt="..." src="${post.image}"></div>
+        <div class="col-3 mb-2"><img class="rounded" alt="..." src="${postImage}"></div>
         <div class="col-9">
             <h5><a href="/detail/${post._id}">${post.title}</a> <small>5 packs</small></h5>
             <p>${post.userName} posted on <span>${post.date}</span></p>
