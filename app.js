@@ -655,9 +655,11 @@ app.post('/search', (req, res) => {
         if (result) {
             res.send(result)
         } else {
-            res.status(404).send()
+            console.log('404')
+            res.status(404).send('404')
         }
     }).catch((error) => {
+        console.log('500')
         res.status(500).send()
     })
 })
