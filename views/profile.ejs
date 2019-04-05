@@ -16,7 +16,6 @@
 
     <div class="container-fluid" id="profile-all">
         <div class="row">
-            <!--profile part-->
             <div class="col-md-3">
                 <div class="card shadow">
                     <img class="card-img-top" id="profileImage" src="<%= userImg %>">
@@ -39,13 +38,11 @@
                             </li>
                             <li class="list-group-item" id="userDescription"><%= userDescription %></li>
                         </ul>
-                        <!-- <p class="card-text" id="userDescription"></p> -->
                         <button type="button" class="btn btn-primary mt-3" id="editBtn">Edit/Change Password</button>
                     </div>
                 </div>
             </div>
 
-            <!--post part-->
             <div class="col-md-9" id="post-part">
                 <div class="row p-3 d-none d-md-block">
                     <h3>My posts</h3>
@@ -54,18 +51,11 @@
                     <h3>My posts</h3>
                 </div>
                 <div class="container-fluid">
-                    <!--Nav bar-->
                     <nav class="navbar navbar-expand navbar-light  shadow" id="post-nav-bar">
-
-
-                        <!-- Collapsible content -->
                         <div class="collapse navbar-collapse " id="productsNav">
-
-                            <!-- Links -->
                             <ul class="navbar-nav mr-auto" id="filter-apply-nav">
                                 <li class="nav-item">
                                     <a class="nav-link text-info" id="Total">Total <%=total%></a>
-
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="food">food <%=numberFood%></a>
@@ -85,38 +75,20 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-waring" id="other">other <%=numberOther%></a>
                                 </li>
-
                             </ul>
-
                         </div>
                     </nav>
-
-
-                    <!--Section: Product display-->
                     <section class="text-center mb-4 " id="post-TwoRow">
-
                     </section>
-
-
-                    <!--Pagination-->
                     <nav class="d-flex justify-content-center wow fadeIn">
                         <ul class="pagination pg-blue page-item" id="pagenav">
-
                         </ul>
                     </nav>
-                    <!--Pagination-->
-
                 </div>
-
-
-
             </div>
-
         </div>
         <div id="editFormContainer">
         </div>
-        <!--popUp Msg-->
-
     </div>
     <div>
         <p id="popUpMsg"></p>
@@ -126,5 +98,4 @@
     <script type="text/javascript" src="/js/post.js"></script>
     <script type="text/javascript" src="/js/profile.js"></script>
 </body>
-
 </html>

@@ -31,15 +31,16 @@ function renderPostDate() {
 }
 
 function renderUserTypeAndOfferType() {
-    let userType = null;
-    let offerType = null;
+    let userType = "";
+    let offerType = "";
     // if logged in as buyer, this post detail is a post from seller so user must make request. vice versa
-    if (isBuyer) {
-        userType = 'seller'
-        offerType = 'request'
+    console.log("RenderBuyer: ", postOwnerIsBuyer)
+    if (postOwnerIsBuyer) {
+        userType = "seller"
+        offerType = "request"
     } else {
-        userType = 'buyer'
-        offerType = 'offer'
+        userType = "buyer"
+        offerType = "offer"
     }
     const html = `<h4>About this ${userType}</h4>`
     $('#userType')[0].innerHTML = html;
@@ -52,7 +53,7 @@ function renderPostOwnerImage() {
     if (postOwnerIcon == "") {
         postIcon = "/img/profile-image.jpg"
     }
-    const html = `<a href="#" class="text-center">
+    const html = `<a href="/profile/${postOwnerId}" class="text-center">
         <div class="mr-auto ml-auto"><img alt="..." src=${postIcon} class="rounded-circle avatar"></div>
     <h6 class="h-0 mt-2 mb-1">${postOwnerName}</h6></a>`;
     $('#userImageContainer')[0].innerHTML = html;

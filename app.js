@@ -405,7 +405,7 @@ app.route('/signup')
 
 
 app.get('/orders', authenticate,(req, res) => {
-    res.render('orderpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
+    res.render('orderpage', {userName: req.user.name, msgCount: countUnread(req.user), isBuyer: req.user.isBuyer});
 })
 
 // A pure backend method that simulates a delivered
@@ -438,14 +438,15 @@ app.get('/detail/:id', authenticate, (req, res) => {
             postImages: foundPost.image,
             postDescription: foundPost.description,
             userName: req.user.name,
-            msgCount: req.user.messages.length,
+            msgCount: countUnread(req.user),
             isBuyer: req.user.isBuyer
         }
         // res.render('product_detail', renderData);
         return User.findById(new ObjectID(foundPost.userId)).exec().then((founduser) => {
             if (!founduser) return res.status(500).send()
             const renderDataNext = {
-                isBuyer: founduser.isBuyer,
+                postOwnerId: founduser._id,
+                postOwnerIsBuyer: founduser.isBuyer,
                 postOwnerIcon: founduser.icon,
                 postOwnerName: founduser.name,
                 postOwnerDescription: founduser.description,
@@ -526,7 +527,7 @@ app.get('/profile/:id', authenticate, (req, res) => {
                 target_userDescription: targetUser.description,
 
                 userName: loggedInUser.name,
-                msgCount: loggedInUser.messages.length,
+                msgCount: countUnread(req.user),
                 isBuyer: loggedInUser.isBuyer,
                 userImg: "/img/profile-image.jpg",
                 userEmail: loggedInUser.email,
@@ -549,10 +550,7 @@ app.get('/profile/:id', authenticate, (req, res) => {
     .catch((err) => {
         console.log("profileOther for id:", err)
     })
-
-
 })
-
 
 app.get('/get_feeds_header', (req, res) => {
 	User.findOne({ email: req.session.user.email }).exec()
