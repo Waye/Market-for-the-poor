@@ -56,25 +56,31 @@ function banClick() {
 
 function deleteUser() {
     const email = $(this).prev().prev().children('span.userName')[0].innerHTML
+    const index = users.findIndex(user => user.email == email)
+    const userId = users[index]._id
+    console.log(userId)
     // send delete(user)/update(post) request to server
     $.ajax({
         method: 'DELETE',
         data: {
-            email: email
+            id: userId
         },
         url: 'adminpage/delete_user',
         success: function(result) {
-            if (result) {
-                users.splice(users.findIndex(user => user.email == email), 1)
-                let postsToRemove = result
-                posts = posts.filter(post => !postsToRemove.includes(post.email))
-                removeManageUsers()
-                removeManagePost()
-                renderManageUsers()
-                renderManagePost()
-
+            users.splice(index, 1)
+            if (result.length  > 0) {
+                posts = posts.filter(post => post.userId != userId)
+            }
+            removeManageUsers()
+            removeManagePost()
+            renderManageUsers()
+            renderManagePost()
+        },
+        error: function(result) {
+            if (result.status == '404') {
+                alert('Cannot remove user not in the database.')
             } else {
-                alert('Error')
+                alert('Server error')
             }
         }
     })
@@ -82,9 +88,9 @@ function deleteUser() {
 
 function deletePost() {
     const index = $(this).parent().siblings()[0].innerHTML
+    console.log(posts[index]._id)
     const data = {
-        id: post[i]._id,
-        email: post[i].email
+        id: posts[index]._id
     }
     // send delete(post)/update(user.post) request to server
     $.ajax({
@@ -95,6 +101,8 @@ function deletePost() {
             if (result) {
                 posts.splice(index, 1)
                 $(this).parent().parent().remove();
+                removeManagePost()
+                renderManagePost()
             } else {
                 alert('Error')
             }
@@ -155,11 +163,12 @@ function renderManagePost() {
     const dataFormat = { year: 'numeric', month: 'short', day: 'numeric' };
     let i = 0
     for (let p of posts) {
-        const date = p.date.toLocaleDateString("en-US", dataFormat)
+        p.date = new Date(p.date).toLocaleDateString("en-US", dataFormat)
+        // const date = p.date.toLocaleDateString("en-US", dataFormat)
         const tr = document.createElement('tr')
         const html = `<td>${i}</td>
         <td>${p.title}</td>
-        <td>${date}</td>
+        <td>${p.date}</td>
         <td>${p.userName}</td>
         <td><button class="delRow btn btn-primary">Delete</button></td>`
         tr.innerHTML = html;

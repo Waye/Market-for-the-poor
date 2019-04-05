@@ -110,9 +110,10 @@ app.route('/login')
 		res.render('login');	
 	})
 	.post((req, res) => {
-	const email = req.body.uemail;
+    const name = req.body.uname;
+    console.log(name)
 	const password = req.body.psw;
-	Admin.findByEmailPassword(email, password).then(
+	Admin.findByNamePassword(name, password).then(
 	(admin) => {
 		console.log('admin');
 		// console.log(admin)
@@ -121,7 +122,7 @@ app.route('/login')
 	}, 
 	(user) => {
 		console.log('user');
-		User.findByEmailPassword(email, password).then(
+		User.findByNamePassword(name, password).then(
 		(user) => {
 			console.log(user)
 			req.session.user = user;
@@ -201,17 +202,17 @@ app.patch('/adminpage/ban_user', (req, res) => {
 
 //DELETE user by admin
 app.delete('/adminpage/delete_user', (req, res) => {
-    User.findOneAndDelete({email: req.body.email}, {new: true}).then((user) => {
+    User.findOneAndDelete({_id: req.body.id}).then((user) => {
         if (!user) {
             return Promise.reject()
         } else {
-            return Post.deleteMany({email: req.body.emai}).exec()
+            return Post.deleteMany({userId: req.body.id}).exec()
         }
     }).then((posts) => {
-        if (posts) {
-            res.send(posts)
+        if (posts.deletedCount > 0) {
+            res.send([1])
         } else {
-            res.status(404).send()
+            res.send([])
         }
     }, (reject) => {
         res.status(404).send()
@@ -222,13 +223,7 @@ app.delete('/adminpage/delete_user', (req, res) => {
 
 //DELETE posts in by admin
 app.delete('/adminpage/delete_post', (req, res) => {
-    User.update({email: req.body.email}, {$pull: {posts: {$eq: req.body.id}}}, {new: true}).then((user) => {
-        if (!user) {
-            return Promise.reject()
-        } else {
-            return Post.findOneAndDelete({_id: req.body.id}).exec()
-        }
-    }).then((post) => {
+    Post.findOneAndDelete({_id: req.body.id}).then((post) => {
         if (post) {
             res.send(post)
         } else {
@@ -405,7 +400,7 @@ app.route('/signup')
 
 
 app.get('/orders', authenticate,(req, res) => {
-    res.render('orderpage', {userName: req.user.name, msgCount: req.user.messages.length, isBuyer: req.user.isBuyer});
+    res.render('orderpage', {userName: req.user.name, msgCount: countUnread(req.user), isBuyer: req.user.isBuyer});
 })
 
 // A pure backend method that simulates a delivered
@@ -430,6 +425,7 @@ app.get('/detail/:id', authenticate, (req, res) => {
     .then((foundPost) => {
         if (!foundPost) return res.status(500).send();
         const renderData = {
+            postId: foundPost._id,
             postDate: foundPost.date,
             postDueDate: foundPost.dueDate,
             postTitle: foundPost.title,
@@ -438,14 +434,15 @@ app.get('/detail/:id', authenticate, (req, res) => {
             postImages: foundPost.image,
             postDescription: foundPost.description,
             userName: req.user.name,
-            msgCount: req.user.messages.length,
+            msgCount: countUnread(req.user),
             isBuyer: req.user.isBuyer
         }
         // res.render('product_detail', renderData);
         return User.findById(new ObjectID(foundPost.userId)).exec().then((founduser) => {
             if (!founduser) return res.status(500).send()
             const renderDataNext = {
-                isBuyer: founduser.isBuyer,
+                postOwnerId: founduser._id,
+                postOwnerIsBuyer: founduser.isBuyer,
                 postOwnerIcon: founduser.icon,
                 postOwnerName: founduser.name,
                 postOwnerDescription: founduser.description,
@@ -526,7 +523,7 @@ app.get('/profile/:id', authenticate, (req, res) => {
                 target_userDescription: targetUser.description,
 
                 userName: loggedInUser.name,
-                msgCount: loggedInUser.messages.length,
+                msgCount: countUnread(req.user),
                 isBuyer: loggedInUser.isBuyer,
                 userImg: "/img/profile-image.jpg",
                 userEmail: loggedInUser.email,
@@ -549,10 +546,7 @@ app.get('/profile/:id', authenticate, (req, res) => {
     .catch((err) => {
         console.log("profileOther for id:", err)
     })
-
-
 })
-
 
 app.get('/get_feeds_header', (req, res) => {
 	User.findOne({ email: req.session.user.email }).exec()
@@ -585,7 +579,6 @@ app.get('/get_feeds_header', (req, res) => {
 		res.send(result);
 	})
 	.catch((err) => {
-		console.log(err);
 		res.send(err);
 	})
 });
@@ -648,18 +641,13 @@ app.get('/get_orders_users', (req, res) => {
 
 app.post('/search', (req, res) => {
     let searchKey = new RegExp(req.body.keyword, 'i')
-    console.log(searchKey);
-    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).exec()
-    .then((result) => {
-        console.log("search: ",result)
-        if (result) {
+    Post.find({$or: [{userName: searchKey}, {title: searchKey}]}).then((result) => {
+        if (result.length > 0) {
             res.send(result)
         } else {
-            console.log('404')
             res.status(404).send('404')
         }
     }).catch((error) => {
-        console.log('500')
         res.status(500).send()
     })
 })

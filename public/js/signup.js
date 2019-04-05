@@ -16,10 +16,6 @@ function register() {
         isBuyer: role == 'Buyer'
     }
     const rpassword = $('#rpassword').val()
-    // if (newUser.userName.length < 5) {
-    //     displayMsg('Username should be at least 5 characters.')
-    //     return
-    // }
 
     if (newUser.email.length < 5) {
         displayMsg('Invalid Email. For mocking, email address should be at least 5 characters.')
@@ -36,7 +32,7 @@ function register() {
             return
         }
     }
-    if (newUser.password.length < 5) {
+    if (newUser.password.length < 4) {
         displayMsg('Invalid password. Password should be longer than 5 characters.')
         return
     }
@@ -80,55 +76,3 @@ function displayMsg(msg) {
     }, 4000)
 }
 
-
-// function renderNewRegistration() {
-//     const html = `
-//     <form>
-//         <div class="container">
-//             <h1>Register</h1>
-
-//             <div>
-//                 <label for="userName"><b>Username</b></label>
-//                 <input id="userName" type="text" placeholder="Enter Username">
-//             </div>
-
-//             <div>
-//                 <label for="email"><b>Email</b></label>
-//                 <input id="email" type="text" placeholder="Email">
-//             </div>
-
-//             <div>
-//                 <label for="phone"><b>Phone</b></label>
-//                 <input id="phone" type="text" placeholder="phone">
-//             </div>
-
-//             <div>
-//                 <label for="password"><b>Password</b></label>
-//                 <input id="password" type="text" placeholder="Enter Password" >
-//             </div>
-
-//             <div>
-//                 <label for="rpassword"><b>Repeat Password</b></label>
-//                 <input id="rpassword" type="text" placeholder="Repeat Password">
-//             </div>
-
-//             <div class="dropdown">
-//                 <button id="dropdownSelection" type="button" class="btn btn-success dropdown-toggle"
-//                     data-toggle="dropdown">Register as</button>
-//                 <span class="dropdown-menu" >
-//                     <a class="dropdown-item">Buyer</a>
-//                     <a class="dropdown-item">Seller</a>
-//                     <a class="dropdown-item">Admin</a>
-//                 </span>
-//             </div>
-
-//             <div>
-//                 <button id="register" type="button" class="btn btn-success">Register</button>
-//                 <label>
-//                     <input type="checkbox" checked="checked" name="remember"> Remember me
-//                 </label>
-//             </div>
-//         </div>
-//     </form>`
-//     $('#mainContainer').html(html)
-// }

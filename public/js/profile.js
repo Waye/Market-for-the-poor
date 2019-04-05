@@ -121,12 +121,16 @@ function editUserInfo() {
 
 function createPost(post) {
     const detail = '/detail/' + post._id;
+    let postImage = post.image;
+    if (post.image == "") {
+        postImage = "/img/post-initial-image.png";
+    }
     const onePost = `<!--one post-->
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4 post-column">
         <div class="card shadow postCard" >
             <!--Card image-->
             <div class="image-constrain">
-                <img src="${post.image}"  class="card-img-top post-img p-3" >
+                <img src="${postImage}"  class="card-img-top post-img p-3" >
             </div>
             <!--Card content-->
             <div class="card-body text-center">
@@ -142,13 +146,10 @@ function createPost(post) {
 }
 
 function renderPage(pagenum, postgroup) {
-
     $('#post-TwoRow').html('')
-
     let end = pagenum * 8
     let start = end - 8
     let html = ``
-
 
     if (postgroup.length < end) {
         end = postgroup.length
