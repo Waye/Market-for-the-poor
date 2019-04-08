@@ -12,7 +12,7 @@ $("#refreshBtn").on('click', function() {
 // Sort
 $("#sortOptionContainer").on('click', 'a', function() {
     const sortMethod = $(this).attr('id');
-    let sortedFeed = currOrderData;
+    let sortedFeed = currFeedData;
     if (sortMethod == "sortNew") {
         sortNew(sortedFeed);
     } else if (sortMethod == "sortOld") {
@@ -53,12 +53,12 @@ function sortLow(feed) {
 // Filter
 $("#collapseFilter").on('click', '#minPriceBtn', function() {
     const minPrice = $("#minPriceInput").val();
-    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currOrderData));
+    if (minPrice != '' && minPrice == parseInt(minPrice)) updateFeed(filterMinPrice(minPrice, currFeedData));
     $("#maxPriceInput").val('');
 });
 $("#collapseFilter").on('click', '#maxPriceBtn', function() {
     const maxPrice = $("#maxPriceInput").val();
-    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currOrderData));
+    if (maxPrice != '' && maxPrice == parseInt(maxPrice)) updateFeed(filterMaxPrice(maxPrice, currFeedData));
     $("#minPriceInput").val('');
 });
 function filterMinPrice(minPrice, feedList) {
@@ -99,14 +99,14 @@ function handleFilter() {
         activeFilters.push(foundActiveFilters[i].id);
     }
     console.log(activeFilters);
-    updateFeed(filterFeed(activeFilters, currOrderData));
+    updateFeed(filterFeed(activeFilters, currFeedData));
 }
 $('#collapseCard').on('click', '#clearFilter', clearAllFilter)
 
 function clearAllFilter() { // Click clear filter
     $('#collapseCard').find('.active').removeClass('active');
     $("#clearFilter").remove();
-    updateFeed(currOrderData); // force update all feed
+    updateFeed(currFeedData); // force update all feed
 }
 
 function addInfoHeaderContent(activeNum, finishedNum, postedNum, user) {
