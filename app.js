@@ -465,7 +465,7 @@ app.get('/profile', authenticate, (req, res) => {
         return Post.find({userId: user._id, category: "electronics"}).exec().then((r2) => {
             return Post.find({userId: user._id, category: "clothing"}).exec().then((r3) => {
                 return Post.find({userId: user._id, category: "furniture"}).exec().then((r4) => {
-                    return Post.find({userId: user._id, category: "tool"}).exec().then((r5) => {
+                    return Post.find({userId: user._id, category: "tools"}).exec().then((r5) => {
                             return Post.find({userId: user._id, category: "other"}).exec().then((r6) => {
                                 return [r1, r2, r3, r4, r5, r6];
                             })
@@ -503,7 +503,7 @@ app.get('/profile/:id', authenticate, (req, res) => {
             return Post.find({userId: user._id, category: "electronics"}).exec().then((r2) => {
                 return Post.find({userId: user._id, category: "clothing"}).exec().then((r3) => {
                     return Post.find({userId: user._id, category: "furniture"}).exec().then((r4) => {
-                        return Post.find({userId: user._id, category: "tool"}).exec().then((r5) => {
+                        return Post.find({userId: user._id, category: "tools"}).exec().then((r5) => {
                                 return Post.find({userId: user._id, category: "other"}).exec().then((r6) => {
                                     return [r1, r2, r3, r4, r5, r6, user];
                                 })
