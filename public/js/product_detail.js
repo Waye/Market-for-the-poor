@@ -34,7 +34,7 @@ function renderUserTypeAndOfferType() {
     let offerType = "";
     // if logged in as buyer, this post detail is a post from seller so user must make request. vice versa
     console.log("PostOwner: ", postOwnerIsBuyer, "LoggedInUser: ", isBuyer)
-    if (!postOwnerIsBuyer) {
+    if (postOwnerIsBuyer) {
         userType = "seller"
         offerType = "request"
     } else {
@@ -42,7 +42,7 @@ function renderUserTypeAndOfferType() {
         offerType = "offer"
     }
     if (postOwnerIsBuyer != isBuyer) {
-        const html = `<h4>About this ${userType}</h4>`
+        const html = `<h4>About this user</h4>`
         console.log("RenderHtml: ", html)
         $('#userType')[0].innerHTML = html;
         $('#makeOfferRequest')[0].innerHTML = `Make ${offerType}`
