@@ -32,9 +32,9 @@ $("#topNav").on('keydown', '#searchInput', function(e){
                         </div>`)
                     $('#searchrResultModal').modal('show');
                     // const offset = $("#searchInput").offset();
+                    const pos = $("#searchInput").position();
                     $("#searchrResultModal").css({
-                        'top': $("#searchInput").top() + $("#searchInput").height() + 20,
-                        'left': $("#searchInput").left() + 20
+                        'top': pos.top + $("#searchInput").height(),
                     })
                 },
                 error: function(result) {
@@ -53,13 +53,12 @@ $("#topNav").on('keydown', '#searchInput', function(e){
 
 function getSearchResult(result) {
     let html = ''
-    let postImage = post.image;
-    if (post.image == "") {
-        postImage = "/img/post-initial-image.png";
-    }
     for (let post of result) {
         post.date = new Date(post.date).toLocaleDateString("en-US", dataFormatNav)
-        
+        let postImage = post.image;
+        if (post.image == "") {
+            postImage = "/img/post-initial-image.png";
+        }
         html += `<div class="row mt-2 mb-2 border-bottom result">
         <div class="col-3 mb-2"><img class="rounded" alt="..." src="${postImage}"></div>
         <div class="col-9">

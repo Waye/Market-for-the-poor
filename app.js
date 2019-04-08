@@ -551,6 +551,25 @@ app.get('/profile/:id', authenticate, (req, res) => {
     })
 })
 
+// Edit profile
+app.patch('/profile/Edit', (req, res) => {
+    // Add code here
+    let email = req.body.email;
+    let phone = req.body.phone;
+    let password = req.body.password;
+    //let password = req.body.password;
+    let description = req.body.description;
+
+    User.findOneAndUpdate({_id: req.session.user._id}, {$set: {email: email, phone: phone,
+            password: password, description: description}}, {new: true})
+    User.findOneAndUpdate({_id: req.session.user._id}, {$set: {email: email, phone: phone, description: description}}, {new: true})
+        .then((result) => {
+            res.send(result)
+        }).catch((error)  => {
+        res.status(500).send(error)
+    })
+})
+
 app.get('/get_feeds_header', (req, res) => {
 	User.findOne({ email: req.session.user.email }).exec()
 	.then(async (foundUser) => {
