@@ -1,5 +1,5 @@
 =============================
-New commits for code that was lost in merges + minor typo fixes
+New commits for code that was lost in merges
 =============================
 
 - e7f8356
