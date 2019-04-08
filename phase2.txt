@@ -1,4 +1,13 @@
 =============================
+New commits for code that was lost in merges + minor typo fixes
+=============================
+
+- e7f8356
+- adcfab1
+- 6169d5c
+- 091bc5f
+
+=============================
 Basic features of our website
 =============================
 
