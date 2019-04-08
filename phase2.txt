@@ -1,5 +1,5 @@
 =============================
-New commits for code that was lost in merges
+New commits for code that was lost in merges (Discussed in presentation)
 =============================
 
 - e7f8356
